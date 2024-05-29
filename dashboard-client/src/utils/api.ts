@@ -1,18 +1,18 @@
 import { GetServerSidePropsContext } from "next"
 import axios from "axios";
 import { validateCookies } from "./helpers";
-import { Guild, Webhook } from "./types";
+import { Guild, Webhook, sendWebhookMessageType } from "./types";
 import config from '../../config.json'
 
 const API_URL: string = `${config.server_url}/api`;
 
-export const sendWebhookMessage = async (id: string, token: string) =>
+export const sendWebhookMessage = async (id: string, token: string, sendMessageData: sendWebhookMessageType) =>
 {
     try
     {
-        const { data: webhook } = await axios.get<Webhook>(`${API_URL}/webhooks/${id}/${token}`);
+        const { data: data } = await axios.post<Webhook>(`${API_URL}/webhooks/${id}/${token}`, { sendMessageData });
 
-        return { props: { webhook } }
+        return data;
     }
     catch (err)
     {

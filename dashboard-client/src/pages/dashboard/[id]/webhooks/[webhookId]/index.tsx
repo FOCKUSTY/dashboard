@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from "next";
 import { DashboardLayout } from "../../../../../components/layouts/dashboard";
 import { FullGuild, NextPageWithLayout, User, Webhook } from "../../../../../utils/types";
 import { ReactElement, useContext, useEffect } from "react";
-import { getWebhook, getGuild, getUser } from "../../../../../utils/api";
+import { getWebhook, getGuild, getUser, sendWebhookMessage } from "../../../../../utils/api";
 import { GuildContext } from "@/src/utils/contexts/guildContext";
 import { useRouter } from "next/router";
 import { WebhookItem } from "@/src/components/webhook/WebhookItem";
@@ -25,9 +25,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
         setGuild(guild);
     }, []);
 
-    const avatarsrc = webhook.avatar
-        ? `https://cdn.discordapp.com/avatars/${webhook.id}/${webhook.avatar}`
-        : '/TheVoidAvatarSite.png';
+    sendWebhookMessage(webhook.id, webhook.token, {content: 'Hello, World !', username: "new_webhook"});
 
     return (
         <div className="page">
