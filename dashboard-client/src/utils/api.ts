@@ -6,6 +6,22 @@ import config from '../../config.json'
 
 const API_URL: string = `${config.server_url}/api`;
 
+export const sendWebhookMessage = async (id: string, token: string) =>
+{
+    try
+    {
+        const { data: webhook } = await axios.get<Webhook>(`${API_URL}/webhooks/${id}/${token}`);
+
+        return { props: { webhook } }
+    }
+    catch (err)
+    {
+        console.error(err);
+
+        return { redirect: { destination: '/' } };
+    }
+};
+
 export const fetchMutialGuilds = async (context: GetServerSidePropsContext) =>
 {
     const headers = validateCookies(context);
