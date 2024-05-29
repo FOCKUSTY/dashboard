@@ -9,7 +9,7 @@ export type sendWebhookMessageType = {
     components?: ComponentData[];
     poll?: PollData;
 
-    username?: string;
+    name?: string;
     avatar_url?: string;
 };
 
