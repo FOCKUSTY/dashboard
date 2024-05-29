@@ -25,7 +25,9 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
         setGuild(guild);
     }, []);
 
-    sendWebhookMessage(webhook.id, webhook.token, {content: 'Hello, World !', username: "new_webhook"});
+/*     sendWebhookMessage(webhook.id, webhook.token, {content: 'Hello, World !', name: "new_webhook", avatar_url: webhook.avatar
+        ? `https://cdn.discordapp.com/avatars/${webhook.id}/${webhook.avatar}`
+        : undefined}); */
 
     return (
         <div className="page">

@@ -10,7 +10,7 @@ export const sendWebhookMessage = async (id: string, token: string, sendMessageD
 {
     try
     {
-        const { data: data } = await axios.post<Webhook>(`${API_URL}/webhooks/${id}/${token}`, { sendMessageData });
+        const { data } = await axios.post<Webhook>(`${API_URL}/webhooks/${id}/${token}`, sendMessageData);
 
         return data;
     }
@@ -18,8 +18,8 @@ export const sendWebhookMessage = async (id: string, token: string, sendMessageD
     {
         console.error(err);
 
-        return { redirect: { destination: '/' } };
-    }
+        return;
+    };
 };
 
 export const fetchMutialGuilds = async (context: GetServerSidePropsContext) =>
