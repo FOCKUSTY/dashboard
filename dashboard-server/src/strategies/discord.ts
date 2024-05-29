@@ -43,8 +43,6 @@ passport.use(new Strategy({
                     { new: true },
                 );
 
-                console.log(`Existing user ${existingUser}`)
-
                 if(existingUser) return done(null, existingUser);
     
                 const newUser = new User({ discordId, accessToken, refreshToken });

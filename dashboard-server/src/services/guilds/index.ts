@@ -1,8 +1,7 @@
 import axios from "axios";
 import { User } from '../../database/schemas'
 import { DISCORD_API_URL } from "../../utils/constants";
-import { PartialGuild } from "../../utils/types";
-import { ObjectId } from "mongoose";
+import { PartialGuild, Webhook } from "../../utils/types";
 
 export function getBotGuildsServices()
 {
@@ -50,5 +49,12 @@ export const getGuildService = (id: string) =>
 {
     const TOKEN = process.env.DISCORD_BOT_TOKEN;
 
-    return axios.get<PartialGuild>(`${DISCORD_API_URL}/guilds/${id}`, { headers: { Authorization: `Bot ${TOKEN}` }});
+    return axios.get<PartialGuild>(`${DISCORD_API_URL}/guilds/${id}`, { headers: { Authorization: `Bot ${TOKEN}` }});;
+};
+
+export const getGuildWebhooksService = (id: string) =>
+{
+    const TOKEN = process.env.DISCORD_BOT_TOKEN;
+
+    return axios.get<Webhook>(`${DISCORD_API_URL}/guilds/${id}/webhooks`, { headers: { Authorization: `Bot ${TOKEN}` }});
 };
