@@ -1,0 +1,525 @@
+.container {
+  position: relative;
+  height: 70%;
+  width: 70%;
+  margin: 0 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  flex-direction: row;
+  justify-content: center;
+
+  z-index: 3;
+}
+
+.button {
+  width: 370px;
+  padding: 12px 36px;
+  font-size: 18px;
+  background-color: inherit;
+  color: inherit;
+  outline: none;
+  border: 0 solid #fff;
+  background-color: #1d1d1d;
+  border-radius: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 10px;
+
+  z-index: 3;
+}
+
+#login {
+  background-color: #43434300;
+  padding: 16px 32px;
+  height: 50px;
+  width: 180px;
+  font-size: 16px;
+  margin: 20px;
+  transition: 0.5s;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#avatar {
+  background-color: #43434300;
+  padding: 16px 32px;
+  height: 70px;
+  width: 70px;
+  font-size: 16px;
+  margin: 20px;
+  transition: 0.5s;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#user {
+  border-radius: 50%;
+}
+
+#login:hover {
+  background-color: #4343433f;
+
+  transition: 0.5s;
+}
+
+#discord_login {
+  height: 60px;
+  width: 340px;
+
+  transition: 1s;
+}
+
+#discord_login:hover {
+  * {
+    color: #7289DA;
+    transition: 0.5s;
+  }
+
+  transition: 0.5s;
+}
+
+#discord_login:active {
+  padding: 12px;
+  height: 60px;
+  width: 310px;
+}
+
+#discord_logo {
+  color: #fff;
+}
+
+#documentation {
+  height: 60px;
+  width: 210px;
+  font-size: 16px;
+
+  * {
+    transition: 0.5s;
+    color: #fff;
+  }
+
+  transition: 1s;
+
+  color: #fff;
+}
+
+#documentation:active {
+  height: 50px;
+  padding: 12px 30px;
+  width: 200px;
+}
+
+#documentation:hover {
+  * {
+    color: #7289DA
+  }
+
+  transition: 0.5s;
+}
+
+#documentaion_logo {
+  color: #fff;
+}
+
+#servers {
+  background-color: #43434300;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  height: 60px;
+  width: 220px;
+
+  transition: 0.5s;
+}
+
+#servers:hover {
+  background-color: #4343433f;
+
+  transition: 0.5s;
+}
+
+.dropbtn {
+  background-color: #43434300;
+  color: white;
+  padding: 16px 32px;
+  font-size: 16px;
+  border: none;
+
+  transition: 0.5s ease-in 0.2s;
+  z-index: 3;
+  border-radius: 33px;
+}
+
+.dropdown {
+  position: absolute;
+  display: inline-block;
+
+  transition: 0.5s ease-in;
+  z-index: 3;
+  margin: 20px;
+  border-radius: 33px;
+}
+
+.dropdown_avatar {
+  transition: 0.5s ease-in;
+  z-index: 3;
+}
+
+.dropdown_avatar_content {
+  border-radius: 20px;
+  display: none;
+  position: fixed;
+  background-color: #f1f1f100;
+  min-width: 160px;
+  width: 250px;
+  height: 300px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+  top: 120px;
+  right: 30px;
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown_avatar_text {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+
+.dropdown_avatar:hover .dropdown_avatar_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  transition: 0.5s ease-out;
+}
+
+.dropdown_avatar:hover .dropbtn_avatar {
+  background-color: #4343433f;
+
+  transition: 0.5s ease-out;
+}
+
+.dropdown_avatar_content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+
+  z-index: 3;
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown_button {
+  padding: 10px 30px;
+  font-size: 18px;
+  color: inherit;
+  outline: none;
+  border: 0 solid #fff;
+  background-color: #1d1d1d;
+  border-radius: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 20px;
+
+  z-index: 3;
+}
+
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+
+  z-index: 3;
+  transition: 0.5s ease-in-out;
+}
+  
+/* Ссылки внутри выпадающего списка */
+.dropdown_content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+
+  z-index: 3;
+  transition: 0.5s ease-in-out;
+}
+
+.dropdown_content a:hover {
+  background-color: #ccc;
+
+  transition: 0.5s ease-out;
+}
+
+.dropdown:hover .dropdown_content {
+  display: block;
+
+  transition: 0.5s ease-out;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #4343433f;
+
+  transition: 0.5s ease-out;
+}
+
+.inner_container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.inner_text {
+  position: relative;
+  font-size: 80px;
+  margin: 0;
+;
+
+  font-family: "Gemunu Libre", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.inner_buttons {
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.inner {
+  transition: 2s;
+
+  margin: 0 10px;
+
+  font-weight: 600;
+  font-style: normal;
+}
+
+.page {
+  height: 100%;
+  padding: 0;
+}
+
+.contain {
+  padding: 50px;
+  height: 100%;
+}
+
+.background {
+  position: fixed;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-image: url('http://localhost:3000/background-home-page.png');
+}
+
+.human {
+  position: relative;
+  z-index: 2;
+
+  width: 90%;
+
+  animation: move 2s ease infinite;
+}
+
+.human_container {
+  z-index: 2;
+  display: flex;
+  position: fixed;
+  background-color: #1d1d1d00;
+  align-items: center;
+  
+  width: 100%;
+  height: 100%;
+}
+
+.comet {
+  position: fixed;
+  height: 20%;
+  z-index: 1;
+  margin: 0 auto;
+  right: 0;
+  top: -150px;
+
+  animation: fly 4s infinite ease-in-out;
+
+  transform: rotateZ(330deg);
+}
+
+.comet_two {
+  position: fixed;
+  height: 20%;
+  z-index: 1;
+  margin: 0 auto;
+  left: -200px;
+  top: 450px;
+
+  animation: fly-two 3s infinite ease-in-out;
+  animation-delay: 3s;
+
+  transform: rotateZ(210deg);
+}
+
+.aligned_center {
+  display: inline;
+  padding: 0;
+}
+
+@keyframes fly-two {
+  0% {
+    left: -300px;
+    top: 450px;
+    -webkit-filter: blur(0px);
+  }
+
+  50% {
+    -webkit-filter: blur(3px);
+  }
+
+  100% {
+    -webkit-filter: blur(0px);
+    left: 400px;
+    top: 950px;
+  }
+}
+
+@keyframes fly {
+  0% {
+    right: 0;
+    top: -350px;
+    -webkit-filter: blur(0px);
+  }
+
+  50% {
+    -webkit-filter: blur(3px);
+  }
+
+  100% {
+    -webkit-filter: blur(0px);
+    right: 1800px;
+    top: 800px;
+  }
+}
+
+@keyframes move {
+  0% {
+    top: 20px;
+  }
+
+  50% {
+    top: 0px;
+  }
+
+  100% {
+    top: 20px;
+  }
+}
+
+// orientation: landscape or portrait
+
+@media screen and (orientation: landscape) {
+  .dropdown_avatar_content {
+    background-color: #121212;
+  }
+
+  .inner_container {
+    height: 80%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .dropdown_avatar_content {
+    background-color: #121212;
+  }
+
+  .inner_buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .inner_container {
+    height: 50%;
+  }
+
+  .inner_text {
+    font-size: 60px;
+  }
+
+  #discord_login {
+    margin: 10px 0;
+    
+    width: 250px;
+    height: 60px;
+
+    padding: 16px;
+
+    font-size: 16px;
+  }
+
+  #documentation {
+    margin: 10px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .dropdown_avatar_content {
+    background-color: #121212;
+  }
+
+  .inner_buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .inner_container {
+    height: 60%;
+  }
+
+  .inner_text {
+    font-size: 40px;
+  }
+
+  #discord_login {
+    margin: 10px 0;
+
+    width: 150px;
+    height: 40px;
+
+    padding: 10px;
+
+    font-size: 10px;
+  }
+
+  #documentation {
+    margin: 10px 0;
+
+    width: 150px;
+    height: 40px;
+
+    padding: 16px;
+
+    font-size: 12px;
+  }
+}

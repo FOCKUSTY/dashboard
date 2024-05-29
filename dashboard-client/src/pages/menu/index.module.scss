@@ -1,0 +1,43 @@
+.page {
+    padding: 0;    
+}
+
+.container {
+    position: relative;
+    width: 50%;
+    min-width: 350px;
+    margin: 15px auto;
+
+    background-color: #121212;
+    
+    border-radius: 20px;
+    padding: 10px;
+    z-index: 1;
+
+    background-image: url('http://localhost:3000/background-home-page.png');
+    background-blend-mode: exclusion;
+}
+
+.title {
+    font-weight: 400;
+    text-align: center;
+}
+
+.background {
+    position: fixed;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-image: url('http://localhost:3000/background-home-page.png');
+    filter: blur(2px);
+}
+
+.main {
+    position: absolute;
+    z-index: 1;
+}
+
+.aligned_center {
+    padding: 10px 0;
+}

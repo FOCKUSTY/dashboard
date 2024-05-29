@@ -1,0 +1,136 @@
+.page {
+    padding: 0;
+}
+
+.aligned_center {
+    position: fixed;
+
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    background: #ffffff00;
+    color: #fff;
+
+    z-index: 5;
+}
+
+.container {
+    background-color: #43434335;
+    border-radius: 40px;
+
+    height: 30%;
+    width: 50%;
+
+    min-width: 220px;
+    min-height: 250px;
+
+    padding: 30px;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#background {
+    position: fixed;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-image: url('http://localhost:3000/background-home-page.png');
+}
+
+#human {
+    position: relative;
+    z-index: 2;
+  
+    width: 90%;
+
+    min-width: 300px;
+  
+    animation: move 1.5s ease-in-out infinite;
+    z-index: 6;
+}
+
+.human_container {
+    z-index: 6;
+    display: flex;
+    position: fixed;
+    background-color: #1d1d1d00;
+    align-items: center;
+    
+    width: 100%;
+    height: 100%;
+    right: 10%;
+    bottom: 2%;
+}
+
+$random: random($limit: 3000);
+
+#hat {
+    // opacity: 0;
+
+    position: fixed;
+    z-index: 1;
+  
+    width: 3%;
+    transition: 2s;
+    animation: fly 3s ease-in-out normal;
+}
+
+@keyframes move {
+    0% {
+      top: 40px;
+    }
+  
+    50% {
+      top: 0px;
+    }
+  
+    100% {
+      top: 40px;
+    }
+}
+
+@keyframes fly {
+    0% {
+        opacity: 1;
+
+        right: 0;
+        top: -450px;
+        rotate: 0deg;
+        -webkit-filter: blur(0px);
+    }
+  
+    40% {
+        -webkit-filter: blur(3px);
+    }
+  
+    80% {
+        -webkit-filter: blur(0px);
+        right: 1000px;
+        top: $random + px;
+        
+        rotate: random($limit: 360) + deg;
+        opacity: 1;
+    }
+
+    90% {
+        rotate: 1200deg;
+        filter: blur(10px);
+
+        top: $random + px;
+        right: 1000px;
+        
+        width: 3%;
+    }
+
+    100% {
+        opacity: 0;
+        right: 1000px;
+        width: 0%;
+    }
+}
