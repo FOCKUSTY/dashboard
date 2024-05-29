@@ -1,6 +1,17 @@
 import { NextPage } from "next";
 import { AppProps } from "next/app";
 import { ReactElement, ReactNode } from "react";
+import { EmbedData, ComponentData, PollData } from 'discord.js'
+
+export type sendWebhookMessageType = {
+    content?: string;
+    embed?: EmbedData[];
+    components?: ComponentData[];
+    poll?: PollData;
+
+    username?: string;
+    avatar_url?: string;
+};
 
 export type Guild = {
     id: string;

@@ -1,10 +1,26 @@
 import { GetServerSidePropsContext } from "next"
 import axios from "axios";
 import { validateCookies } from "./helpers";
-import { Guild, Webhook } from "./types";
+import { Guild, Webhook, sendWebhookMessageType } from "./types";
 import config from '../../config.json'
 
 const API_URL: string = `${config.server_url}/api`;
+
+export const sendWebhookMessage = async (id: string, token: string, sendMessageData: sendWebhookMessageType) =>
+{
+    try
+    {
+        const { data: data } = await axios.post<Webhook>(`${API_URL}/webhooks/${id}/${token}`, { sendMessageData });
+
+        return data;
+    }
+    catch (err)
+    {
+        console.error(err);
+
+        return { redirect: { destination: '/' } };
+    }
+};
 
 export const fetchMutialGuilds = async (context: GetServerSidePropsContext) =>
 {

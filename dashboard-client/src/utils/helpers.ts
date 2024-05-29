@@ -14,7 +14,13 @@ const variables =
 
 export const t = (text: string, language: Language | string, variable?: string) =>
 {
-    const l = languages[language];
+    if(!languages)
+        return;
+    
+    if(language === 'default')
+        language = 'ru';
+    
+    const l = languages[language || 'ru'];
     const output: string = language ? l[text] || text : l['ru'][text];
 
     if(!variable)
