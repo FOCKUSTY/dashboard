@@ -1,3 +1,5 @@
+import { ComponentData, EmbedData, PollData } from "discord.js";
+
 export type PartialGuild = {
     id: string;
     name: string;
@@ -5,6 +7,16 @@ export type PartialGuild = {
     owner: boolean;
     permissions: string;
     features: string[];
+};
+
+export type sendWebhookMessageType = {
+    content?: string;
+    embed?: EmbedData[];
+    components?: ComponentData[];
+    poll?: PollData;
+
+    name?: string;
+    avatar_url?: string;
 };
 
 export type PartialUser = {
