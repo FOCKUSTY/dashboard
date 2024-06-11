@@ -98,6 +98,8 @@
   width: 210px;
   font-size: 16px;
 
+  padding: 12px 30px;
+
   * {
     transition: 0.5s;
     color: #fff;
@@ -146,8 +148,14 @@
 }
 
 .dropbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+
   background-color: #43434300;
   color: white;
+  
   padding: 16px 32px;
   font-size: 16px;
   border: none;
@@ -244,6 +252,7 @@
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  width: max-content;
 
   z-index: 3;
   transition: 0.5s ease-in-out;

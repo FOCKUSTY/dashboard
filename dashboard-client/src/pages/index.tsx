@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import type { GetServerSidePropsContext, NextPage } from "next";
+import { IoLanguageSharp } from "react-icons/io5";
 import { FaDiscord, FaServer } from 'react-icons/fa'
 import { CiLogin } from 'react-icons/ci';
 import { AiFillFileText } from "react-icons/ai";
@@ -74,10 +75,16 @@ const Home: NextPage<Props> = ({ user }) =>
 
             <div className={styles.contain}>
                 <div className={styles.dropdown}>
-                    <button className={styles.dropbtn}>Language</button>
+                    <div>
+                        <button className={styles.dropbtn}>
+                            <IoLanguageSharp size={20} color='#fff'/>
+                            <span>Language ({t('Язык', l)})</span>
+                        </button>
+                    </div>
                     <div className={styles.dropdown_content}>
-                        <Link href='/' locale="en">English</Link>
-                        <Link href='/' locale="ru">Русский</Link>
+                        <Link href='/' locale="en">English ({t('Английский', l)})</Link>
+                        <Link href='/' locale="ru">Русский ({t('Русский', l)})</Link>
+                        <Link href='/' locale="fe">Пверiйснö ({t('Ферийский', l)})</Link>
                     </div>
                 </div>
 

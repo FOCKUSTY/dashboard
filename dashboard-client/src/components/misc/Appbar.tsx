@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import styles from './index.module.scss'
 import { RiMenu3Line } from 'react-icons/ri'
-import { Guild } from '../../utils/types';
+import { FullGuild } from '../../utils/types';
 import { FC } from 'react';
 import { t } from '../../utils/helpers';
 
 type Props = {
-    guild?: Guild;
+    guild?: FullGuild;
 };
 
 export const Appbar: FC<Props> = ({ guild }) =>

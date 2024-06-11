@@ -1,8 +1,17 @@
 import { GetServerSidePropsContext } from "next";
-import { Guild, User } from "./types";
+import { FullGuild, Guild, User } from "./types";
 import locales from './locales/locales.json';
 
 const languages: any = locales;
+
+const hexSymbolds = new Map();
+const enabledSymboldsToColor = '#1234567890abcdef';
+
+for(let char of enabledSymboldsToColor) {
+    hexSymbolds.set(char.toLowerCase(), true)
+    hexSymbolds.set(char.toUpperCase(), true)
+};
+
 
 export type Language = 'ru' | 'en';
 
@@ -43,7 +52,7 @@ export const validateCookies = (ctx: GetServerSidePropsContext) =>
     return sessionID ? ({ Cookie: `connect.sid=${sessionID}` }) : false;
 };
 
-export const getIcon = (guild?: Guild) =>
+export const getIcon = (guild?: Guild | FullGuild) =>
 {
     return (!guild || !guild.icon) ? '/TheVoidAvatarSite.png' : `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`
 };
@@ -52,3 +61,8 @@ export const getAvatar = (user?: User) =>
 {
     return (!user || !user.avatar) ? '/TheVoidAvatarSite.png' : `https://cdn.discordapp.com/icons/${user.id}/${user.avatar}.png`
 }
+
+export const getHexSymbol = (char: string): boolean =>
+{
+    return !!hexSymbolds.get(char);
+};
