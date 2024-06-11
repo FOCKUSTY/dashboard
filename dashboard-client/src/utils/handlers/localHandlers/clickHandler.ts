@@ -11,7 +11,7 @@ type ClickHandlerType = {
 export const clickHandler = (data: ClickHandlerType) =>
 {
     const document = data.event.currentTarget.ownerDocument;
-    const main = document.getElementById(data.id);
+    const main = document.getElementsByClassName(data.id)[0];
 
     if(!main)
         return;

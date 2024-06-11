@@ -12,7 +12,7 @@ type InputHandlerType =
 type AnswerType =
 {
     preview: any
-    target: EventTarget & (HTMLTextAreaElement | HTMLInputElement)
+    target: any
     value?: string
     linkId?: string
     content?: string
@@ -25,7 +25,7 @@ const Answer: any =
     'author_url': (data: AnswerType) => data.preview.innerHTML = data.value!.length !== 0
         ? `<a href='${data.value}' id='${data.linkId!}'>${data.content}</a>`
         : data.content
-}
+};
 
 export const InputHandler = (data: InputHandlerType) =>
 {
@@ -37,14 +37,20 @@ export const InputHandler = (data: InputHandlerType) =>
     const content = preview.textContent;
     const value = target.value;
 
-    Answer[data.type](preview, target, value, data.linkId, content);
+    Answer[data.type]({
+        preview: preview,
+        target: target,
+        value: value,
+        linkId: data.linkId,
+        content: content
+    });
 };
 
 export const inputHandlerCount = (e: FormEvent, countId: string, textId: string, max: number|string, id: string) =>
 {
     const document = e.currentTarget.ownerDocument;
 
-    const main: any = document.getElementById(id);
+    const main: any = document.getElementsByClassName(id)[0];
     const count: any = main.querySelector(`#${countId}`);
     const text: any = main.querySelector(`#${textId}`);
 

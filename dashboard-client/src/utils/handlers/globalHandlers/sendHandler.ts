@@ -2,7 +2,7 @@ import { FormEvent } from "react";
 import styles from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 import webhookStyles from '../../../components/webhook/oneWebhook.module.scss'
 import { Webhook } from "../../types";
-import { sendWebhookMessage } from "../../api/api";
+import { sendWebhookMessage } from "../../api";
 
 export const sendHandler = async (webhook: Webhook, e: FormEvent) =>
 {

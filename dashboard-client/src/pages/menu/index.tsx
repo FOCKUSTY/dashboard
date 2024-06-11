@@ -1,4 +1,4 @@
-import { fetchMutialGuilds } from "@/src/utils/api/api";
+import { fetchMutialGuilds } from "@/src/utils/api";
 import { Guild } from "../../utils/types";
 import { GetServerSidePropsContext, NextPage } from "next";
 import styles from './index.module.scss'

@@ -17,11 +17,11 @@ import { ColorInputHandler, colorInputHandler, textareaColorInputHandler } from 
 type Props = {
     id: string;
     setEmbed: any;
-    fields: string[];
+    _fields: any;
     setField: any;
 }
 
-export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
+export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
 {
     const router = useRouter();
     const l = router.locale || 'ru';
@@ -29,10 +29,14 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
 
     const { embeds } = useContext(EmbedsContext);
     const { setFields } = useContext(FieldsContext);
+    
     const [ count, setCount ] = useState(1);
     
+    const fields: string[] = _fields[`${Number(id)+1}`];
+    const name = `embed_${id}`;
+
     return (
-        <div className={styles.container} id={id}>
+        <div className={`${styles.container} ${name}`} id={id}>
             <div id={styles.container_left}></div>
             <div id={styles.container_right}>
                 <div id={styles.embed_title}>
@@ -40,12 +44,13 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                         clickHandler({
                             event: e,
                             containerId: styles.inner_container,
-                            arrowId: styles.embed_arrow, containers, id,
+                            arrowId: styles.embed_arrow, containers,
+                            id: name
                         })}>
                         <IoIosArrowForward id={styles.embed_arrow}/>
                         <span>Embed {Number(id)+1}</span>
                     </div>
-                    <RxCrossCircled size={30} id={styles.cross} onClick={() => deleteHandler(id, embeds!, setEmbed)}/>
+                    <RxCrossCircled size={30} id={styles.cross} onClick={() => deleteHandler(id, embeds!, setEmbed, _fields, setField)}/>
                 </div>
                 
                 <div id={styles.inner_container}>
@@ -54,7 +59,8 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                             clickHandler({
                                 event: e,
                                 containerId: styles.author_container,
-                                arrowId: styles.author_arrow, containers, id
+                                arrowId: styles.author_arrow, containers,
+                                id: name
                             })}>
                             <IoIosArrowForward id={styles.author_arrow}/>
                             <span>Author</span>
@@ -67,12 +73,12 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                     className={styles.textarea}
                                     id={styles.textarea_author_nickname}
                                     onInput={(e: FormEvent<HTMLTextAreaElement>) => {
-                                        inputHandlerCount(e, styles.author_nickname_count, styles.textarea_author_nickname, 256, id);
+                                        inputHandlerCount(e, styles.author_nickname_count, styles.textarea_author_nickname, 256, name);
                                         InputHandler({
                                             event: e,
                                             previewId: EPS.author_nickname,
                                             type: 'content',
-                                            id
+                                            id: name
                                         });
                                     }}>
                                 </textarea>
@@ -85,7 +91,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                         previewId: EPS.author_nickname,
                                         type: 'author_url',
                                         linkId: EPS.author_link,
-                                        id
+                                        id: name
                                     })}>
                                 </textarea>
                             </div>
@@ -96,7 +102,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                         event: e,
                                         previewId: EPS.author_image,
                                         type: 'url',
-                                        id
+                                        id: name
                                     })}>
                                 </textarea>
                             </div>
@@ -108,7 +114,8 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                             clickHandler({
                                 event: e,
                                 containerId: styles.body_container,
-                                arrowId: styles.body_arrow, containers, id
+                                arrowId: styles.body_arrow, containers,
+                                id: name
                             })}>
                             <IoIosArrowForward id={styles.body_arrow}/>
                             <span>Body</span>
@@ -122,12 +129,12 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                     name="body_title"
                                     id={styles.textarea_body_title}
                                     onInput={(e: FormEvent<HTMLTextAreaElement>) => {
-                                        inputHandlerCount(e, styles.body_title_count, styles.textarea_body_title, 256, id);
+                                        inputHandlerCount(e, styles.body_title_count, styles.textarea_body_title, 256, name);
                                         InputHandler({
                                             event: e,
                                             previewId: EPS.body_title,
                                             type: 'content',
-                                            id
+                                            id: name
                                         })
                                     }}>
                                 </textarea>
@@ -140,12 +147,12 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                     name="body_description"
                                     id={styles.textarea_body_description}
                                     onInput={(e: FormEvent<HTMLTextAreaElement>) => {
-                                        inputHandlerCount(e, styles.body_body_count, styles.textarea_body_description, 4096, id);
+                                        inputHandlerCount(e, styles.body_body_count, styles.textarea_body_description, 4096, name);
                                         InputHandler({
                                             event: e,
                                             previewId: EPS.body_content, 
                                             type: "content",
-                                            id
+                                            id: name
                                         });
                                     }}>
                                 </textarea>
@@ -158,7 +165,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                         previewId: EPS.body_title,
                                         type: 'author_url',
                                         linkId: EPS.body_title_link,
-                                        id
+                                        id: name
                                     })}>
                                 </textarea>
                             </div>
@@ -167,12 +174,12 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                 <div className={styles.color_container}>
                                     <textarea maxLength={7} name='color_value' className={`${styles.url} ${styles.textarea}`} id={styles.color_value}
                                         onInput={(e) => {
-                                            textareaColorInputHandler(e, id, styles);
-                                            ColorInputHandler(e, id);
+                                            textareaColorInputHandler(e, name, styles);
+                                            ColorInputHandler(e, name);
                                         }} defaultValue={'#202225'}></textarea>
                                     <input type="color" name="body_color" id={styles.input_body_color} onInput={(e) => {
-                                        colorInputHandler(e, styles.color_value, id, styles);
-                                        ColorInputHandler(e, id);
+                                        colorInputHandler(e, styles.color_value, name, styles);
+                                        ColorInputHandler(e, name);
                                     }} defaultValue={'#202225'}/>
                                 </div>
                             </div>
@@ -183,19 +190,21 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                         <div className={styles.container_title} onClick={(e) => clickHandler({
                                 event: e,
                                 containerId: styles.fields_container,
-                                arrowId: styles.fields_arrow, containers, id
+                                arrowId: styles.fields_arrow, containers,
+                                id: name
                             })}>
                             <IoIosArrowForward id={styles.fields_arrow}/>
-                            <span>Fileds ({fields.length})</span>
+                            <span>Fileds ({fields?.length})</span>
                         </div>
                         <div id={styles.fields_container}>
                             <FieldsContext.Provider value={{fields: fields, setFields}}>
-                                {fields.map(field =>
+                                {fields?.map(field =>
                                     <FieldItem
                                         id={`${fields.indexOf(field)}`}
                                         key={field}
                                         setField={setField}
                                         embedId={id}
+                                        _fields={_fields}
                                     />
                                 )}
                             </FieldsContext.Provider>
@@ -205,7 +214,8 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                 onClick={() => createHandler({
                                     attacments: fields,
                                     maxAttacments: 25,
-                                    setAttachment: setField, count, setCount
+                                    setAttachment: setField, count, setCount, id,
+                                    fields: _fields
                                 })}>
                                 {t('Создать field', l)}
                             </button>
@@ -217,7 +227,8 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                             clickHandler({
                                 event: e,
                                 containerId: styles.images_container,
-                                arrowId: styles.images_arrow, containers, id
+                                arrowId: styles.images_arrow, containers,
+                                id: name
                             })}>
                             <IoIosArrowForward id={styles.images_arrow}/>
                             <span>Images</span>
@@ -230,7 +241,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                         event: e,
                                         previewId: EPS.image,
                                         type: 'url',
-                                        id
+                                        id: name
                                     })}>
                                 </textarea>
                             </div>
@@ -241,7 +252,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                         event: e,
                                         previewId: EPS.thumbnail_image,
                                         type: 'url',
-                                        id
+                                        id: name
                                     })}>
                                 </textarea>
                             </div>
@@ -253,7 +264,8 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                             clickHandler({
                                 event: e,
                                 containerId: styles.footer_container,
-                                arrowId: styles.footer_arrow, containers, id
+                                arrowId: styles.footer_arrow, containers,
+                                id: name
                             })}>
                             <IoIosArrowForward id={styles.footer_arrow}/>
                             <span>Footer</span>
@@ -267,12 +279,12 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                     name="footer"
                                     id={styles.footer_content}
                                     onInput={(e) => {
-                                        inputHandlerCount(e, styles.footer_body_count, styles.footer_content, 2048, id);
+                                        inputHandlerCount(e, styles.footer_body_count, styles.footer_content, 2048, name);
                                         InputHandler({
                                             event: e,
                                             previewId: EPS.footer_content, 
                                             type: "content",
-                                            id
+                                            id: name
                                         });
                                     }}>
                                 </textarea>
@@ -292,7 +304,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, fields, setField }) =>
                                         event: e,
                                         previewId: EPS.footer_icon, 
                                         type: "url",
-                                        id
+                                        id: name
                                     })}>
                                 </textarea>
                             </div>

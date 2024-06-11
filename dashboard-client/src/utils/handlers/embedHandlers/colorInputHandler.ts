@@ -20,13 +20,13 @@ export const ColorInputHandler = (event: FormEvent<HTMLTextAreaElement|HTMLInput
         embed.style.borderLeft = `4px solid ${v}`;
 };
 
-export const textareaColorInputHandler = (e: any, id: string, styles: any) =>
+export const textareaColorInputHandler = (e: FormEvent<HTMLTextAreaElement|HTMLInputElement>, id: string, styles: any) =>
 {
     const document = e.currentTarget.ownerDocument;
-    const main = document.getElementById(id);
+    const main = document.getElementsByClassName(id)[0];
     const value: string[] = e.currentTarget.value.split('');
-    const color = main.querySelector(`#${styles.input_body_color}`);
-    const line = main.querySelector(`#${styles.container_left}`);
+    const color: any = main.querySelector(`#${styles.input_body_color}`);
+    const line: any = main.querySelector(`#${styles.container_left}`);
     
     value[0] = '#';
 
@@ -48,7 +48,7 @@ export const colorInputHandler = (e: FormEvent, valueId: string, id: string, sty
 {
     const document = e.currentTarget.ownerDocument;
     const target: any = e.currentTarget;
-    const main = document.getElementById(id);
+    const main = document.getElementsByClassName(id)[0];
     
     if(!main)
         return;

@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext } from "next"
 import axios from "axios";
-import { validateCookies } from "../helpers";
-import { Guild, Webhook, sendWebhookMessageType } from "../types";
-import config from '../../../config.json'
+import { validateCookies } from "./helpers";
+import { Guild, Webhook, sendWebhookMessageType } from "./types";
+import config from '../../config.json'
 
 const API_URL: string = `${config.server_url}/api`;
 

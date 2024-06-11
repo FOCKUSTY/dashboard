@@ -32,7 +32,6 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
         "1": [], "2": [], "3": [], "4": [], "5": [], "6": [],
         "7": [], "8": [], "9": [], "10": []
     });
-    const fields: any = _fields;
 
     const [ embeds, setEmbed ] = useState<string[]>([]);
     const [ count, setCount ] = useState(1);
@@ -65,7 +64,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                     id={`${embeds.indexOf(embed)}`}
                                     key={embed}
                                     setEmbed={setEmbed}
-                                    fields={fields[`${embeds.indexOf(embed)}`]}
+                                    _fields={_fields}
                                     setField={setField}
                                 />
                             )}
@@ -77,7 +76,8 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                     attacments: embeds,
                                     maxAttacments: 10,
                                     setAttachment: setEmbed,
-                                    setCount: setCount
+                                    setCount: setCount,
+                                    fields: _fields
                                 })}
                             >{t('Создать embed', l)}</button>
                         </EmbedsContext.Provider>
@@ -101,6 +101,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                         <EmbedPreviewItem
                                             id={`${embeds.indexOf(embed)}`}
                                             key={embed}
+                                            _fields={_fields}
                                         />
                                     )}
                                 </div>
