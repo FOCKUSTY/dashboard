@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Webhook } from "../../utils/types"
 import styles from './oneWebhook.module.scss';
 import webhooksStyles from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
-import { inputNameHandler, inputURLHandler, sendHandler } from '@/src/utils/webhookApi';
+import { inputNameHandler, inputURLHandler, sendHandler } from '@/src/utils/api/webhookApi';
 import { useRouter } from "next/router";
 import { t } from "@/src/utils/helpers";
 
