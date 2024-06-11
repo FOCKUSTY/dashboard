@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from "next";
 import { DashboardLayout } from "../../../../../components/layouts/dashboard";
 import { Fields, FullGuild, NextPageWithLayout, User, Webhook } from "../../../../../utils/types";
 import { ReactElement, useContext, useEffect, useState } from "react";
-import { getWebhook, getGuild, getUser } from "../../../../../utils/api/api";
+import { getWebhook, getGuild, getUser } from "../../../../../utils/api";
 import { GuildContext } from "@/src/utils/contexts/guildContext";
 import { EmbedsContext } from '../../../../../utils/contexts/embedsContext';
 import { useRouter } from "next/router";
