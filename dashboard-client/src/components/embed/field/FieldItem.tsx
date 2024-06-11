@@ -4,10 +4,10 @@ import styles from './index.module.scss';
 import FPS from './fieldPreview.module.scss';
 import { RxCrossCircled } from 'react-icons/rx';
 import { FieldsContext } from '@/src/utils/contexts/fieldContext';
-import { InputHandler } from '@/src/utils/api/fieldApi';
 import { clickHandler } from '@/src/utils/handlers/localHandlers/clickHandler';
 import { deleteHandler } from '@/src/utils/handlers/globalHandlers/deleteHandler';
 import { inputHandlerCount } from '@/src/utils/handlers/embedHandlers/inputHandler';
+import { InputHandler } from '@/src/utils/handlers/fieldHandlers/inputHandler';
 
 type Props = {
     id: string;
