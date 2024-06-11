@@ -1,5 +1,5 @@
-import { NextFetchEvent, NextRequest, NextResponse, URLPattern } from "next/server";
-import { fetchValidGuild, fetchWebhooks } from "./utils/api";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
+import { fetchValidGuild } from "./utils/api";
 import config from '../config.json'
 
 const getId = (req: NextRequest): string =>

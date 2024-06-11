@@ -34,7 +34,8 @@
     font-weight: 500;
     color: rgb(255, 255, 255);
     white-space: pre-wrap;
-    display: inline-block;
+    overflow-wrap: anywhere;
+    white-space: break-spaces;
 }
 
 #author_link:hover {

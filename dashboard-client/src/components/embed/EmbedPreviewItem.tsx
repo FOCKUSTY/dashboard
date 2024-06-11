@@ -1,18 +1,18 @@
-import { FC, useContext, } from 'react';
+import { FC, } from 'react';
 import styles from './embedPreview.module.scss';
 import { FieldPreviewItem } from './field/FieldPreviewItem'
-import { FieldsContext } from '@/src/utils/contexts/fieldContext';
 
 type Props = {
     id: string;
+    _fields: any
 }
 
-export const EmbedPreviewItem: FC<Props> = ({ id }) =>
+export const EmbedPreviewItem: FC<Props> = ({ id, _fields }) =>
 {
-    const { fields, setFields } = useContext(FieldsContext);
+    const fields: string[] = _fields[Number(id)+1];
 
     return (
-        <div className={`${styles.embed} ${id}`} id={id}>
+        <div className={`${styles.embed} embed_${id}`} id={id}>
             <div id={styles.conatiner}>
                 <div id={styles.author}>
                     <img src="" id={styles.author_image} />
@@ -26,7 +26,10 @@ export const EmbedPreviewItem: FC<Props> = ({ id }) =>
 
                 <div id={styles.fields}>
                     {fields?.map(field =>
-                        <FieldPreviewItem id={`${fields.indexOf(field)}`} key={field}/>
+                        <FieldPreviewItem
+                            id={`${fields.indexOf(field)}`}
+                            key={field}
+                        />
                     )}
                 </div>
 

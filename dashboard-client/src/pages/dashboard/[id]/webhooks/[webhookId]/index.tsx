@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import { DashboardLayout } from "../../../../../components/layouts/dashboard";
-import { FullGuild, NextPageWithLayout, User, Webhook } from "../../../../../utils/types";
-import { FormEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { Fields, FullGuild, NextPageWithLayout, User, Webhook } from "../../../../../utils/types";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import { getWebhook, getGuild, getUser } from "../../../../../utils/api";
 import { GuildContext } from "@/src/utils/contexts/guildContext";
 import { EmbedsContext } from '../../../../../utils/contexts/embedsContext';
@@ -11,6 +11,8 @@ import { t } from '../../../../../utils/helpers';
 import styles from './index.module.scss';
 import { EmbedItem } from "@/src/components/embed/EmbedItem";
 import { EmbedPreviewItem } from "@/src/components/embed/EmbedPreviewItem";
+import { createHandler } from "@/src/utils/handlers/globalHandlers/createHandler";
+import { contentInputHandler } from "@/src/utils/handlers/localHandlers/contentInputHandler";
 
 type Props = {
     guild: FullGuild;
@@ -26,6 +28,11 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
     const { setGuild } = useContext(GuildContext);
     const { setEmbeds } = useContext(EmbedsContext);
 
+    const [ _fields, setField ] = useState<Fields>({
+        "1": [], "2": [], "3": [], "4": [], "5": [], "6": [],
+        "7": [], "8": [], "9": [], "10": []
+    });
+
     const [ embeds, setEmbed ] = useState<string[]>([]);
     const [ count, setCount ] = useState(1);
 
@@ -37,25 +44,6 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
         ? `https://cdn.discordapp.com/avatars/${webhook.id}/${webhook.avatar}`
         : '/TheVoidAvatarSite.png';
 
-    const inputHandler = (e: FormEvent) =>
-    {
-        const document = e.currentTarget.ownerDocument;
-        const textArea: any = document.getElementById(styles.content);
-        const paragraph: any = document.getElementById(styles.msg_content_paragraph);
-        
-        paragraph.textContent = textArea.value;
-    };
-
-    const createEmbedHandler = () =>
-    {
-        setCount(count+1);
-
-        if(embeds.length === 10)
-            return;
-
-        setEmbed([...embeds, `${count}`]);
-    };
-
     return (
         <div className="page">
             <div className={styles.outer_container}>
@@ -66,7 +54,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                         maxLength={2000}
                         name="content"
                         id={styles.content}
-                        onInput={inputHandler}
+                        onInput={contentInputHandler}
                         defaultValue={`${t('Привет', l)}!`}
                     ></textarea>
                     <div id={styles.embed_container}>
@@ -76,12 +64,21 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                     id={`${embeds.indexOf(embed)}`}
                                     key={embed}
                                     setEmbed={setEmbed}
+                                    _fields={_fields}
+                                    setField={setField}
                                 />
                             )}
                             <button
                                 id={styles.embed_createbtn}
                                 className={styles.btn}
-                                onClick={createEmbedHandler}
+                                onClick={() => createHandler({
+                                    count: count,
+                                    attacments: embeds,
+                                    maxAttacments: 10,
+                                    setAttachment: setEmbed,
+                                    setCount: setCount,
+                                    fields: _fields
+                                })}
                             >{t('Создать embed', l)}</button>
                         </EmbedsContext.Provider>
                     </div>
@@ -104,6 +101,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                         <EmbedPreviewItem
                                             id={`${embeds.indexOf(embed)}`}
                                             key={embed}
+                                            _fields={_fields}
                                         />
                                     )}
                                 </div>

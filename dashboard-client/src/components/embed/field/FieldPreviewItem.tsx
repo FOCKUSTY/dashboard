@@ -8,7 +8,7 @@ type Props = {
 export const FieldPreviewItem: FC<Props> = ({ id }) =>
 {
     return (
-        <div id={id} className={`${styles.field} ${id}`}>
+        <div id={id} className={`${styles.field} field_${id}`}>
             <div className={styles.field_name}>
                 <div id={styles.field_name_content}>
 
