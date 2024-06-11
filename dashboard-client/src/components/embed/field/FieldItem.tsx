@@ -3,7 +3,6 @@ import { IoIosArrowForward } from "react-icons/io"
 import styles from './index.module.scss';
 import FPS from './fieldPreview.module.scss';
 import { RxCrossCircled } from 'react-icons/rx';
-import { FieldsContext } from '@/src/utils/contexts/fieldContext';
 import { clickHandler } from '@/src/utils/handlers/localHandlers/clickHandler';
 import { deleteFieldHandler } from '@/src/utils/handlers/globalHandlers/deleteHandler';
 import { inputHandlerCount } from '@/src/utils/handlers/embedHandlers/inputHandler';
