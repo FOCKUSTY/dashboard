@@ -1,19 +1,30 @@
 import { Response, Request } from "express"
 import { getWebhookService } from "../../services/webhooks"
 import { WebhookClient } from "discord.js";
+import Color from 'color';
 
 export async function postWebhookController(req: Request, res: Response)
 {
     try
     {
         const webhookData = await getWebhookService(req.params.webhookId, req.params.webhookToken);
-        const avatarsrc = `https://cdn.discordapp.com/avatars/${webhookData.id}/${webhookData.avatar}`
+        const avatarsrc = `https://cdn.discordapp.com/avatars/${webhookData.id}/${webhookData.avatar}`;
+
+        const embeds = [];
+
+        if(req.body.embeds.length != 0)
+            for(const embed of req.body.embeds)
+            {
+                embed.color = Color(embed.color).rgbNumber();
+                embeds.push(embed);
+            };
+
         const data: any = {
             avatarURL: req.body.avatar_url || avatarsrc,
             username: req.body.name || webhookData.name,
             content: req.body.content || null,
             components: req.body.components || null,
-            embed: req.body.embed || null,
+            embeds: embeds,
             poll: req.body.poll || null
         };
 
