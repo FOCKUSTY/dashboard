@@ -198,7 +198,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                         </div>
                         <div id={styles.fields_container}>
                             <FieldsContext.Provider value={{fields: fields, setFields}}>
-                                {fields?.map(field =>
+                                {fields.map(field =>
                                     <FieldItem
                                         id={`${fields.indexOf(field)}`}
                                         key={field}
