@@ -1,7 +1,20 @@
 import { NextPage } from "next";
 import { AppProps } from "next/app";
 import { ReactElement, ReactNode } from "react";
-import { EmbedData, ComponentData, PollData } from 'discord.js'
+import { EmbedData, ComponentData, PollData, ColorResolvable } from 'discord.js'
+
+export type Embed = {
+    author?: { name?: string, iconURL?: string, url?: string }
+    color: ColorResolvable | null
+    description?: string
+    footer: { text: string; iconURL?: string | undefined; } | undefined
+    thumbnail?: string
+    image?: string
+    timestamp?: string
+    title?: string
+    url?: string
+    fields: { name: string, value: string, inline?: boolean }[]
+}
 
 export type Fields = {
     "1": string[]
@@ -18,7 +31,7 @@ export type Fields = {
 
 export type sendWebhookMessageType = {
     content?: string;
-    embed?: EmbedData[];
+    embeds?: Embed[];
     components?: ComponentData[];
     poll?: PollData;
 
