@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, FormEvent } from 'react';
 import { IoIosArrowForward } from "react-icons/io"
 import styles from './index.module.scss';
 import FPS from './fieldPreview.module.scss';
@@ -7,6 +7,7 @@ import { clickHandler } from '@/src/utils/handlers/localHandlers/clickHandler';
 import { deleteFieldHandler } from '@/src/utils/handlers/globalHandlers/deleteHandler';
 import { inputHandlerCount } from '@/src/utils/handlers/embedHandlers/inputHandler';
 import { InputHandler } from '@/src/utils/handlers/fieldHandlers/inputHandler';
+import { checkboxInputHandler } from '@/src/utils/handlers/fieldHandlers/checkboxInputHandler';
 
 type Props = {
     id: string;
@@ -66,7 +67,9 @@ export const FieldItem: FC<Props> = ({ id, setField, embedId, _fields }) =>
 
                 <div id={styles.inline_container}>
                     <p id={styles.inline_text}>В линию</p>
-                    <input type="checkbox" name="inline" id={styles.inline} />
+                    <input type="checkbox" name="inline" id={styles.inline} onInput={(e) =>
+                        checkboxInputHandler(e, id, embedId, styles)
+                    }/>
                 </div>
 
             </div>
