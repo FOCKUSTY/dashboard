@@ -80,10 +80,10 @@ export const sendHandler = async (webhook: Webhook, e: FormEvent) =>
     const avatar_url = textAreaUrl?.value;
     const name = textAreaName?.value;
 
-/*     await sendWebhookMessage(webhook.id, webhook.token, {
+    await sendWebhookMessage(webhook.id, webhook.token, {
         content: content,
         avatar_url: avatar_url,
         name: name,
         embeds: embeds
-    }); */
+    });
 };
