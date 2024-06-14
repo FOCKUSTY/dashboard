@@ -4,7 +4,7 @@ import { FaWrench } from "react-icons/fa";
 import { PiWebhooksLogoBold } from "react-icons/pi";
 import styles from './index.module.scss'
 import { useRouter } from "next/router";
-import { Guild } from "../../utils/types";
+import { FullGuild } from "../../utils/types";
 import { FC } from "react";
 import { getIcon } from "@/src/utils/helpers";
 
@@ -23,7 +23,7 @@ const routes =
 ]
 
 type Props = {
-    guild?: Guild;
+    guild?: FullGuild;
 };
 
 export const Sidebar: FC<Props> = ({ guild }) =>

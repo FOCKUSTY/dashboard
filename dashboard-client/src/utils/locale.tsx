@@ -1,4 +1,4 @@
-import lcls from './locales/index';
+import lcls from './locales/locale';
 import { Language } from './helpers';
 import { FC } from "react";
 

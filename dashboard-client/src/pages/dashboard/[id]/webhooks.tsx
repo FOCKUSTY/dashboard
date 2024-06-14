@@ -7,7 +7,6 @@ import { GetServerSidePropsContext } from "next";
 import { WebhookMenuItem } from "@/src/components/webhook/WebhookMenuItem";
 import { useRouter } from "next/router";
 
-
 type Props = {
     guild: FullGuild;
     user: User;
