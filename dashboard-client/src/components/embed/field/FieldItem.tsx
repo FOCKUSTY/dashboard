@@ -68,7 +68,7 @@ export const FieldItem: FC<Props> = ({ id, setField, embedId, _fields }) =>
                 <div id={styles.inline_container}>
                     <p id={styles.inline_text}>В линию</p>
                     <input type="checkbox" name="inline" id={styles.inline} onInput={(e) =>
-                        checkboxInputHandler(e, id, embedId, styles)
+                        checkboxInputHandler(e, FPS, styles)
                     }/>
                 </div>
 

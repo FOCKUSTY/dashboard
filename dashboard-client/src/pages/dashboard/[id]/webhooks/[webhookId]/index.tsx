@@ -68,20 +68,22 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                     setField={setField}
                                 />
                             )}
-                            <button
-                                id={styles.embed_createbtn}
-                                className={styles.btn}
-                                onClick={() => createHandler({
-                                    count: count,
-                                    attacments: embeds,
-                                    maxAttacments: 10,
-                                    setAttachment: setEmbed,
-                                    setCount: setCount,
-                                    fields: _fields
-                                })}
-                            >{t('Создать embed', l)}</button>
                         </EmbedsContext.Provider>
                     </div>
+
+                    <button
+                        id={styles.embed_createbtn}
+                        className={styles.btn}
+                        onClick={(event) => createHandler({
+                            count: count,
+                            attacments: embeds,
+                            maxAttacments: 10,
+                            setAttachment: setEmbed,
+                            setCount: setCount,
+                            fields: _fields,
+                            event: event
+                        })}
+                    >{t('Создать embed', l)}</button>
                 </div>
 
                 <div className={styles.right_container} id="ChatPreview">

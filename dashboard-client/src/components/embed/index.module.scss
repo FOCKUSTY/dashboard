@@ -6,8 +6,27 @@
 
     margin: 10px;
     padding: 15px;
-    
+    max-height: 700px;
+
     border-radius: 20px;
+    
+    overflow: overlay;
+}
+
+.container::-webkit-scrollbar {
+    width: 12px;
+    margin: 20px;
+}
+  
+.container::-webkit-scrollbar-track {
+    background: #12121200;
+    margin: 20px;
+}
+  
+.container::-webkit-scrollbar-thumb {
+    background-color: #1d1d1d;
+    border-radius: 20px;
+    border: 3px solid #121212;
 }
 
 #container_left {
@@ -174,6 +193,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#fields_container {
+    max-height: 300px;
+    overflow: overlay;
 }
 
 .noselect {
