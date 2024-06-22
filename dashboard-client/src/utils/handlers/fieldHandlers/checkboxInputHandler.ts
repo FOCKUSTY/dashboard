@@ -51,5 +51,6 @@ export const checkboxInputHandler = (event: FormEvent<HTMLInputElement>, FPS: an
     };
 
     for(const value of negaiveValues)
-        previewFields[Number(value)].style = 'grid-column: 1 / 13';
+        if(previewFields[Number(value)])
+            previewFields[Number(value)].style = 'grid-column: 1 / 13';
 };

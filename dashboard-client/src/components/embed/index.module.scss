@@ -6,7 +6,8 @@
 
     margin: 10px;
     padding: 15px;
-    max-height: 700px;
+
+    max-height: 900px;
 
     border-radius: 20px;
     
@@ -196,7 +197,9 @@
 }
 
 #fields_container {
-    max-height: 300px;
+    max-height: 900px;
+    min-height: 50px;
+
     overflow: overlay;
 }
 
@@ -216,7 +219,6 @@
 #images_container,
 #footer_container {
     padding: 0.25em 0.5em;
-    transition: 1s;
     display: none;
 }
 

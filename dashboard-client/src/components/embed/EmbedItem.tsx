@@ -211,11 +211,12 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                             <button
                                 id={styles.field_createbtn}
                                 className={styles.btn}
-                                onClick={() => createHandler({
+                                onClick={(event) => createHandler({
                                     attacments: fields,
                                     maxAttacments: 25,
-                                    setAttachment: setField, count, setCount, id,
-                                    fields: _fields
+                                    setAttachment: setField,
+                                    fields: _fields,
+                                    count, setCount, id, event
                                 })}>
                                 {t('Создать field', l)}
                             </button>
