@@ -1,12 +1,14 @@
 import { GetServerSidePropsContext } from "next";
 import { DashboardLayout } from "../../../components/layouts/dashboard";
-import { FullGuild, NextPageWithLayout, User } from "../../../utils/types";
+import { NextPageWithLayout } from "../../../utils/types";
 import { ReactElement, useContext, useEffect } from "react";
 import { getGuild, getUser } from "../../../utils/api";
 import { GuildContext } from "@/src/utils/contexts/guildContext";
 import { t } from '../../../utils/helpers';
 import styles from './index.module.scss';
 import { useRouter } from "next/router";
+import { FullGuild } from "types/guild/guild";
+import { User } from "types/index";
 
 type Props = {
     guild: FullGuild;
@@ -41,7 +43,12 @@ export async function getServerSideProps (ctx: GetServerSidePropsContext)
     const guild = (await getGuild(ctx)).props;
     const user = (await getUser(ctx)).props;
 
-    return { props: { guild: guild?.guild!, user: user.user } };
+    return {
+        props: {
+            guild: guild?.guild!,
+            user: user.user
+        }
+    };
 };
 
 export default DashboardPage;

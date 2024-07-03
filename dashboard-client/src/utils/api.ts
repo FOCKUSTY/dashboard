@@ -1,8 +1,11 @@
 import { GetServerSidePropsContext } from "next"
-import axios from "axios";
 import { validateCookies } from "./helpers";
-import { Guild, Webhook, sendWebhookMessageType } from "./types";
-import config from '../../config.json'
+import { sendWebhookMessageType } from "./types";
+import { PartialGuild } from 'types/guild/guild';
+import { Webhook } from 'types/guild/webhook';
+import { Message } from 'types/message/message';
+import config from '../../config.json';
+import axios from "axios";
 
 const API_URL: string = `${config.server_url}/api`;
 
@@ -31,7 +34,7 @@ export const fetchMutialGuilds = async (context: GetServerSidePropsContext) =>
 
     try
     {
-        const { data: guilds } = await axios.get<Guild[]>(`${API_URL}/guilds`, { headers });
+        const { data: guilds } = await axios.get<PartialGuild[]>(`${API_URL}/guilds`, { headers });
 
         return { props: guilds };
     }
@@ -102,7 +105,7 @@ export const fetchGuild = async (ctx: GetServerSidePropsContext) =>
 
     try
     {
-        const { data: guild } = await axios.get<Guild>(`${API_URL}/guilds/${ctx.query.id}`, { headers: headers });
+        const { data: guild } = await axios.get<PartialGuild>(`${API_URL}/guilds/${ctx.query.id}`, { headers: headers });
 
         return { props: { guild } };
     }
@@ -127,6 +130,20 @@ export const getWebhook = async(ctx: GetServerSidePropsContext) =>
         const webhook = webhooks.find((webhook) => webhook.id === ctx.query.webhookId);
 
         return { props: { webhook } };
+    }
+    catch (err)
+    {
+        console.error(err);
+    };
+};
+
+export const getMessage = async(channelId: string, messageId: string) =>
+{
+    try
+    {
+        const { data: message } = await axios.get<Message>(`${API_URL}/channels/${channelId}/${messageId}`);
+
+        return message;
     }
     catch (err)
     {

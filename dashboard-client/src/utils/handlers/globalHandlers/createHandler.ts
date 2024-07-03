@@ -6,9 +6,11 @@ type CreateHandlerType = {
     setCount: (value: number) => void,
     id?: string,
     fields?: any;
+    event: any
 };
 
-export const createHandler = (data: CreateHandlerType) => {
+export const createHandler = (data: CreateHandlerType) =>
+{
     if(data.attacments.length === data.maxAttacments)
         return;
 
@@ -26,7 +28,5 @@ export const createHandler = (data: CreateHandlerType) => {
         data.setAttachment(fields);
     }
     else
-    {
         data.setAttachment([...data.attacments, `${data.count}`]);
-    }
 };
