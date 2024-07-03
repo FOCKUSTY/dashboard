@@ -1,7 +1,8 @@
 import axios from "axios";
 import { User } from '../../database/schemas'
 import { DISCORD_API_URL } from "../../utils/constants";
-import { PartialGuild, Webhook } from "../../utils/types";
+import { PartialGuild } from "types/guild/guild";
+import { Webhook } from "types/guild/webhook";
 
 export function getBotGuildsServices()
 {
