@@ -63,12 +63,14 @@ export const sendHandler = async (webhook: Webhook, e: FormEvent) =>
                 {
                     const name: string | undefined = fieldElement.querySelector(`#${FS.textarea_field_name}`)?.value;
                     const value: string | undefined = fieldElement.querySelector(`#${FS.textarea_field_value}`)?.value;
-                    const inline: string = fieldElement.querySelector(`#${FS.inline}`)?.value;
+                    const inline: boolean = fieldElement.querySelector(`#${FS.inline}`)?.checked;
 
                     if(!name || !value)
                         continue;
 
-                    embed.fields.push({ name: name, value: value, inline: inline === 'on' ? true : false });
+                    console.log(fieldElement.querySelector(`#${FS.inline}`)?.checked)
+
+                    embed.fields.push({ name: name, value: value, inline: inline });
                 };
 
             embeds.push(embed);
@@ -78,10 +80,10 @@ export const sendHandler = async (webhook: Webhook, e: FormEvent) =>
     const avatar_url = textAreaUrl?.value;
     const name = textAreaName?.value;
 
-    await sendWebhookMessage(webhook.id, webhook.token, {
+/*     await sendWebhookMessage(webhook.id, webhook.token, {
         content: content,
         avatar_url: avatar_url,
         name: name,
         embeds: embeds
-    });
+    }); */
 };
