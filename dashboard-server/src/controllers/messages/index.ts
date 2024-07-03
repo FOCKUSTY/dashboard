@@ -5,9 +5,9 @@ export async function getMessageController(req: Request, res: Response)
 {
     try
     {
-        const webhook = await getMessageService(req.params.channelId, req.params.messageId);
+        const message = await getMessageService(req.params.channelId, req.params.messageId);
         
-        res.send(webhook);
+        res.send(message);
     }
     catch (err)
     {
