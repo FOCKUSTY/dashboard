@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import { DashboardLayout } from "../../../../../components/layouts/dashboard";
-import { Fields, FullGuild, NextPageWithLayout, User, Webhook } from "../../../../../utils/types";
+import { Fields, NextPageWithLayout } from "../../../../../utils/types";
 import { ReactElement, useContext, useEffect, useState } from "react";
 import { getWebhook, getGuild, getUser } from "../../../../../utils/api";
 import { GuildContext } from "@/src/utils/contexts/guildContext";
@@ -13,6 +13,10 @@ import { EmbedItem } from "@/src/components/embed/EmbedItem";
 import { EmbedPreviewItem } from "@/src/components/embed/EmbedPreviewItem";
 import { createHandler } from "@/src/utils/handlers/globalHandlers/createHandler";
 import { contentInputHandler } from "@/src/utils/handlers/localHandlers/contentInputHandler";
+import { Webhook } from "types/guild/webhook";
+import { FullGuild } from "types/guild/guild";
+import { User } from "types/index";
+import { linkHandler } from "@/src/utils/handlers/localHandlers/linkHandler";
 
 type Props = {
     guild: FullGuild;
@@ -112,6 +116,18 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                     </div>
                 </div>
             </div>
+            
+            <div className={styles.container} id={styles.input_outer_container}>
+                <div id={styles.input_container}>
+                    <span>Вставьте ссылку на сообщение</span>
+                </div>
+
+                <div id={styles.input_container}>
+                    <input id={styles.input_message_id} type="text"/>
+                    <input id={styles.submit_message_id} type="submit" className={styles.btn} onClick={(e) => linkHandler(e, guild.id)}/>
+                </div>
+            </div>
+
             </div>
         </div>
     );

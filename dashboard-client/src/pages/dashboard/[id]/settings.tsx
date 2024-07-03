@@ -1,9 +1,11 @@
 import { GuildContext } from "../../../utils/contexts/guildContext";
 import { DashboardLayout } from "../../../components/layouts/dashboard";
-import { FullGuild, NextPageWithLayout, User } from "../../../utils/types";
+import { NextPageWithLayout } from "../../../utils/types";
 import { ReactElement, useContext, useEffect } from "react";
 import { getGuild, getUser } from "@/src/utils/api";
 import { GetServerSidePropsContext } from "next";
+import { FullGuild } from "types/guild/guild";
+import { User } from "discord.js";
 
 type Props = {
     guild: FullGuild;
