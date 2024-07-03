@@ -1,66 +1,56 @@
 import { FormEvent } from "react";
 
-const removeItem = (index: number, array: any[]) =>
-    [...array.slice(0, index), ...array.slice(index+1)];
-
-const remove = (arrays: [ any[], boolean[] ], element: any) =>
-{
-    const index = arrays[0].indexOf(element);
-
-    return [removeItem(index, arrays[0]), removeItem(index, arrays[1])];
-};
-
-export const checkboxInputHandler = (event: FormEvent<HTMLInputElement>, fieldId: string, embedId: string, styles: any) =>
+export const checkboxInputHandler = (event: FormEvent<HTMLInputElement>, FPS: any, styles: any) =>
 {
     const document = event.currentTarget.ownerDocument;
-    const id = Number(fieldId);
+    const checkboxValues = [];
+    const checkboxNegativeValues = [];
+    const inputFields: any = document.getElementsByClassName(styles.container);
+    const previewFields: any = document.getElementsByClassName(FPS.field);
 
-    const ChatPreview = document.getElementById('ChatPreview');
-    const ChatInput = document.getElementById('ChatInput');
-
-    const embed = ChatPreview?.getElementsByClassName(`embed_${embedId}`)[0];
-    const embedInput = ChatInput?.getElementsByClassName(`embed_${embedId}`)[0];
-
-    const fieldsInput: any[] = [];
-
-    let fields: any[] = [];
-    let values: boolean[] = [];
-
-    const factor = id > 3 ? 3 : 2;
-
-    for(let i = id-factor; i <= id+factor; i++)
+    if(!inputFields || !previewFields)
+        return;
+    
+    for(const inputField of inputFields)
     {
-        if(i < 0)
-            continue;
-
-        if(!embedInput?.getElementsByClassName(`field_${i}`)[0])
-            continue;
-
-        fields.push(embed?.getElementsByClassName(`field_${i}`)[0]);
-        fieldsInput.push(embedInput?.getElementsByClassName(`field_${i}`)[0]);            
+        checkboxValues.push(inputField.querySelector(`#${styles.inline}`)?.checked
+            ? inputField.id
+            : false
+        );
+        
+        checkboxNegativeValues.push(inputField.querySelector(`#${styles.inline}`)?.checked
+            ? false
+            : inputField.id
+        );
     };
 
-    for(const field of fieldsInput)
-        values.push(field.querySelector(`#${styles.inline}`)?.checked);
-
-    for(let index in values)
+    const values = checkboxValues.join('').split('false').filter((value) => value !== '');
+    const negaiveValues = checkboxNegativeValues.join('').split('false').filter((value) => value !== '');
+    
+    for(const value of values)
     {
-        if(values[index] || !fields[index])
-            continue;
+        const length = value.length > 3
+            ? Math.ceil(value.length / 3)
+            : 1;
 
-        fields[index].style = 'grid-column: 1 / 13';
-        [fields, values] = remove([fields, values], fields[index]);
+        for(let i = 0; i < length; i++)
+        {
+            const v = value.slice(i*3, (i+1)*3);
+            const gridColumn = v.length === 3 ? 4 : 6;
+
+            for(let index = 0; index < v.length; index++)
+            {
+                const field: any = previewFields[Number(v[index])];
+
+                if(v.length === 1)
+                    field.style = 'grid-column: 1 / 13';
+                else
+                    field.style = `grid-column: ${ 1 + index * gridColumn } / ${ 1 + (1 + index) * gridColumn }`;
+            };
+        };
     };
 
-    const fieldsCount = fields.filter(el => !!el && values[fields.indexOf(el)]).length;
-    const gridColumn = fieldsCount === 3 ? 4 : 6;
-
-    if(fieldsCount === 1)
-        return fields[0].style = 'grid-column: 1 / 13';
-
-    for(let index = 0; index < fieldsCount; index++)
-        if(values[index])
-            fields[index].style = `grid-column: ${ 1 + index * gridColumn } / ${ 1 + (1 + index) * gridColumn }`;
-        else
-            fields[index].style = 'grid-column: 1 / 13';
+    for(const value of negaiveValues)
+        if(previewFields[Number(value)])
+            previewFields[Number(value)].style = 'grid-column: 1 / 13';
 };
