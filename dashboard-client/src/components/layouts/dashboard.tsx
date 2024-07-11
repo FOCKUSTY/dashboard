@@ -1,8 +1,11 @@
 import { ReactElement, useContext } from "react";
+
 import { Sidebar } from "../misc/Sidebar";
 import { Appbar } from "../misc/Appbar";
+
+import { GuildContext } from "utils/contexts/guildContext";
+
 import styles from '../misc/index.module.scss';
-import { GuildContext } from "@/src/utils/contexts/guildContext";
 
 export const DashboardLayout = ({ children }: { children: ReactElement }) =>
 {

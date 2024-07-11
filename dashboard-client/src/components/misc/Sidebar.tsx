@@ -1,12 +1,15 @@
-import Image from "next/image";
+import { FC } from "react";
+import { useRouter } from "next/router";
+
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaWrench } from "react-icons/fa";
 import { PiWebhooksLogoBold } from "react-icons/pi";
+import Image from "next/image";
+
+import { getIcon } from "utils/helpers";
+import { FullGuild } from "types/guild/guild";
+
 import styles from './index.module.scss'
-import { useRouter } from "next/router";
-import { FullGuild } from "../../utils/types";
-import { FC } from "react";
-import { getIcon } from "@/src/utils/helpers";
 
 const routes =
 [

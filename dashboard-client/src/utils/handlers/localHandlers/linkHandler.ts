@@ -1,7 +1,11 @@
 import WS from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss'
+<<<<<<< Updated upstream
 import { getMessage } from "../../api";
 import { FormEvent } from "react";
 import { t } from '../../../utils/helpers';
+=======
+import { getMessage } from "api/message";
+>>>>>>> Stashed changes
 
 export const linkHandler = async (e: FormEvent, l: string) =>
 {

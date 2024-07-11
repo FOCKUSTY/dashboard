@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { FullGuild } from '../types';
+import { FullGuild } from 'types/guild/guild';
 
 type GuildContextType = {
     guild?: FullGuild;

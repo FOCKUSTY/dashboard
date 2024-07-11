@@ -1,7 +1,5 @@
-import { GetServerSidePropsContext } from "next";
-import { DashboardLayout } from "../../../../../components/layouts/dashboard";
-import { Fields, NextPageWithLayout } from "../../../../../utils/types";
 import { ReactElement, useContext, useEffect, useState } from "react";
+<<<<<<< Updated upstream
 import { getWebhook, getGuild, getUser, getBackups } from "api";
 import { GuildContext } from "@/src/utils/contexts/guildContext";
 import { EmbedsContext } from '../../../../../utils/contexts/embedsContext';
@@ -19,6 +17,34 @@ import { User } from "types/index";
 import { linkHandler } from "@/src/utils/handlers/localHandlers/linkHandler";
 import { BackupModal } from "@/src/components/modals/backup";
 import { Backup } from "types/backups/backup";
+=======
+import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
+
+import { EmbedItem } from "components/embed/EmbedItem";
+import { EmbedPreviewItem } from "components/embed/EmbedPreviewItem";
+import { DashboardLayout } from "components/layouts/dashboard";
+import { WebhookItem } from "components/webhook/WebhookItem";
+
+import { createHandler } from "handlers/globalHandlers/createHandler";
+import { contentInputHandler } from "handlers/localHandlers/contentInputHandler";
+import { linkHandler } from "handlers/localHandlers/linkHandler";
+
+import { GuildContext } from "utils/contexts/guildContext";
+import { EmbedsContext } from 'utils/contexts/embedsContext';
+import { Fields, NextPageWithLayout } from "utils/types";
+import { t } from 'utils/helpers';
+
+import { Webhook } from "types/guild/webhook";
+import { FullGuild } from "types/guild/guild";
+import { User } from "types/index";
+
+import { getGuild } from "api/guild";
+import { getUser } from "api/user";
+import { getWebhook } from "api/webhook";
+
+import styles from './index.module.scss';
+>>>>>>> Stashed changes
 
 type Props = {
     guild: FullGuild;

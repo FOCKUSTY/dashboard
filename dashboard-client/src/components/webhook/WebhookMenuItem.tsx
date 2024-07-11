@@ -1,7 +1,11 @@
 import { FC } from "react";
+<<<<<<< Updated upstream
 import { Webhook } from "types/guild/webhook";
 
 import Image from 'next/image'
+=======
+import { Webhook } from 'types/guild/webhook';
+>>>>>>> Stashed changes
 import styles from './index.module.scss';
 
 type Props = {

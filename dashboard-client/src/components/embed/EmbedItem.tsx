@@ -1,18 +1,23 @@
 import { FC, FormEvent, useContext, useState } from 'react';
+import { useRouter } from 'next/router';
+
 import { IoIosArrowForward } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
-import { EmbedsContext } from '@/src/utils/contexts/embedsContext';
-import { FieldsContext } from '@/src/utils/contexts/fieldContext';
+
+import { EmbedsContext } from 'utils/contexts/embedsContext';
+import { FieldsContext } from 'utils/contexts/fieldContext';
+
 import { FieldItem } from './field/FieldItem';
-import { t } from '../../utils/helpers';
-import { useRouter } from 'next/router';
-import { deleteHandler } from '@/src/utils/handlers/globalHandlers/deleteHandler';
-import { createHandler } from '@/src/utils/handlers/globalHandlers/createHandler';
-import { clickHandler } from '@/src/utils/handlers/localHandlers/clickHandler';
+import { t } from 'utils/helpers';
+
+import { deleteHandler } from 'handlers/globalHandlers/deleteHandler';
+import { createHandler } from 'handlers/globalHandlers/createHandler';
+import { clickHandler } from 'handlers/localHandlers/clickHandler';
+import { InputHandler, inputHandlerCount } from 'handlers/embedHandlers/inputHandler';
+import { ColorInputHandler, colorInputHandler, textareaColorInputHandler } from 'handlers/embedHandlers/colorInputHandler';
+
 import styles from './index.module.scss';
 import EPS from './embedPreview.module.scss';
-import { InputHandler, inputHandlerCount } from '@/src/utils/handlers/embedHandlers/inputHandler';
-import { ColorInputHandler, colorInputHandler, textareaColorInputHandler } from '@/src/utils/handlers/embedHandlers/colorInputHandler';
 
 type Props = {
     id: string;

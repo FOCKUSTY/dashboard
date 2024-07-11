@@ -1,8 +1,9 @@
-import styles from '../utils/styles/404.module.scss';
-import { pseudoRandomNumber } from '../utils/random';
 import { AnimationEvent } from 'react';
 import { useRouter } from 'next/router';
-import { t } from '../utils/helpers'
+
+import { t } from 'utils/helpers'
+import { pseudoRandomNumber } from 'utils/random';
+import styles from 'utils/styles/404.module.scss';
 
 const page404 = () =>
 {

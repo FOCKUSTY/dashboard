@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
-import styles from './index.module.scss';
 import { useRouter } from "next/router";
-import { TranslatedText } from '../../utils/locale';
+
+import { TranslatedText } from 'utils/locale';
+import styles from './index.module.scss';
 
 const DocumentationPage: NextPage = () =>
 {
