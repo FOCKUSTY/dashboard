@@ -1,26 +1,15 @@
-<<<<<<< Updated upstream
-import { FC } from "react";
-import { useRouter } from "next/router";
-import { t } from "helpers";
-=======
 import { useRouter } from "next/router";
 import { FC } from "react";
->>>>>>> Stashed changes
 
-import { sendHandler } from 'handlers/globalHandlers/sendHandler';
-import { inputNameHandler } from "handlers/localHandlers/nameInputHandler";
-import { inputURLHandler } from "handlers/localHandlers/urlInputHandler";
+import { SendHandler } from 'handlers/global/send-handler.directive';
+import { NameInputHandler } from "handlers/local/name-input-handler.directive";
+import { URLInputHandler } from "handlers/local/url-input-handler.directive";
+
 import { Webhook } from "types/guild/webhook";
-<<<<<<< Updated upstream
-
-import styles from './oneWebhook.module.scss';
-import webhooksStyles from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
-=======
 import { t } from "utils/helpers";
 
 import webhooksStyles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 import styles from './oneWebhook.module.scss';
->>>>>>> Stashed changes
 
 type Props = {
     webhook: Webhook
@@ -41,16 +30,23 @@ export const WebhookItem: FC<Props> = ({ webhook }) =>
                 
                 <div className={styles.name_container}>
                     <p>{t('Название', l)}:</p>
-                    <textarea maxLength={32} name="name" id={styles.name} onInput={inputNameHandler} defaultValue={webhook.name}></textarea>
+                    <textarea maxLength={32} name="name" id={styles.name} onInput={NameInputHandler} defaultValue={webhook.name}></textarea>
                 </div>
 
                 <div className={styles.name_container}>
                     <p>{t('URL аватара', l)}</p>
-                    <textarea name="avatar_url" id={styles.avatar_url} onInput={inputURLHandler}></textarea>
+                    <textarea name="avatar_url" id={styles.avatar_url} onInput={URLInputHandler}></textarea>
                 </div>
 
             </div>
-            <input className={webhooksStyles.btn} id={webhooksStyles.send} type="button" value={`${t('Отправить', l)}`} onClick={(e) => {sendHandler(webhook, e)}} />
+            
+            <input
+                className={webhooksStyles.btn}
+                id={webhooksStyles.send}
+                type="button"
+                value={`${t('Отправить', l)}`}
+                onClick={(e) => {SendHandler(webhook, e)}}
+            />
         </div>
     );
 };

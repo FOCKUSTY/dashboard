@@ -1,23 +1,4 @@
 import { ReactElement, useContext, useEffect, useState } from "react";
-<<<<<<< Updated upstream
-import { getWebhook, getGuild, getUser, getBackups } from "api";
-import { GuildContext } from "@/src/utils/contexts/guildContext";
-import { EmbedsContext } from '../../../../../utils/contexts/embedsContext';
-import { useRouter } from "next/router";
-import { WebhookItem } from "@/src/components/webhook/WebhookItem";
-import { t } from 'helpers';
-import styles from './index.module.scss';
-import { EmbedItem } from "@/src/components/embed/EmbedItem";
-import { EmbedPreviewItem } from "@/src/components/embed/EmbedPreviewItem";
-import { createHandler } from "@/src/utils/handlers/globalHandlers/createHandler";
-import { contentInputHandler } from "@/src/utils/handlers/localHandlers/contentInputHandler";
-import { Webhook } from "types/guild/webhook";
-import { FullGuild } from "types/guild/guild";
-import { User } from "types/index";
-import { linkHandler } from "@/src/utils/handlers/localHandlers/linkHandler";
-import { BackupModal } from "@/src/components/modals/backup";
-import { Backup } from "types/backups/backup";
-=======
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 
@@ -25,26 +6,28 @@ import { EmbedItem } from "components/embed/EmbedItem";
 import { EmbedPreviewItem } from "components/embed/EmbedPreviewItem";
 import { DashboardLayout } from "components/layouts/dashboard";
 import { WebhookItem } from "components/webhook/WebhookItem";
+import { BackupModal } from "components/modals/backup";
 
-import { createHandler } from "handlers/globalHandlers/createHandler";
-import { contentInputHandler } from "handlers/localHandlers/contentInputHandler";
-import { linkHandler } from "handlers/localHandlers/linkHandler";
+import { CreateHandler } from "handlers/global/create-handler.directive";
+import { ContentInputHandler } from "handlers/local/content-input-handler.directive";
+import { LinkHandler } from "handlers/local/link-handler.directive";
 
-import { GuildContext } from "utils/contexts/guildContext";
-import { EmbedsContext } from 'utils/contexts/embedsContext';
+import { GuildContext } from "utils/contexts/guild.context";
+import { EmbedsContext } from 'utils/contexts/embed.context';
 import { Fields, NextPageWithLayout } from "utils/types";
 import { t } from 'utils/helpers';
 
 import { Webhook } from "types/guild/webhook";
 import { FullGuild } from "types/guild/guild";
+import { Backup } from "types/backups/backup";
 import { User } from "types/index";
 
-import { getGuild } from "api/guild";
-import { getUser } from "api/user";
-import { getWebhook } from "api/webhook";
+import { getGuild } from "api/guild-api.service";
+import { getUser } from "api/user-api.service";
+import { getWebhook } from "api/webhook-api.service";
+import { getBackups } from "api/backup-api.service";
 
 import styles from './index.module.scss';
->>>>>>> Stashed changes
 
 type Props = {
     guild: FullGuild;
@@ -90,7 +73,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook, backups 
                             maxLength={2000}
                             name="content"
                             id={styles.content}
-                            onInput={contentInputHandler}
+                            onInput={ContentInputHandler}
                             defaultValue={`${t('Привет', l)}!`}
                         ></textarea>
                         <div id={styles.embed_container}>
@@ -111,7 +94,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook, backups 
                             <button
                                 id={styles.embed_createbtn}
                                 className={styles.btn}
-                                onClick={(event) => createHandler({
+                                onClick={(event) => CreateHandler({
                                     count: count,
                                     attacments: embeds,
                                     maxAttacments: 10,
@@ -162,7 +145,12 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook, backups 
 
                     <div id={styles.input_container}>
                         <input id={styles.input_message_id} type="text" placeholder="https://discord.com/channels/{guildId}/{channelId}/{messageId}"/>
-                        <input id={styles.submit_message_id} type="submit" className={styles.btn} onClick={(e) => linkHandler(e, l)}/>
+                        <input
+                            id={styles.submit_message_id}
+                            type="submit"
+                            className={styles.btn}
+                            onClick={(e) => LinkHandler(e, l)}
+                        />
                     </div>
                 </div>
 

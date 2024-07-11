@@ -4,17 +4,17 @@ import { useRouter } from 'next/router';
 import { IoIosArrowForward } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
 
-import { EmbedsContext } from 'utils/contexts/embedsContext';
-import { FieldsContext } from 'utils/contexts/fieldContext';
+import { EmbedsContext } from 'utils/contexts/embed.context';
+import { FieldsContext } from 'utils/contexts/field.context';
 
 import { FieldItem } from './field/FieldItem';
 import { t } from 'utils/helpers';
 
-import { deleteHandler } from 'handlers/globalHandlers/deleteHandler';
-import { createHandler } from 'handlers/globalHandlers/createHandler';
-import { clickHandler } from 'handlers/localHandlers/clickHandler';
-import { InputHandler, inputHandlerCount } from 'handlers/embedHandlers/inputHandler';
-import { ColorInputHandler, colorInputHandler, textareaColorInputHandler } from 'handlers/embedHandlers/colorInputHandler';
+import { DeleteEmbedHandler } from 'handlers/global/delete-handler.directive';
+import { CreateHandler } from 'handlers/global/create-handler.directive';
+import { ClickHandler } from 'handlers/local/click-handler.directive';
+import { InputHandler, Counter } from 'handlers/embed/input-handler.directive';
+import { ColorHandlerInInput, ColorHandlerInTextarea, MainColorHandler} from 'handlers/embed/color-handler.directive';
 
 import styles from './index.module.scss';
 import EPS from './embedPreview.module.scss';
@@ -46,7 +46,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
             <div id={styles.container_right}>
                 <div id={styles.embed_title}>
                     <div className={styles.container_title} onClick={(e) =>
-                        clickHandler({
+                        ClickHandler({
                             event: e,
                             containerId: styles.inner_container,
                             arrowId: styles.embed_arrow, containers,
@@ -55,13 +55,17 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                         <IoIosArrowForward id={styles.embed_arrow}/>
                         <span>Embed {Number(id)+1}</span>
                     </div>
-                    <RxCrossCircled size={30} id={styles.cross} onClick={() => deleteHandler(id, embeds!, setEmbed, _fields, setField)}/>
+                    <RxCrossCircled
+                        size={30}
+                        id={styles.cross}
+                        onClick={() => DeleteEmbedHandler(id, embeds!, setEmbed, _fields, setField)}
+                    />
                 </div>
                 
                 <div id={styles.inner_container}>
                     <div className={styles.author}>
                         <div className={styles.container_title} onClick={(e) =>
-                            clickHandler({
+                            ClickHandler({
                                 event: e,
                                 containerId: styles.author_container,
                                 arrowId: styles.author_arrow, containers,
@@ -78,7 +82,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                                     className={styles.textarea}
                                     id={styles.textarea_author_nickname}
                                     onInput={(e: FormEvent<HTMLTextAreaElement>) => {
-                                        inputHandlerCount(e, styles.author_nickname_count, styles.textarea_author_nickname, 256, name);
+                                        Counter(e, styles.author_nickname_count, styles.textarea_author_nickname, 256, name);
                                         InputHandler({
                                             event: e,
                                             previewId: EPS.author_nickname,
@@ -116,7 +120,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
 
                     <div className={styles.body}>
                         <div className={styles.container_title} onClick={(e) =>
-                            clickHandler({
+                            ClickHandler({
                                 event: e,
                                 containerId: styles.body_container,
                                 arrowId: styles.body_arrow, containers,
@@ -134,7 +138,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                                     name="body_title"
                                     id={styles.textarea_body_title}
                                     onInput={(e: FormEvent<HTMLTextAreaElement>) => {
-                                        inputHandlerCount(e, styles.body_title_count, styles.textarea_body_title, 256, name);
+                                        Counter(e, styles.body_title_count, styles.textarea_body_title, 256, name);
                                         InputHandler({
                                             event: e,
                                             previewId: EPS.body_title,
@@ -152,7 +156,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                                     name="body_description"
                                     id={styles.textarea_body_description}
                                     onInput={(e: FormEvent<HTMLTextAreaElement>) => {
-                                        inputHandlerCount(e, styles.body_body_count, styles.textarea_body_description, 4096, name);
+                                        Counter(e, styles.body_body_count, styles.textarea_body_description, 4096, name);
                                         InputHandler({
                                             event: e,
                                             previewId: EPS.body_content, 
@@ -179,12 +183,12 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                                 <div className={styles.color_container}>
                                     <textarea maxLength={7} name='color_value' className={`${styles.url} ${styles.textarea}`} id={styles.color_value}
                                         onInput={(e) => {
-                                            textareaColorInputHandler(e, name, styles);
-                                            ColorInputHandler(e, name);
+                                            ColorHandlerInTextarea(e, name, styles);
+                                            ColorHandlerInInput(e, name);
                                         }} defaultValue={'#202225'}></textarea>
                                     <input type="color" name="body_color" id={styles.input_body_color} onInput={(e) => {
-                                        colorInputHandler(e, styles.color_value, name, styles);
-                                        ColorInputHandler(e, name);
+                                        MainColorHandler(e, styles.color_value, name, styles);
+                                        ColorHandlerInInput(e, name);
                                     }} defaultValue={'#202225'}/>
                                 </div>
                             </div>
@@ -192,7 +196,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                     </div>
                     
                     <div className={styles.fields}>
-                        <div className={styles.container_title} onClick={(e) => clickHandler({
+                        <div className={styles.container_title} onClick={(e) => ClickHandler({
                                 event: e,
                                 containerId: styles.fields_container,
                                 arrowId: styles.fields_arrow, containers,
@@ -216,7 +220,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                             <button
                                 id={styles.field_createbtn}
                                 className={styles.btn}
-                                onClick={(event) => createHandler({
+                                onClick={(event) => CreateHandler({
                                     attacments: fields,
                                     maxAttacments: 25,
                                     setAttachment: setField,
@@ -230,7 +234,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                     
                     <div className={styles.images}>
                         <div className={styles.container_title} onClick={(e) =>
-                            clickHandler({
+                            ClickHandler({
                                 event: e,
                                 containerId: styles.images_container,
                                 arrowId: styles.images_arrow, containers,
@@ -267,7 +271,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
 
                     <div className={styles.footer}>
                         <div className={styles.container_title} onClick={(e) =>
-                            clickHandler({
+                            ClickHandler({
                                 event: e,
                                 containerId: styles.footer_container,
                                 arrowId: styles.footer_arrow, containers,
@@ -285,7 +289,7 @@ export const EmbedItem: FC<Props> = ({ id, setEmbed, _fields, setField }) =>
                                     name="footer"
                                     id={styles.footer_content}
                                     onInput={(e) => {
-                                        inputHandlerCount(e, styles.footer_body_count, styles.footer_content, 2048, name);
+                                        Counter(e, styles.footer_body_count, styles.footer_content, 2048, name);
                                         InputHandler({
                                             event: e,
                                             previewId: EPS.footer_content, 

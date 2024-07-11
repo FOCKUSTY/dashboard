@@ -3,7 +3,7 @@ import { ReactElement, useContext } from "react";
 import { Sidebar } from "../misc/Sidebar";
 import { Appbar } from "../misc/Appbar";
 
-import { GuildContext } from "utils/contexts/guildContext";
+import { GuildContext } from "utils/contexts/guild.context";
 
 import styles from '../misc/index.module.scss';
 

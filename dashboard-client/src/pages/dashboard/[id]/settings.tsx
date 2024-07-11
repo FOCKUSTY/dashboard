@@ -3,12 +3,12 @@ import { ReactElement, useContext, useEffect } from "react";
 import { GetServerSidePropsContext } from "next";
 
 import { FullGuild } from "types/guild/guild";
-import { GuildContext } from "utils/contexts/guildContext";
+import { GuildContext } from "utils/contexts/guild.context";
 import { NextPageWithLayout } from "utils/types";
 import { User } from "types/index";
 
-import { getGuild } from "api/guild";
-import { getUser } from "api/user";
+import { getGuild } from "@/src/utils/api/guild-api.service";
+import { getUser } from "@/src/utils/api/user-api.service";
 
 type Props = {
     guild: FullGuild;

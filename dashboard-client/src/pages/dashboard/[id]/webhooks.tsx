@@ -8,17 +8,15 @@ import { WebhookMenuItem } from "components/webhook/WebhookMenuItem";
 import { FullGuild } from "types/guild/guild";
 import { User } from "types/index";
 import { Webhook } from "types/guild/webhook";
-<<<<<<< Updated upstream
-import styles from './webhooks.module.scss';
-=======
 import { NextPageWithLayout } from "utils/types";
 
-import { GuildContext } from "utils/contexts/guildContext";
+import { GuildContext } from "utils/contexts/guild.context";
 
-import { getGuild } from "api/guild";
-import { getUser } from "api/user";
-import { fetchWebhooks } from "api/webhook";
->>>>>>> Stashed changes
+import { getGuild } from "api/guild-api.service";
+import { getUser } from "api/user-api.service";
+import { fetchWebhooks } from "api/webhook-api.service";
+
+import styles from './webhooks.module.scss'
 
 type Props = {
     guild: FullGuild;

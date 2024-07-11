@@ -1,4 +1,4 @@
-import { FullGuild } from './guild/guild';
+import { FullGuild } from './guild/guild.type';
 
 export type TagObject = {
     id: string

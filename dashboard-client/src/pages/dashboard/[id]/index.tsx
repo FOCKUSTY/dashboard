@@ -7,11 +7,11 @@ import { FullGuild } from "types/guild/guild";
 import { User } from "types/index";
 
 import { DashboardLayout } from "components/layouts/dashboard";
-import { GuildContext } from "utils/contexts/guildContext";
+import { GuildContext } from "utils/contexts/guild.context";
 import { t } from 'utils/helpers';
 
-import { getGuild } from "api/guild";
-import { getUser } from "api/user";
+import { getGuild } from "@/src/utils/api/guild-api.service";
+import { getUser } from "@/src/utils/api/user-api.service";
 
 import styles from './index.module.scss';
 
