@@ -1,0 +1,50 @@
+#background {
+    position: fixed;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+
+    top: 0;
+    left: 0;
+
+    background-color: #0000006f;
+
+    z-index: 20;
+}
+
+.modal {
+    position: relative;
+
+    background-color: #313131;
+
+    min-height: 500px;
+    min-width: 300px;
+
+    height: 85%;
+    width: 60%;
+
+    border-radius: 20px;
+    z-index: 21;
+}
+
+
+.backup_container {
+    display: flex;
+}
+
+.text_input {
+    border-radius: 10px;
+    border: 1px solid #424242;
+    
+    background-color: #1d1d1d;
+    color: #fff;
+    
+    resize: none;
+
+    margin: 10px;
+    padding: 10px 20px;
+}
