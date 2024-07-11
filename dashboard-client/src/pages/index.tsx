@@ -10,7 +10,7 @@ import Link from "next/link";
 import { t } from '../utils/helpers'
 import config from '../../config.json'
 import { getUser } from "../utils/api";
-import { User } from "../utils/types";
+import { User } from "types/index";
 
 type Props = {
     user?: User

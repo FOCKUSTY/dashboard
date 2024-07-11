@@ -7,10 +7,12 @@ body {
 
   *::-webkit-scrollbar {
     width: 12px;
+    border-radius: 12px;
   }
   
   *::-webkit-scrollbar-track {
     background: #121212;
+    border-radius: 12px;
   }
   
   *::-webkit-scrollbar-thumb {

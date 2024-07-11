@@ -1,12 +1,14 @@
 import { FC } from "react";
+import { useRouter } from "next/router";
+import { t } from "helpers";
+
+import { sendHandler } from 'handlers/globalHandlers/sendHandler';
+import { inputNameHandler } from "handlers/localHandlers/nameInputHandler";
+import { inputURLHandler } from "handlers/localHandlers/urlInputHandler";
+import { Webhook } from "types/guild/webhook";
+
 import styles from './oneWebhook.module.scss';
 import webhooksStyles from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
-import { sendHandler } from '@/src/utils/handlers/globalHandlers/sendHandler';
-import { useRouter } from "next/router";
-import { t } from "@/src/utils/helpers";
-import { inputNameHandler } from "@/src/utils/handlers/localHandlers/nameInputHandler";
-import { inputURLHandler } from "@/src/utils/handlers/localHandlers/urlInputHandler";
-import { Webhook } from "types/guild/webhook";
 
 type Props = {
     webhook: Webhook
@@ -23,17 +25,17 @@ export const WebhookItem: FC<Props> = ({ webhook }) =>
     return (
         <div className={styles.container}>
             <div className={styles.inner}>
-            <img src={avatarsrc} id={styles.avatar} alt={webhook.name} />
-            
-            <div className={styles.name_container}>
-                <p>{t('Название', l)}:</p>
-                <textarea maxLength={32} name="name" id={styles.name} onInput={inputNameHandler} defaultValue={webhook.name}></textarea>
-            </div>
+                <img src={avatarsrc} id={styles.avatar} alt={webhook.name} />
+                
+                <div className={styles.name_container}>
+                    <p>{t('Название', l)}:</p>
+                    <textarea maxLength={32} name="name" id={styles.name} onInput={inputNameHandler} defaultValue={webhook.name}></textarea>
+                </div>
 
-            <div className={styles.name_container}>
-                <p>{t('URL аватара', l)}</p>
-                <textarea name="avatar_url" id={styles.avatar_url} onInput={inputURLHandler}></textarea>
-            </div>
+                <div className={styles.name_container}>
+                    <p>{t('URL аватара', l)}</p>
+                    <textarea name="avatar_url" id={styles.avatar_url} onInput={inputURLHandler}></textarea>
+                </div>
 
             </div>
             <input className={webhooksStyles.btn} id={webhooksStyles.send} type="button" value={`${t('Отправить', l)}`} onClick={(e) => {sendHandler(webhook, e)}} />

@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { FullGuild } from "types/guild/guild";
 import { User } from "types/index";
 import { Webhook } from "types/guild/webhook";
+import styles from './webhooks.module.scss';
 
 type Props = {
     guild: FullGuild;
@@ -26,13 +27,21 @@ const WebhooksPage: NextPageWithLayout<Props> = ({ guild, user, webhooks }) =>
     }, []);
 
     return (
-        <div className="page">
-            <p>{guild?.name}'s webhooks page</p>
-            {webhooks.map((webhook: Webhook) => 
-                <div key={webhook.id} onClick={() => { router.push(`/dashboard/${guild.id}/webhooks/${webhook.id}`) }}>
-                    <WebhookMenuItem webhook={webhook} />
-                </div>
-            )}
+        <div className={`${styles.page} page`}>
+
+            <div className={styles.title}>
+                <p>{guild?.name}'s webhooks page</p>
+            </div>
+
+            <div className={styles.container}>
+                <div className={styles.webhooks}>
+                    {webhooks.map((webhook: Webhook) => 
+                        <div key={webhook.id} onClick={() => { router.push(`/dashboard/${guild.id}/webhooks/${webhook.id}`) }}>
+                            <WebhookMenuItem webhook={webhook} />
+                        </div>
+                    )}
+                </div>                
+            </div>
         </div>
     );
 };
@@ -47,7 +56,7 @@ export async function getServerSideProps (ctx: GetServerSidePropsContext)
     const guild = (await getGuild(ctx)).props;
     const user = (await getUser(ctx)).props;
     const webhooks = (await fetchWebhooks(ctx))?.props;
-
+    
     return {
         props: {
             guild: guild?.guild!,

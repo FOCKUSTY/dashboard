@@ -1,0 +1,46 @@
+.page {
+    display: block;
+    height: 100%;
+}
+
+.btn {
+    background-color: rgb(88, 101, 242);
+    color: #fff;
+    
+    border-radius: 15px;
+    border: 0;
+
+    font-size: 12px;
+    font-weight: 300;
+    
+    transition: 1s;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+  
+.btn:hover {
+    background-color: rgb(81, 95, 249);
+    padding: 0.5em 1.5em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0.5em 0;
+}
+
+.webhooks {
+    display: block;
+    max-height: 90%;
+    overflow-x: auto;
+}
+
+.title {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0.25em 0.5em;
+    align-items: center;
+    margin: 0.5em 0;
+}
