@@ -1,5 +1,11 @@
 import { User } from '../index';
 
+export type StickerItem = {
+    id: string
+    name: string
+    format_type: number;
+}
+
 export type Sticker = {
     id: string;
     pack_id?: string;
