@@ -1,14 +1,26 @@
+<<<<<<< Updated upstream
 import { FC } from "react";
 import { useRouter } from "next/router";
 import { t } from "helpers";
+=======
+import { useRouter } from "next/router";
+import { FC } from "react";
+>>>>>>> Stashed changes
 
 import { sendHandler } from 'handlers/globalHandlers/sendHandler';
 import { inputNameHandler } from "handlers/localHandlers/nameInputHandler";
 import { inputURLHandler } from "handlers/localHandlers/urlInputHandler";
 import { Webhook } from "types/guild/webhook";
+<<<<<<< Updated upstream
 
 import styles from './oneWebhook.module.scss';
 import webhooksStyles from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+=======
+import { t } from "utils/helpers";
+
+import webhooksStyles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+import styles from './oneWebhook.module.scss';
+>>>>>>> Stashed changes
 
 type Props = {
     webhook: Webhook

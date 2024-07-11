@@ -1,6 +1,6 @@
-import { FC, } from 'react';
-import styles from './embedPreview.module.scss';
+import { FC } from 'react';
 import { FieldPreviewItem } from './field/FieldPreviewItem'
+import styles from './embedPreview.module.scss';
 
 type Props = {
     id: string;

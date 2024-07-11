@@ -1,15 +1,24 @@
-import { GuildContext } from "../../../utils/contexts/guildContext";
-import { DashboardLayout } from "../../../components/layouts/dashboard";
-import { NextPageWithLayout } from "../../../utils/types";
 import { ReactElement, useContext, useEffect } from "react";
-import { fetchWebhooks, getGuild, getUser } from "@/src/utils/api";
 import { GetServerSidePropsContext } from "next";
-import { WebhookMenuItem } from "@/src/components/webhook/WebhookMenuItem";
 import { useRouter } from "next/router";
+
+import { DashboardLayout } from "components/layouts/dashboard";
+import { WebhookMenuItem } from "components/webhook/WebhookMenuItem";
+
 import { FullGuild } from "types/guild/guild";
 import { User } from "types/index";
 import { Webhook } from "types/guild/webhook";
+<<<<<<< Updated upstream
 import styles from './webhooks.module.scss';
+=======
+import { NextPageWithLayout } from "utils/types";
+
+import { GuildContext } from "utils/contexts/guildContext";
+
+import { getGuild } from "api/guild";
+import { getUser } from "api/user";
+import { fetchWebhooks } from "api/webhook";
+>>>>>>> Stashed changes
 
 type Props = {
     guild: FullGuild;

@@ -19,12 +19,22 @@
     ],
     "paths": {
       "@/*": ["./*"],
+<<<<<<< Updated upstream
       "components/*": ["./src/components/*"],
       "pages/*": ["./src/pages/*"],
       "types/*": ["../utility/types/*"],
       "handlers/*": ["./src/utils/handlers/*"],
       "helpers": ["./src/utils/helpers"],
       "api": ["./src/utils/api"]
+=======
+      "types/*": ["../utility/types/*"],
+      "api/*": ["./src/utils/api/*"],
+      "handlers/*": ["./src/utils/handlers/*"],
+      "locales/*": ["./src/utils/locales/*"],
+      "components/*": ["./src/components/*"],
+      "pages/*": ["./src/pages/*"],
+      "utils/*": ["./src/utils/*"]
+>>>>>>> Stashed changes
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

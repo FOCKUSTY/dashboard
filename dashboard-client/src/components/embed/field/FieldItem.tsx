@@ -1,13 +1,15 @@
 import { FC, FormEvent } from 'react';
 import { IoIosArrowForward } from "react-icons/io"
+import { RxCrossCircled } from 'react-icons/rx';
+
+import { clickHandler } from 'handlers/localHandlers/clickHandler';
+import { deleteFieldHandler } from 'handlers/globalHandlers/deleteHandler';
+import { inputHandlerCount } from 'handlers/embedHandlers/inputHandler';
+import { InputHandler } from 'handlers/fieldHandlers/inputHandler';
+import { checkboxInputHandler } from 'handlers/fieldHandlers/checkboxInputHandler';
+
 import styles from './index.module.scss';
 import FPS from './fieldPreview.module.scss';
-import { RxCrossCircled } from 'react-icons/rx';
-import { clickHandler } from '@/src/utils/handlers/localHandlers/clickHandler';
-import { deleteFieldHandler } from '@/src/utils/handlers/globalHandlers/deleteHandler';
-import { inputHandlerCount } from '@/src/utils/handlers/embedHandlers/inputHandler';
-import { InputHandler } from '@/src/utils/handlers/fieldHandlers/inputHandler';
-import { checkboxInputHandler } from '@/src/utils/handlers/fieldHandlers/checkboxInputHandler';
 
 type Props = {
     id: string;
