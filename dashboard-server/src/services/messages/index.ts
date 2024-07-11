@@ -5,7 +5,7 @@ import { Message } from "types/message/message";
 export async function getMessageService(channelId: string, messageId: string) {
     const TOKEN = process.env.DISCORD_BOT_TOKEN;
 
-    return (await axios.get<Message>(`${DISCORD_API_URL}/channels/${channelId}/messages/${messageId}`,{
+    return (await axios.get<Message>(`${DISCORD_API_URL}/channels/${channelId}/messages/${messageId}`, {
         headers: { Authorization: `Bot ${TOKEN}` }
     })).data;
 };
