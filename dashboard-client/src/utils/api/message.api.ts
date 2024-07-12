@@ -1,4 +1,4 @@
-import { Message } from "types/message/message";
+import { Message } from "types/message/message.type";
 import { API_URL } from "./api";
 import axios from "axios";
 import { ColorResolvable } from "discord.js";

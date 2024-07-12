@@ -10,11 +10,11 @@ import { FieldsContext } from 'utils/contexts/field.context';
 import { FieldItem } from './field/FieldItem';
 import { t } from 'utils/helpers';
 
-import { DeleteEmbedHandler } from 'handlers/global/delete-handler.directive';
-import { CreateHandler } from 'handlers/global/create-handler.directive';
-import { ClickHandler } from 'handlers/local/click-handler.directive';
-import { InputHandler, Counter } from 'handlers/embed/input-handler.directive';
-import { ColorHandlerInInput, ColorHandlerInTextarea, MainColorHandler} from 'handlers/embed/color-handler.directive';
+import { ColorHandlerInInput, ColorHandlerInTextarea, MainColorHandler } from 'handlers/embed/color.handler';
+import { DeleteEmbedHandler } from 'handlers/global/delete.handler';
+import { CreateHandler } from 'handlers/global/create.handler';
+import { ClickHandler } from 'handlers/local/click.handler';
+import { InputHandler, Counter } from 'handlers/embed/input.handler';
 
 import styles from './index.module.scss';
 import EPS from './embedPreview.module.scss';

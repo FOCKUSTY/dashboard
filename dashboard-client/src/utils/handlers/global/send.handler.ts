@@ -5,9 +5,9 @@ import WS from 'components/webhook/oneWebhook.module.scss';
 import ES from 'components/embed/index.module.scss';
 import FS from 'components/embed/field/index.module.scss';
 
-import { Webhook } from "types/guild/webhook";
-import { sendWebhookMessage } from "api/webhook-api.service";
-import { getMessageData } from "api/message-api.service";
+import { Webhook } from "types/guild/webhook.type";
+import { sendWebhookMessage } from "@/src/utils/api/webhook.api";
+import { getMessageData } from "@/src/utils/api/message.api";
 
 export const SendHandler = async (webhook: Webhook, e: FormEvent) =>
 {

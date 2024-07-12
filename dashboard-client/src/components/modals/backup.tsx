@@ -6,10 +6,10 @@ import { t } from "utils/helpers";
 import main from './index.module.scss';
 import styles from './backup.module.scss';
 
-import { ClickOnBackgroundHandler } from 'handlers/modal/click-on-background-handler.directive'
-import { SaveHandler } from "handlers/modal/backup/save-handler.directive";
+import { ClickOnBackgroundHandler } from '@/src/utils/handlers/modal/click-on-background.handler'
+import { SaveHandler } from "@/src/utils/handlers/backup/save.handler";
 
-import { Backup } from "types/backups/backup";
+import { Backup } from "types/backups/backups.type";
 import { BackupItem } from '../backups/backup';
 
 type Props = {

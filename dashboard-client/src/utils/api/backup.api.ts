@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next"
 import { sendWebhookMessageType } from "../types";
-import { Backup } from "types/backups/backup";
+import { Backup } from "types/backups/backups.type";
 import { validateCookies } from "../helpers";
 import { API_URL } from "./api";
 import axios from "axios";

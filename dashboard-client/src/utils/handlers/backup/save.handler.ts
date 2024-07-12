@@ -1,5 +1,5 @@
-import { saveBackupServer } from "api/backup-api.service";
-import { getMessageData } from "api/message-api.service";
+import { saveBackupServer } from "@/src/utils/api/backup.api";
+import { getMessageData } from "@/src/utils/api/message.api";
 import { FormEvent } from "react";
 
 import styles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';

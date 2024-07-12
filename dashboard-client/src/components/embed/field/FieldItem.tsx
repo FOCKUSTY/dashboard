@@ -2,11 +2,11 @@ import { FC, FormEvent } from 'react';
 import { IoIosArrowForward } from "react-icons/io"
 import { RxCrossCircled } from 'react-icons/rx';
 
-import { ClickHandler } from 'handlers/local/click-handler.directive';
-import { DeleteFieldHandler } from 'handlers/global/delete-handler.directive';
-import { Counter, InputHandler } from 'handlers/embed/input-handler.directive';
-import { FieldInputHandler } from 'handlers/field/input-handler.directive';
-import { CheckboxInputHandler } from 'handlers/field/checkbox-input-handler.directive';
+import { ClickHandler } from '@/src/utils/handlers/local/click.handler';
+import { DeleteFieldHandler } from '@/src/utils/handlers/global/delete.handler';
+import { Counter, InputHandler } from '@/src/utils/handlers/embed/input.handler';
+import { FieldInputHandler } from '@/src/utils/handlers/field/input.handler';
+import { CheckboxInputHandler } from '@/src/utils/handlers/field/checkbox-input.handler';
 
 import styles from './index.module.scss';
 import FPS from './fieldPreview.module.scss';

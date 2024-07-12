@@ -1,6 +1,6 @@
 import { sendWebhookMessageType } from '../types';
 import { GetServerSidePropsContext } from "next"
-import { Webhook } from 'types/guild/webhook';
+import { Webhook } from 'types/guild/webhook.type';
 import { validateCookies } from "../helpers";
 import { API_URL } from './api';
 import axios from "axios";

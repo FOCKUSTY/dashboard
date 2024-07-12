@@ -8,24 +8,24 @@ import { DashboardLayout } from "components/layouts/dashboard";
 import { WebhookItem } from "components/webhook/WebhookItem";
 import { BackupModal } from "components/modals/backup";
 
-import { CreateHandler } from "handlers/global/create-handler.directive";
-import { ContentInputHandler } from "handlers/local/content-input-handler.directive";
-import { LinkHandler } from "handlers/local/link-handler.directive";
+import { CreateHandler } from "@/src/utils/handlers/global/create.handler";
+import { ContentInputHandler } from "@/src/utils/handlers/webhook/content-input.handler";
+import { LinkHandler } from "@/src/utils/handlers/local/link.handler";
 
 import { GuildContext } from "utils/contexts/guild.context";
 import { EmbedsContext } from 'utils/contexts/embed.context';
 import { Fields, NextPageWithLayout } from "utils/types";
 import { t } from 'utils/helpers';
 
-import { Webhook } from "types/guild/webhook";
-import { FullGuild } from "types/guild/guild";
-import { Backup } from "types/backups/backup";
+import { Webhook } from "types/guild/webhook.type";
+import { FullGuild } from "types/guild/guild.type";
+import { Backup } from "types/backups/backups.type";
 import { User } from "types/index";
 
-import { getGuild } from "api/guild-api.service";
-import { getUser } from "api/user-api.service";
-import { getWebhook } from "api/webhook-api.service";
-import { getBackups } from "api/backup-api.service";
+import { getGuild } from "@/src/utils/api/guild.api";
+import { getUser } from "@/src/utils/api/user.api";
+import { getWebhook } from "@/src/utils/api/webhook.api";
+import { getBackups } from "@/src/utils/api/backup.api";
 
 import styles from './index.module.scss';
 

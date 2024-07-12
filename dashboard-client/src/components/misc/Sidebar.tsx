@@ -7,7 +7,7 @@ import { PiWebhooksLogoBold } from "react-icons/pi";
 import Image from "next/image";
 
 import { getIcon } from "utils/helpers";
-import { FullGuild } from "types/guild/guild";
+import { FullGuild } from "types/guild/guild.type";
 
 import styles from './index.module.scss'
 

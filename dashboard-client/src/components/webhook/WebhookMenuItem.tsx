@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Webhook } from "types/guild/webhook";
+import { Webhook } from "types/guild/webhook.type";
 
 import Image from 'next/image'
 import styles from './index.module.scss';

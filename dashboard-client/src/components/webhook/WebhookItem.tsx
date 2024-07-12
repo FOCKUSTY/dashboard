@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { FC } from "react";
 
-import { SendHandler } from 'handlers/global/send-handler.directive';
-import { NameInputHandler } from "handlers/local/name-input-handler.directive";
-import { URLInputHandler } from "handlers/local/url-input-handler.directive";
+import { SendHandler } from '@/src/utils/handlers/global/send.handler';
+import { NameInputHandler } from "@/src/utils/handlers/webhook/name-input.handler";
+import { URLInputHandler } from "@/src/utils/handlers/webhook/url-input.handler";
 
-import { Webhook } from "types/guild/webhook";
+import { Webhook } from "types/guild/webhook.type";
 import { t } from "utils/helpers";
 
 import webhooksStyles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';

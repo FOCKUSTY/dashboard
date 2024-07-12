@@ -1,6 +1,6 @@
 import { FormEvent } from "react";
 
-import { getMessage } from "api/message-api.service";
+import { getMessage } from "@/src/utils/api/message.api";
 import { t } from '../../helpers';
 
 import WS from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss'

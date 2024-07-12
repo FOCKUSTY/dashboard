@@ -1,4 +1,4 @@
-import { PartialGuild } from "types/guild/guild";
+import { PartialGuild } from "types/guild/guild.type";
 import { GetServerSidePropsContext } from "next"
 import { validateCookies } from "../helpers";
 import { API_URL } from "./api";

@@ -5,16 +5,16 @@ import { useRouter } from "next/router";
 import { DashboardLayout } from "components/layouts/dashboard";
 import { WebhookMenuItem } from "components/webhook/WebhookMenuItem";
 
-import { FullGuild } from "types/guild/guild";
+import { FullGuild } from "types/guild/guild.type";
 import { User } from "types/index";
-import { Webhook } from "types/guild/webhook";
+import { Webhook } from "types/guild/webhook.type";
 import { NextPageWithLayout } from "utils/types";
 
 import { GuildContext } from "utils/contexts/guild.context";
 
-import { getGuild } from "api/guild-api.service";
-import { getUser } from "api/user-api.service";
-import { fetchWebhooks } from "api/webhook-api.service";
+import { getGuild } from "@/src/utils/api/guild.api";
+import { getUser } from "@/src/utils/api/user.api";
+import { fetchWebhooks } from "@/src/utils/api/webhook.api";
 
 import styles from './webhooks.module.scss'
 

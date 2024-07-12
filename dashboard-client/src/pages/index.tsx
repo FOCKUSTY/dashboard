@@ -10,7 +10,7 @@ import { CiLogin } from 'react-icons/ci';
 
 import { t } from 'utils/helpers';
 import { User } from 'types/index';
-import { getUser } from "api/user-api.service";
+import { getUser } from "@/src/utils/api/user.api";
 
 import styles from 'utils/styles/home.module.scss';
 import config from '../../config.json';
