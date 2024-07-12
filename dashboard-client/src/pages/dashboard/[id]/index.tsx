@@ -3,15 +3,15 @@ import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 
 import { NextPageWithLayout } from "utils/types";
-import { FullGuild } from "types/guild/guild";
+import { FullGuild } from "types/guild/guild.type";
 import { User } from "types/index";
 
 import { DashboardLayout } from "components/layouts/dashboard";
-import { GuildContext } from "utils/contexts/guildContext";
+import { GuildContext } from "utils/contexts/guild.context";
 import { t } from 'utils/helpers';
 
-import { getGuild } from "api/guild";
-import { getUser } from "api/user";
+import { getGuild } from "@/src/utils/api/guild.api";
+import { getUser } from "@/src/utils/api/user.api";
 
 import styles from './index.module.scss';
 

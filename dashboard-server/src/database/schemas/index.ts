@@ -1,3 +1,4 @@
-import User from './User';
+import User from './user.schema';
+import Backup from './backup.schema';
 
-export { User };
+export { User, Backup };

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { RiMenu3Line } from 'react-icons/ri'
 
 import { t } from 'utils/helpers';
-import { FullGuild } from 'types/guild/guild';
+import { FullGuild } from 'types/guild/guild.type';
 
 import styles from './index.module.scss'
 

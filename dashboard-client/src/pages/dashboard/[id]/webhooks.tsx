@@ -5,20 +5,18 @@ import { useRouter } from "next/router";
 import { DashboardLayout } from "components/layouts/dashboard";
 import { WebhookMenuItem } from "components/webhook/WebhookMenuItem";
 
-import { FullGuild } from "types/guild/guild";
+import { FullGuild } from "types/guild/guild.type";
 import { User } from "types/index";
-import { Webhook } from "types/guild/webhook";
-<<<<<<< Updated upstream
-import styles from './webhooks.module.scss';
-=======
+import { Webhook } from "types/guild/webhook.type";
 import { NextPageWithLayout } from "utils/types";
 
-import { GuildContext } from "utils/contexts/guildContext";
+import { GuildContext } from "utils/contexts/guild.context";
 
-import { getGuild } from "api/guild";
-import { getUser } from "api/user";
-import { fetchWebhooks } from "api/webhook";
->>>>>>> Stashed changes
+import { getGuild } from "@/src/utils/api/guild.api";
+import { getUser } from "@/src/utils/api/user.api";
+import { fetchWebhooks } from "@/src/utils/api/webhook.api";
+
+import styles from './webhooks.module.scss'
 
 type Props = {
     guild: FullGuild;

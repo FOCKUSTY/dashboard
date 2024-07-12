@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import 'utils/styles/globals.scss';
 
-import { GuildContext } from 'utils/contexts/guildContext';
+import { GuildContext } from 'utils/contexts/guild.context';
 import { AppPropsWithLayout } from 'utils/types';
-import { FullGuild } from 'types/guild/guild';
+import { FullGuild } from 'types/guild/guild.type';
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout<any>) =>
 {

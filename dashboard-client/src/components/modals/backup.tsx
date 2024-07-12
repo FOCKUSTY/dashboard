@@ -1,13 +1,15 @@
 import { FC } from "react";
 import { useRouter } from "next/router";
 import { User } from "types/index"
-import { t } from "helpers";
-import { clickOnBackground } from 'handlers/modalHandlers/clickOnBackground'
+import { t } from "utils/helpers";
 
 import main from './index.module.scss';
 import styles from './backup.module.scss';
-import { saveBackup } from "@/src/utils/handlers/modalHandlers/backupHandlers/saveHandler";
-import { Backup } from "types/backups/backup";
+
+import { ClickOnBackgroundHandler } from '@/src/utils/handlers/modal/click-on-background.handler'
+import { SaveHandler } from "@/src/utils/handlers/backup/save.handler";
+
+import { Backup } from "types/backups/backups.type";
 import { BackupItem } from '../backups/backup';
 
 type Props = {
@@ -22,7 +24,7 @@ export const BackupModal: FC<Props> = ({ backups, user, setModalVisible }) =>
     const l = router.locale || 'ru'
 
     return (
-        <div id={main.background} onClick={(e)=> clickOnBackground(e, setModalVisible, main.background)}>
+        <div id={main.background} onClick={(e)=> ClickOnBackgroundHandler(e, setModalVisible, main.background)}>
             <div className={`${main.modal} ${styles.modal}`}>
                 <div className={`${styles.component} ${styles.header}`}>
                     <button className={`${styles.btn} ${styles.import}`}>
@@ -54,7 +56,7 @@ export const BackupModal: FC<Props> = ({ backups, user, setModalVisible }) =>
 
                 <div className={`${styles.component} ${styles.footer}`}>
                     <input className={styles.btn} type="submit" value={t('Сохранить', l)}
-                        onClick={(e) => saveBackup(e, user.id, styles.backup_name)}
+                        onClick={(e) => SaveHandler(e, user.id, styles.backup_name)}
                     />
                     <button className={styles.btn}
                         onClick={() => setModalVisible(false)}

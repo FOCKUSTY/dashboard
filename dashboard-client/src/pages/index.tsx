@@ -1,12 +1,6 @@
 import type { GetServerSidePropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";
-<<<<<<< Updated upstream
-import { t } from '../utils/helpers'
-import config from '../../config.json'
-import { getUser } from "../utils/api";
-import { User } from "types/index";
-=======
 import Image from 'next/image';
 
 import { AiFillFileText } from "react-icons/ai";
@@ -16,11 +10,10 @@ import { CiLogin } from 'react-icons/ci';
 
 import { t } from 'utils/helpers';
 import { User } from 'types/index';
-import { getUser } from "api/user";
+import { getUser } from "@/src/utils/api/user.api";
 
 import styles from 'utils/styles/home.module.scss';
 import config from '../../config.json';
->>>>>>> Stashed changes
 
 type Props = {
     user?: User

@@ -2,8 +2,8 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
 
 import { GuildMenuItem } from "components/guilds/GuildMenuItem";
-import { PartialGuild } from "types/guild/guild";
-import { fetchMutialGuilds } from "api/guild";
+import { PartialGuild } from "types/guild/guild.type";
+import { fetchMutialGuilds } from "@/src/utils/api/guild.api";
 import { t } from 'utils/helpers'
 
 import styles from './index.module.scss';

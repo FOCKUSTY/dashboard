@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { FC } from "react";
 
 import { pseudoRandomNumber } from 'utils/random'
-import { PartialGuild } from 'types/guild/guild';
+import { PartialGuild } from 'types/guild/guild.type';
 
 import styles from './index.module.scss';
 
