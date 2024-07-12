@@ -1,11 +1,13 @@
 import Image from 'next/image'
 import { FC } from "react";
-import { Guild } from "../../utils/types"
+
+import { pseudoRandomNumber } from 'utils/random'
+import { PartialGuild } from 'types/guild/guild.type';
+
 import styles from './index.module.scss';
-import { pseudoRandomNumber } from '../../utils/random'
 
 type Props = {
-    guild: Guild
+    guild: PartialGuild
 };
 
 export const GuildMenuItem: FC<Props> = ({guild}) =>

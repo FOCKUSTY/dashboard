@@ -1,14 +1,16 @@
-import { fetchMutialGuilds } from "@/src/utils/api";
-import { Guild } from "../../utils/types";
 import { GetServerSidePropsContext, NextPage } from "next";
-import styles from './index.module.scss'
-import { GuildMenuItem } from "../../components/guilds/GuildMenuItem";
 import { useRouter } from "next/router";
-import { t } from '../../utils/helpers'
-import config from '../../../config.json'
+
+import { GuildMenuItem } from "components/guilds/GuildMenuItem";
+import { PartialGuild } from "types/guild/guild.type";
+import { fetchMutialGuilds } from "@/src/utils/api/guild.api";
+import { t } from 'utils/helpers'
+
+import styles from './index.module.scss';
+import config from '@/config.json';
 
 type Props = {
-    guilds: Guild[][];
+    guilds: PartialGuild[][];
 }
 
 const MenuPage: NextPage<Props> = ({guilds}) =>

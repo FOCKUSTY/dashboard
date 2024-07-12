@@ -1,16 +1,19 @@
-import Image from 'next/image'
 import type { GetServerSidePropsContext, NextPage } from "next";
-import { IoLanguageSharp } from "react-icons/io5";
-import { FaDiscord, FaServer } from 'react-icons/fa'
-import { CiLogin } from 'react-icons/ci';
-import { AiFillFileText } from "react-icons/ai";
-import styles from '../utils/styles/home.module.scss';
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { t } from '../utils/helpers'
-import config from '../../config.json'
-import { getUser } from "../utils/api";
-import { User } from "../utils/types";
+import Image from 'next/image';
+
+import { AiFillFileText } from "react-icons/ai";
+import { FaDiscord, FaServer } from 'react-icons/fa'
+import { IoLanguageSharp } from "react-icons/io5";
+import { CiLogin } from 'react-icons/ci';
+
+import { t } from 'utils/helpers';
+import { User } from 'types/index';
+import { getUser } from "@/src/utils/api/user.api";
+
+import styles from 'utils/styles/home.module.scss';
+import config from '../../config.json';
 
 type Props = {
     user?: User

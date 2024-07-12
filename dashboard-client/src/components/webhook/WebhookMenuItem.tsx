@@ -1,6 +1,7 @@
-import Image from 'next/image'
 import { FC } from "react";
-import { Webhook } from "../../utils/types"
+import { Webhook } from "types/guild/webhook.type";
+
+import Image from 'next/image'
 import styles from './index.module.scss';
 
 type Props = {

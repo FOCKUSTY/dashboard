@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from "next";
-import { FullGuild, Guild, User } from "./types";
 import locales from './locales/locales.json';
+import { FullGuild, PartialGuild } from "types/guild/guild";
+import { User } from "types/index";
 
 const languages: any = locales;
 
@@ -52,7 +53,7 @@ export const validateCookies = (ctx: GetServerSidePropsContext) =>
     return sessionID ? ({ Cookie: `connect.sid=${sessionID}` }) : false;
 };
 
-export const getIcon = (guild?: Guild | FullGuild) =>
+export const getIcon = (guild?: PartialGuild | FullGuild) =>
 {
     return (!guild || !guild.icon) ? '/TheVoidAvatarSite.png' : `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`
 };

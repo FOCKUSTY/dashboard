@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
-import { User } from '../../utils/types';
 import { FC } from 'react';
-import { getAvatar } from '../../utils/helpers'
+import { getAvatar } from 'utils/helpers'
+import { User } from 'types/index';
 
 type Props = {
     user?: User;

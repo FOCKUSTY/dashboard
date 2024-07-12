@@ -1,30 +1,42 @@
-import { GetServerSidePropsContext } from "next";
-import { DashboardLayout } from "../../../../../components/layouts/dashboard";
-import { Fields, NextPageWithLayout } from "../../../../../utils/types";
 import { ReactElement, useContext, useEffect, useState } from "react";
-import { getWebhook, getGuild, getUser } from "../../../../../utils/api";
-import { GuildContext } from "@/src/utils/contexts/guildContext";
-import { EmbedsContext } from '../../../../../utils/contexts/embedsContext';
+import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import { WebhookItem } from "@/src/components/webhook/WebhookItem";
-import { t } from '../../../../../utils/helpers';
-import styles from './index.module.scss';
-import { EmbedItem } from "@/src/components/embed/EmbedItem";
-import { EmbedPreviewItem } from "@/src/components/embed/EmbedPreviewItem";
-import { createHandler } from "@/src/utils/handlers/globalHandlers/createHandler";
-import { contentInputHandler } from "@/src/utils/handlers/localHandlers/contentInputHandler";
-import { Webhook } from "types/guild/webhook";
-import { FullGuild } from "types/guild/guild";
+
+import { EmbedItem } from "components/embed/EmbedItem";
+import { EmbedPreviewItem } from "components/embed/EmbedPreviewItem";
+import { DashboardLayout } from "components/layouts/dashboard";
+import { WebhookItem } from "components/webhook/WebhookItem";
+import { BackupModal } from "components/modals/backup";
+
+import { CreateHandler } from "@/src/utils/handlers/global/create.handler";
+import { ContentInputHandler } from "@/src/utils/handlers/webhook/content-input.handler";
+import { LinkHandler } from "@/src/utils/handlers/local/link.handler";
+
+import { GuildContext } from "utils/contexts/guild.context";
+import { EmbedsContext } from 'utils/contexts/embed.context';
+import { Fields, NextPageWithLayout } from "utils/types";
+import { t } from 'utils/helpers';
+
+import { Webhook } from "types/guild/webhook.type";
+import { FullGuild } from "types/guild/guild.type";
+import { Backup } from "types/backups/backups.type";
 import { User } from "types/index";
-import { linkHandler } from "@/src/utils/handlers/localHandlers/linkHandler";
+
+import { getGuild } from "@/src/utils/api/guild.api";
+import { getUser } from "@/src/utils/api/user.api";
+import { getWebhook } from "@/src/utils/api/webhook.api";
+import { getBackups } from "@/src/utils/api/backup.api";
+
+import styles from './index.module.scss';
 
 type Props = {
     guild: FullGuild;
     user: User;
     webhook: Webhook;
+    backups: Backup[];
 };
 
-const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
+const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook, backups }) =>
 {
     const router = useRouter();
     const l = router.locale || 'ru';
@@ -39,6 +51,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
 
     const [ embeds, setEmbed ] = useState<string[]>([]);
     const [ count, setCount ] = useState(1);
+    const [ modalVisibled, setModalVisible ] = useState<boolean>(false);
 
     useEffect(() => {
         setGuild(guild);
@@ -50,83 +63,96 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
 
     return (
         <div className="page">
+            { modalVisibled ? <BackupModal backups={backups} setModalVisible={setModalVisible} user={user}/> : undefined }
+
             <div className={styles.outer_container}>
-            <WebhookItem webhook={webhook}/>
-            <div className={styles.container}>
-                <div className={styles.left_container} id="ChatInput">
-                    <textarea
-                        maxLength={2000}
-                        name="content"
-                        id={styles.content}
-                        onInput={contentInputHandler}
-                        defaultValue={`${t('Привет', l)}!`}
-                    ></textarea>
-                    <div id={styles.embed_container}>
-                        <EmbedsContext.Provider value={{ embeds: embeds, setEmbeds }}>
-                            {embeds.map(embed =>
-                                <EmbedItem
-                                    id={`${embeds.indexOf(embed)}`}
-                                    key={embed}
-                                    setEmbed={setEmbed}
-                                    _fields={_fields}
-                                    setField={setField}
-                                />
-                            )}
-                        </EmbedsContext.Provider>
+                <WebhookItem webhook={webhook}/>
+                <div className={styles.container}>
+                    <div className={styles.left_container} id="ChatInput">
+                        <textarea
+                            maxLength={2000}
+                            name="content"
+                            id={styles.content}
+                            onInput={ContentInputHandler}
+                            defaultValue={`${t('Привет', l)}!`}
+                        ></textarea>
+                        <div id={styles.embed_container}>
+                            <EmbedsContext.Provider value={{ embeds: embeds, setEmbeds }}>
+                                {embeds.map(embed =>
+                                    <EmbedItem
+                                        id={`${embeds.indexOf(embed)}`}
+                                        key={embed}
+                                        setEmbed={setEmbed}
+                                        _fields={_fields}
+                                        setField={setField}
+                                    />
+                                )}
+                            </EmbedsContext.Provider>
+                        </div>
+
+                        <div>
+                            <button
+                                id={styles.embed_createbtn}
+                                className={styles.btn}
+                                onClick={(event) => CreateHandler({
+                                    count: count,
+                                    attacments: embeds,
+                                    maxAttacments: 10,
+                                    setAttachment: setEmbed,
+                                    setCount: setCount,
+                                    fields: _fields,
+                                    event: event
+                                })}
+                            >{t('Создать embed', l)}</button>
+                            <button className={styles.btn} id={styles.btn_backups}
+                                onClick={() => setModalVisible(true)}
+                            >backups</button>
+                        </div>
+
                     </div>
 
-                    <button
-                        id={styles.embed_createbtn}
-                        className={styles.btn}
-                        onClick={(event) => createHandler({
-                            count: count,
-                            attacments: embeds,
-                            maxAttacments: 10,
-                            setAttachment: setEmbed,
-                            setCount: setCount,
-                            fields: _fields,
-                            event: event
-                        })}
-                    >{t('Создать embed', l)}</button>
-                </div>
+                    <div className={styles.right_container} id="ChatPreview">
+                        <div className={styles.chat}>
+                            <div id={styles.message}>
+                                <div>
+                                    <img id={styles.msg_avatar} src={avatarsrc} alt={webhook.name} />
+                                    
+                                    <span id={styles.name}>{webhook.name}</span>
 
-                <div className={styles.right_container} id="ChatPreview">
-                    <div className={styles.chat}>
-                        <div id={styles.message}>
-                            <div>
-                                <img id={styles.msg_avatar} src={avatarsrc} alt={webhook.name} />
-                                
-                                <span id={styles.name}>{webhook.name}</span>
+                                    <div id={styles.msg_content}>
+                                        <p id={styles.msg_content_paragraph}>{t('Привет', l)}!</p>
+                                    </div>
 
-                                <div id={styles.msg_content}>
-                                    <p id={styles.msg_content_paragraph}>{t('Привет', l)}!</p>
-                                </div>
-
-                                <div className={styles.embeds}>
-                                    {embeds.map(embed =>
-                                        <EmbedPreviewItem
-                                            id={`${embeds.indexOf(embed)}`}
-                                            key={embed}
-                                            _fields={_fields}
-                                        />
-                                    )}
+                                    <div className={styles.embeds}>
+                                        {embeds.map(embed =>
+                                            <EmbedPreviewItem
+                                                id={`${embeds.indexOf(embed)}`}
+                                                key={embed}
+                                                _fields={_fields}
+                                            />
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div className={styles.container} id={styles.input_outer_container}>
-                <div id={styles.input_container}>
-                    <span>Вставьте ссылку на сообщение</span>
-                </div>
+                
+                <div className={styles.container} id={styles.input_outer_container}>
+                    <div id={styles.input_container}>
+                        <span>{t('Вставьте ссылку на сообщение', l)}</span>
+                    </div>
 
-                <div id={styles.input_container}>
-                    <input id={styles.input_message_id} type="text"/>
-                    <input id={styles.submit_message_id} type="submit" className={styles.btn} onClick={(e) => linkHandler(e, guild.id)}/>
+                    <div id={styles.input_container}>
+                        <input id={styles.input_message_id} type="text" placeholder="https://discord.com/channels/{guildId}/{channelId}/{messageId}"/>
+                        <input
+                            id={styles.submit_message_id}
+                            type="submit"
+                            className={styles.btn}
+                            onClick={(e) => LinkHandler(e, l)}
+                        />
+                    </div>
                 </div>
-            </div>
 
             </div>
         </div>
@@ -143,12 +169,14 @@ export async function getServerSideProps (ctx: GetServerSidePropsContext)
     const guild = (await getGuild(ctx)).props;
     const user = (await getUser(ctx)).props;
     const webhook = (await getWebhook(ctx))?.props;
+    const backups = (await getBackups(ctx, user.user.id))?.props;
 
     return {
         props: {
             guild: guild?.guild!,
             user: user.user,
-            webhook: webhook?.webhook!
+            webhook: webhook?.webhook!,
+            backups: backups?.backups!
         }
     };
 };
