@@ -1,6 +1,6 @@
 import axios from "axios";
 import { DISCORD_API_URL } from "../../utils/constants";
-import { Message } from "types/message/message";
+import { Message } from "types/message/message.type";
 
 export async function getMessageService(channelId: string, messageId: string) {
     const TOKEN = process.env.DISCORD_BOT_TOKEN;
