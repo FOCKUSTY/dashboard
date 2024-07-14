@@ -11,7 +11,7 @@ const enableChars = 'abcdefghijklmnopqrstuvwxyz';
 
 export const SaveHandler = async (e: FormEvent, userId: string, nameId: string) =>
 {
-    const document = e.currentTarget.ownerDocument;     
+    const document = e.currentTarget.ownerDocument;
     const name: any = document.getElementById(nameId);
     const value: string = name?.value
 

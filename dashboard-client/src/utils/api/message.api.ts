@@ -4,7 +4,7 @@ import axios from "axios";
 import { ColorResolvable } from "discord.js";
 import { Embed } from "../types";
 
-export const getMessage = async(channelId: string, messageId: string) =>
+export const getMessage = async(channelId: string, messageId: string): Promise<Message|void> =>
 {
     try
     {
@@ -15,6 +15,8 @@ export const getMessage = async(channelId: string, messageId: string) =>
     catch (err)
     {
         console.error(err);
+
+        return;
     };
 };
 
