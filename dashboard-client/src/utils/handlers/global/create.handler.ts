@@ -5,7 +5,7 @@ type CreateHandlerType = {
     setAttachment: (value: any) => void,
     setCount: (value: number) => void,
     id?: string,
-    fields?: any;
+    fields?: any,
     event: any
 };
 
@@ -26,4 +26,21 @@ export const CreateHandler = (data: CreateHandlerType) =>
 
     fields[`${Number(data.id)+1}`] = [...data.attacments, `${data.count}`];
     data.setAttachment(fields);
+};
+
+export const DownloadCreateHandler = async (embeds: any[], setEmbed: (value: any[]) => void) =>
+{
+    if(embeds.length === 0)
+        return;
+
+    const downloadedEmbeds: any[] = [];
+
+    for(const embed of embeds)
+    {
+        const id = `${embeds.indexOf(embed)}`;
+
+        downloadedEmbeds.push(id);
+    };
+
+    setEmbed(downloadedEmbeds);
 };

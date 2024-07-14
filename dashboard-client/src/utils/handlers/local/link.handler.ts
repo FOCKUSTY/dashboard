@@ -1,11 +1,12 @@
 import { FormEvent } from "react";
 
-import { getMessage } from "@/src/utils/api/message.api";
+import { DownloadMessage } from "api/download-message.api";
+import { getMessage } from "api/message.api";
 import { t } from '../../helpers';
 
-import WS from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss'
+import WS from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 
-export const LinkHandler = async (e: FormEvent, l: string) =>
+export const LinkHandler = async (e: FormEvent, l: string, setEmbeds: (value: any[]) => void) =>
 {
     const document = e.currentTarget.ownerDocument;
     const link: any = document.getElementById(WS.input_message_id);
@@ -29,5 +30,5 @@ export const LinkHandler = async (e: FormEvent, l: string) =>
     if(!message)
         return clear();
 
-    // Обещаю, доделаю
+    DownloadMessage(document, message, setEmbeds);
 };

@@ -8,9 +8,9 @@ import { DashboardLayout } from "components/layouts/dashboard";
 import { WebhookItem } from "components/webhook/WebhookItem";
 import { BackupModal } from "components/modals/backup";
 
-import { CreateHandler } from "@/src/utils/handlers/global/create.handler";
-import { ContentInputHandler } from "@/src/utils/handlers/webhook/content-input.handler";
-import { LinkHandler } from "@/src/utils/handlers/local/link.handler";
+import { CreateHandler } from "handlers/global/create.handler";
+import { ContentInputHandler } from "handlers/webhook/content-input.handler";
+import { LinkHandler } from "handlers/local/link.handler";
 
 import { GuildContext } from "utils/contexts/guild.context";
 import { EmbedsContext } from 'utils/contexts/embed.context';
@@ -22,10 +22,10 @@ import { FullGuild } from "types/guild/guild.type";
 import { Backup } from "types/backups/backups.type";
 import { User } from "types/index";
 
-import { getGuild } from "@/src/utils/api/guild.api";
-import { getUser } from "@/src/utils/api/user.api";
-import { getWebhook } from "@/src/utils/api/webhook.api";
-import { getBackups } from "@/src/utils/api/backup.api";
+import { getGuild } from "api/guild.api";
+import { getUser } from "api/user.api";
+import { getWebhook } from "api/webhook.api";
+import { getBackups } from "api/backup.api";
 
 import styles from './index.module.scss';
 
@@ -148,8 +148,9 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook, backups 
                         <input
                             id={styles.submit_message_id}
                             type="submit"
+                            value={t('Загрузить', l)}
                             className={styles.btn}
-                            onClick={(e) => LinkHandler(e, l)}
+                            onClick={(e) => LinkHandler(e, l, setEmbed)}
                         />
                     </div>
                 </div>
