@@ -150,7 +150,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook, backups 
                             type="submit"
                             value={t('Загрузить', l)}
                             className={styles.btn}
-                            onClick={(e) => LinkHandler(e, l, setEmbed)}
+                            onClick={(e) => LinkHandler(e, l, setEmbed, setField)}
                         />
                     </div>
                 </div>

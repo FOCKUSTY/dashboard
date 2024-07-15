@@ -6,7 +6,7 @@ import { t } from '../../helpers';
 
 import WS from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 
-export const LinkHandler = async (e: FormEvent, l: string, setEmbeds: (value: any[]) => void) =>
+export const LinkHandler = async (e: FormEvent, l: string, setEmbeds: (value: any[]) => void, setField: (value: any) => void) =>
 {
     const document = e.currentTarget.ownerDocument;
     const link: any = document.getElementById(WS.input_message_id);
@@ -30,5 +30,5 @@ export const LinkHandler = async (e: FormEvent, l: string, setEmbeds: (value: an
     if(!message)
         return clear();
 
-    DownloadMessage(document, message, setEmbeds);
+    DownloadMessage(document, message, setEmbeds, setField);
 };

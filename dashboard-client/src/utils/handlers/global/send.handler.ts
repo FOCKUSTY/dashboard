@@ -14,5 +14,5 @@ export const SendHandler = async (webhook: Webhook, e: FormEvent) =>
     const document = e.currentTarget.ownerDocument; 
     const message = getMessageData({document, mainStyles: styles, webhookStyles: WS, embedStyles: ES, fieldStyles: FS});
 
-    // await sendWebhookMessage(webhook.id, webhook.token, message);
+    await sendWebhookMessage(webhook.id, webhook.token, message);
 };

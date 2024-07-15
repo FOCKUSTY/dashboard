@@ -28,19 +28,30 @@ export const CreateHandler = (data: CreateHandlerType) =>
     data.setAttachment(fields);
 };
 
-export const DownloadCreateHandler = async (embeds: any[], setEmbed: (value: any[]) => void) =>
+export const DownloadCreateHandler = async (embeds: any[], setEmbed: (value: any[]) => void, setField: (value: any) => void) =>
 {
     if(embeds.length === 0)
         return;
 
     const downloadedEmbeds: any[] = [];
 
+    const fields: any = {};
+
     for(const embed of embeds)
     {
-        const id = `${embeds.indexOf(embed)}`;
+        const id = embeds.indexOf(embed);
+        const embedFields: string[] = [];
 
-        downloadedEmbeds.push(id);
+        if(embed.fields && embed.fields.length !== 0)
+        {
+            for(let i = 0; i < embed.fields.length; i++)
+                embedFields.push(`${i}`);
+        };
+
+        fields[`${id+1}`] = embedFields;
+        downloadedEmbeds.push(`${id}`);
     };
 
+    setField(fields);
     setEmbed(downloadedEmbeds);
 };
