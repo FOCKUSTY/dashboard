@@ -10,7 +10,9 @@ export const LinkHandler = async (e: FormEvent, l: string, setEmbeds: (value: an
 {
     const document = e.currentTarget.ownerDocument;
     const link: any = document.getElementById(WS.input_message_id);
-    const content: string = link.value.replace(`https://discord.com/channels/`, '');
+    const content: string = link.value.indexOf(`https://discord.com/channels/`) !== -1
+        ? link.value.replace(`https://discord.com/channels/`, '')
+        : link.value.replace(`https://ptb.discord.com/channels/`, '');
     
     const clear = () =>
     {
@@ -20,12 +22,12 @@ export const LinkHandler = async (e: FormEvent, l: string, setEmbeds: (value: an
         return false;
     };
 
-    if(link.value.indexOf(`https://discord.com/channels/`) === -1)
+    if(link.value.indexOf(`https://discord.com/channels/`) === -1 && link.value.indexOf(`https://ptb.discord.com/channels/`) === -1)
         return clear();
 
     const [ _guildId, channelId, messageId ] = content.split('/');
     
-   const message = await getMessage(channelId, messageId);
+    const message = await getMessage(channelId, messageId);
     
     if(!message)
         return clear();

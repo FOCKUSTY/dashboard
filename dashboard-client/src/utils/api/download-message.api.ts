@@ -7,58 +7,65 @@ import FS from 'components/embed/field/index.module.scss';
 import FPS from 'components/embed/field/fieldPreview.module.scss';
 import WIS from 'components/webhook/oneWebhook.module.scss';
 import WS from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+import { CheckboxChecker } from "../handlers/field/checkbox-input.handler";
 
-const embedContent = {
-    authorName: {
-        inputId: ES.textarea_author_nickname,
-        previewId: EPS.author_nickname
-    },
-    authorIconUrl: {
-        inputId: ES.textarea_author_icon_url,
-        previewId: EPS.author_image
-    },
-    authorUrl: {
-        inputId: ES.textarea_author_url,
-        previewId: undefined
-    },
-
-    title: {
-        inputId: ES.textarea_body_title,
-        previewId: EPS.body_title
-    },
-    description: {
-        inputId: ES.textarea_body_description,
-        previewId: EPS.body_content
-    },
-    url: {
-        inputId: ES.textarea_body_url,
-        previewId: undefined
-    },
-    color: {
-        inputId: ES.input_body_color,
-        previewId: undefined
+const embedContent: any = {
+    author: {
+        name: {
+            inputId: ES.textarea_author_nickname,
+            previewId: EPS.author_nickname
+        },
+        icon_url: {
+            inputId: ES.textarea_author_icon_url,
+            previewId: EPS.author_image
+        },
+        author_url: {
+            inputId: ES.textarea_author_url,
+            previewId: undefined
+        },
     },
 
-    image: {
-        inputId: ES.images_image_urls,
-        previewId: EPS.image
-    },
-    thumbnail: {
-        inputId: ES.images_thumbnail_url,
-        previewId: EPS.thumbnail_image
+    main: {
+        title: {
+            inputId: ES.textarea_body_title,
+            previewId: EPS.body_title
+        },
+        description: {
+            inputId: ES.textarea_body_description,
+            previewId: EPS.body_content
+        },
+        url: {
+            inputId: ES.textarea_body_url,
+            previewId: undefined
+        },
+        color: {
+            inputId: ES.input_body_color,
+            previewId: undefined
+        },
+    
+        image: {
+            inputId: ES.images_image_urls,
+            previewId: EPS.image
+        },
+        thumbnail: {
+            inputId: ES.images_thumbnail_url,
+            previewId: EPS.thumbnail_image
+        },
     },
 
-    footerText: {
-        inputId: ES.footer_content,
-        previewId: EPS.footer_content
-    },
-    footerIconUrl: {
-        inputId: ES.textarea_footer_icon_url,
-        previewId: EPS.footer_icon
-    },
+    footer: {
+        text: {
+            inputId: ES.footer_content,
+            previewId: EPS.footer_content
+        },
+        icon_url: {
+            inputId: ES.textarea_footer_icon_url,
+            previewId: EPS.footer_icon
+        },
+    }
 };
 
-const fieldContent = {
+const fieldContent: any = {
     name: {
         inputId: FS.textarea_field_name,
         previewId: FPS.field_name_content
@@ -100,38 +107,67 @@ export const DownloadMessage = async (document: Document, message: Message, setE
             {
                 const embedPreviewElement: any = ChatPreview.querySelector(`.embed_${index}`);
                 const embedElement: any = ChatInput.querySelector(`.embed_${index}`);
-                const embed = embeds[index];
+                const embed: any = embeds[index];
 
                 if(!embedElement)
                     continue;
 
-                embedElement.querySelector(`#${ES.textarea_author_nickname}`).value = embed.author?.name || '';
-                embedElement.querySelector(`#${ES.textarea_author_icon_url}`).value = embed.author?.icon_url || '';
-                embedElement.querySelector(`#${ES.textarea_author_url}`).value = embed.author?.url || '';
-    
-                embedElement.querySelector(`#${ES.textarea_body_title}`).value = embed.title || '';
-                embedElement.querySelector(`#${ES.textarea_body_description}`).value = embed.description || '';
-                embedElement.querySelector(`#${ES.textarea_body_url}`).value = embed.url || '';
-                embedElement.querySelector(`#${ES.input_body_color}`).value = embed.color || '';
-    
-                embedElement.querySelector(`#${ES.images_image_urls}`).value = embed.image || '';
-                embedElement.querySelector(`#${ES.images_thumbnail_url}`).value = embed.thumbnail || '';
-    
-                embedElement.querySelector(`#${ES.footer_content}`).value = embed.footer?.text || '';
-                embedElement.querySelector(`#${ES.textarea_footer_icon_url}`).value = embed.footer?.icon_url || '';
+                for(const key in embedContent)
+                {
+                    const value: any = embedContent[key];
+
+                    valueCicle: for(const name in value)
+                    {
+                        const v: {
+                            inputId: string,
+                            previewId: string
+                        } = value[name];
+
+                        if(!v.previewId || !v.inputId)
+                            continue valueCicle;
+
+                        const embedValue = embed[name];
+
+                        embedElement.querySelector(`#${v.inputId}`).value = embedValue?.url
+                            ? embedValue.url
+                            : embedValue || '';
+
+                        if(embedValue?.url)
+                            embedPreviewElement.querySelector(`#${v.previewId}`).src = embedValue?.url;
+                        else
+                            embedPreviewElement.querySelector(`#${v.previewId}`).textContent = embedValue || undefined;
+                    };
+                };
 
                 if(embed.fields && embed.fields.length != 0)
                     for(let i = 0; i < embed.fields.length; i++)
                     {
                         const fieldElement: any = embedElement.querySelector(`.field_${i}`);
+                        const fieldPreviewElement: any = embedPreviewElement.querySelector(`.field_${i}`);
                         const field = embed.fields[i];
 
-                        fieldElement.querySelector(`#${FS.textarea_field_name}`).value = field.name || '';
-                        fieldElement.querySelector(`#${FS.textarea_field_value}`).value = field.value || '';
-                        fieldElement.querySelector(`#${FS.inline}`).checked = field.inline || '';
+                        fieldContentCicle: for(const name in fieldContent)
+                        {
+                            const value: {
+                                inputId: string,
+                                previewId: string
+                            } = fieldContent[name];
+
+                            if(`${name}` === 'inline')
+                                fieldElement.querySelector(`#${value.inputId}`).checked = field[name];
+
+                            if(!value.inputId || !value.previewId)
+                                continue fieldContentCicle;
+
+                            fieldElement.querySelector(`#${value.inputId}`).value = field[name];
+                            fieldPreviewElement.querySelector(`#${value.previewId}`).textContent = field[name];
+                        };
+
                     };
-            };
-        }, 200);
+                };
+
+                CheckboxChecker(document, FPS, FS);
+            }, 200);
 
     };
 };
