@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import locales from './locales/locales.json';
-import { FullGuild, PartialGuild } from "types/guild/guild";
+import { FullGuild, PartialGuild } from "types/guild/guild.type";
 import { User } from "types/index";
 
 const languages: any = locales;

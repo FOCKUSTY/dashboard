@@ -44,7 +44,6 @@ const middleware = async (req: NextRequest, ev: NextFetchEvent) =>
             return NextResponse.redirect(`${config.client_url}/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`)
         }
     }
-
 };
 
 export default middleware;
