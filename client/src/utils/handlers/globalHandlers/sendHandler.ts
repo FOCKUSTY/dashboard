@@ -4,7 +4,7 @@ import WS from '../../../components/webhook/oneWebhook.module.scss';
 import ES from '../../../components/embed/index.module.scss';
 import FS from '../../../components/embed/field/index.module.scss';
 import { Embed, Webhook } from "../../types";
-import { sendWebhookMessage } from "../../api";
+import { sendWebhookMessage } from "../../../api/api";
 import { ColorResolvable } from "discord.js";
 
 export const sendHandler = async (webhook: Webhook, e: FormEvent) =>

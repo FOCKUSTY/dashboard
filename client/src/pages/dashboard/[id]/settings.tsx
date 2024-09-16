@@ -1,8 +1,8 @@
-import { GuildContext } from "../../../utils/contexts/guildContext";
+import { GuildContext } from "../../../utils/contexts/guild.context";
 import { DashboardLayout } from "../../../components/layouts/dashboard";
 import { FullGuild, NextPageWithLayout, User } from "../../../utils/types";
 import { ReactElement, useContext, useEffect } from "react";
-import { getGuild, getUser } from "@/src/utils/api";
+import { getGuild, getUser } from "@/src/api/api";
 import { GetServerSidePropsContext } from "next";
 
 type Props = {

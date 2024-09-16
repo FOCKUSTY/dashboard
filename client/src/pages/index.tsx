@@ -8,9 +8,11 @@ import styles from '../utils/styles/home.module.scss';
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { t } from '../utils/helpers'
-import config from '../../config.json'
-import { getUser } from "../utils/api";
+import { getUser } from "../api/api";
 import { User } from "../utils/types";
+import config from '../../config.json'
+
+
 
 type Props = {
     user?: User

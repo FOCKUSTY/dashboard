@@ -1,19 +1,20 @@
-import docStyles from '@/src/pages/documentation/index.module.scss';
-import config from '@/config.json'
+import styles from 'pages/documentation/index.module.scss';
+import Api from 'api/api';
 
-export default
-{
-    "documentation":
+const api = new Api();
+
+export default {
+    "documentation": (
         <div>
-            <div className={docStyles.hello_text}>
+            <div className={styles.hello_text}>
                 <h3>Привет! Здесь написана главная информация о нашем сайте и боте!</h3>
                 <h3>Удачи в использовании</h3>
             </div>
-            <div className={docStyles.main_text}>
-                <ol className={docStyles.list}>
+            <div className={styles.main_text}>
+                <ol className={styles.list}>
                     <li>
                         <p>
-                        Для начала Вам нужно зайти на <a className={docStyles.link} href={`${config.client_url}/ru`}>главную страницу</a> сайта,
+                        Для начала Вам нужно зайти на <a className={styles.link} href={`${api.client_url}/ru`}>главную страницу</a> сайта,
                         после нажать на кнопку "Добавить в Discord" или "Войти"
                         </p>
                     </li>
@@ -24,4 +25,5 @@ export default
                 </ol>
             </div>
         </div>
+    )
 };

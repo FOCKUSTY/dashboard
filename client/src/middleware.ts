@@ -1,5 +1,5 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
-import { fetchValidGuild } from "./utils/api";
+import { fetchValidGuild } from "./api/api";
 import config from '../config.json'
 
 const getId = (req: NextRequest): string =>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GuildContext } from '../utils/contexts/guildContext';
+import { GuildContext } from '../utils/contexts/guild.context';
 import '../utils/styles/globals.scss';
 import { AppPropsWithLayout, FullGuild } from '../utils/types';
 

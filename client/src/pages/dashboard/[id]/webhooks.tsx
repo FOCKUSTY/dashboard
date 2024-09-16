@@ -1,8 +1,8 @@
-import { GuildContext } from "../../../utils/contexts/guildContext";
+import { GuildContext } from "../../../utils/contexts/guild.context";
 import { DashboardLayout } from "../../../components/layouts/dashboard";
 import { FullGuild, NextPageWithLayout, User, Webhook } from "../../../utils/types";
 import { ReactElement, useContext, useEffect } from "react";
-import { fetchWebhooks, getGuild, getUser } from "@/src/utils/api";
+import { fetchWebhooks, getGuild, getUser } from "@/src/api/api";
 import { GetServerSidePropsContext } from "next";
 import { WebhookMenuItem } from "@/src/components/webhook/WebhookMenuItem";
 import { useRouter } from "next/router";

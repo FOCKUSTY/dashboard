@@ -1,19 +1,18 @@
 import { FC } from "react";
-import { Webhook } from "../../utils/types"
-import styles from './oneWebhook.module.scss';
+import type { Webhook as WebhookType } from "types/webhook.types";
+import styles from './index.module.scss';
 import webhooksStyles from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
-import { sendHandler } from '@/src/utils/handlers/globalHandlers/sendHandler';
+import { sendHandler } from 'utils/handlers/globalHandlers/sendHandler';
 import { useRouter } from "next/router";
-import { t } from "@/src/utils/helpers";
-import { inputNameHandler } from "@/src/utils/handlers/localHandlers/nameInputHandler";
-import { inputURLHandler } from "@/src/utils/handlers/localHandlers/urlInputHandler";
+import { t } from "utils/helpers";
+import { inputNameHandler } from "utils/handlers/localHandlers/nameInputHandler";
+import { inputURLHandler } from "utils/handlers/localHandlers/urlInputHandler";
 
 type Props = {
-    webhook: Webhook
+    webhook: WebhookType
 };
 
-export const WebhookItem: FC<Props> = ({ webhook }) =>
-{
+export const Webhook: FC<Props> = ({ webhook }) => {
     const router = useRouter();
     const l = router.locale || 'ru'
     const avatarsrc = webhook.avatar
