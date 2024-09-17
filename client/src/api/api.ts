@@ -7,6 +7,7 @@ class Api {
     public readonly env = process.env;
     public readonly url: string = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3001' + '/api';
     public readonly client_url = process.env.NEXT_PUBLIC_CLIENT_URL || 'http://localhost:3000';
+    public readonly dev_mode = process.env.NEXT_PUBLIC_DEV_MODE || false;
 
     public readonly validateCookies = (ctx?: GetServerSidePropsContext) => {
         if(!ctx)

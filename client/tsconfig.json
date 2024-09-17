@@ -18,6 +18,7 @@
         ],
         "paths": {
             "ui/*": ["./src/components/*"],
+            "service/*": ["./src/service/*"],
             "locale/*": ["./src/locale/*"],
             "types/*": ["./src/types/*"],
             "pages/*": ["./src/pages/*"],
@@ -30,7 +31,7 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts"
-    ],
+, "src/locale/index.tx"    ],
     "exclude": [
         "node_modules"
     ]

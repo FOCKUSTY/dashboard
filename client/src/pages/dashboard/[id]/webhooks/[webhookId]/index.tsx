@@ -21,8 +21,8 @@ import { EmbedItem } from "ui/embed/EmbedItem";
 import { EmbedPreviewItem } from "ui/embed/EmbedPreviewItem";
 import { DashboardLayout } from "ui/layouts/dashboard";
 
-import { createHandler } from "utils/handlers/globalHandlers/createHandler";
-import { contentInputHandler } from "utils/handlers/localHandlers/contentInputHandler";
+import { createHandler } from "utils/handlers/global/createHandler";
+import { contentInputHandler } from "utils/handlers/local/contentInputHandler";
 
 import { t } from 'utils/helpers';
 

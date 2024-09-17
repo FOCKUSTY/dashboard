@@ -1,4 +1,4 @@
-import type { sendWebhookMessageType, Webhook } from "../utils/types";
+import type { WebhookMessage, Webhook } from "types/webhook.types";
 import type { GetServerSidePropsContext } from "next";
 
 import axios from 'axios';
@@ -15,7 +15,7 @@ class WebhookApi {
         this._token = token;
     };
 
-    public readonly send = async (data: sendWebhookMessageType, id?: string, token?: string) => {
+    public readonly send = async (data: WebhookMessage, id?: string, token?: string) => {
         if(!(this._id || id) || !(this._token || token))
             return;
 

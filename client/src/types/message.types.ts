@@ -1,4 +1,4 @@
-import type { Role } from "../utils/types";
+import type { Role } from "./guild.types";
 import type { User } from "./user.types";
 
 export type Sticker = {

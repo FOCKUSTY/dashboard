@@ -1,10 +1,11 @@
 import { FC } from "react";
-import localizations from './index';
 
 import type {
     Language,
     TranslatedTexts
 } from "types/locale.types";
+
+import localizations from './index';
 
 const locales: any = localizations;
 

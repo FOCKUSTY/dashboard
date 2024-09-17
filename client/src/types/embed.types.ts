@@ -1,17 +1,17 @@
 import type { ColorResolvable } from "discord.js"
 
-type Author = {
+export type Author = {
     name?: string;
     iconURL?: string;
     url?: string;
 };
 
-type Footer = {
+export type Footer = {
     text: string;
     iconURL?: string | undefined;
 };
 
-type Field = {
+export type Field = {
     name: string;
     value: string;
     inline?: boolean;

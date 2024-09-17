@@ -2,11 +2,11 @@ import { FC } from "react";
 import type { Webhook as WebhookType } from "types/webhook.types";
 import styles from './index.module.scss';
 import webhooksStyles from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
-import { sendHandler } from 'utils/handlers/globalHandlers/sendHandler';
+import { sendHandler } from 'utils/handlers/global/sendHandler';
 import { useRouter } from "next/router";
 import { t } from "utils/helpers";
-import { inputNameHandler } from "utils/handlers/localHandlers/nameInputHandler";
-import { inputURLHandler } from "utils/handlers/localHandlers/urlInputHandler";
+import { inputNameHandler } from "utils/handlers/local/nameInputHandler";
+import { inputURLHandler } from "utils/handlers/local/urlInputHandler";
 
 type Props = {
     webhook: WebhookType
