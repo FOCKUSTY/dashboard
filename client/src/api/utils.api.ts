@@ -7,8 +7,8 @@ for(const char of enabledSymbols) {
 };
 
 class Utils {
-    public readonly getAvatar = (profile: { id: string, avatar?: string }) => {
-        return profile.avatar
+    public readonly getAvatar = (profile?: { id: string, avatar?: string }) => {
+        return (profile && profile.avatar)
             ? `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`
             : '/TheVoidAvatarSite.png';
     };

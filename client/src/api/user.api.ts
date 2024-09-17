@@ -8,17 +8,17 @@ class UserApi {
         const headers = api.validateCookies(context);
     
         if(!headers)
-            return { props: { user: null } };
+            return null;
     
         try {
             const res = await fetch(`${api.url}/users/${context.query.id}`, { headers });
             const user = await res.json();
     
-            return { props: { user } };
+            return user;
         } catch (err) {
             console.error(err);
             
-            return { props: { user: null } };
+            return null;
         };
     };
 };
