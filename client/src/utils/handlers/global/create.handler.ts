@@ -9,7 +9,7 @@ type CreateHandlerType = {
 };
 
 class Handler {
-    public readonly create = (data: CreateHandlerType) => {
+    public readonly handler = (data: CreateHandlerType) => {
         if(data.attacments.length === data.maxAttacments) return;
     
         data.setCount(data.count+1);

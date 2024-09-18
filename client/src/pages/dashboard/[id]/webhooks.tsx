@@ -1,49 +1,54 @@
-import { GuildContext } from "../../../utils/contexts/guild.context";
-import { DashboardLayout } from "../../../components/layouts/dashboard";
-import { FullGuild, NextPageWithLayout, User, Webhook } from "../../../utils/types";
-import { ReactElement, useContext, useEffect } from "react";
-import { fetchWebhooks, getGuild, getUser } from "@/src/api/api";
-import { GetServerSidePropsContext } from "next";
-import { WebhookMenuItem } from "@/src/components/webhook/WebhookMenuItem";
+import type { GetServerSidePropsContext } from "next";
+import type { ReactElement} from "react";
 import { useRouter } from "next/router";
+
+import { DashboardLayout } from "ui/layouts/dashboard";
+
+import type { User } from "types/user.types";
+import type { NextPageWithLayout } from "types/next.types";
+import type { FullGuild } from "types/guild.types";
+import type { Webhook as WebhookType } from "types/webhook.types";
+
+import WebhookApi from "api/webhook.api";
+import GuildApi from "api/guild.api";
+import UserApi from "api/user.api";
+import GuildContext from "contexts/guild.context";
+
+import { Webhook } from "ui/webhook/webhook.ui";
 
 type Props = {
     guild: FullGuild;
     user: User;
-    webhooks: Webhook[];
+    webhooks: WebhookType[];
 };
 
-const WebhooksPage: NextPageWithLayout<Props> = ({ guild, user, webhooks }) =>
-{
+const WebhooksPage: NextPageWithLayout<Props> = ({ guild, user, webhooks }) => {
     const router = useRouter();
-    const { setGuild } = useContext(GuildContext);
-    
-    useEffect(() => {
-        setGuild(guild);
-    }, []);
+    new GuildContext().setContext(guild);
 
     return (
         <div className="page">
             <p>{guild?.name}'s webhooks page</p>
-            {webhooks.map((webhook: Webhook) => 
-                <div key={webhook.id} onClick={() => { router.push(`/dashboard/${guild.id}/webhooks/${webhook.id}`) }}>
-                    <WebhookMenuItem webhook={webhook} />
+
+            {webhooks.map((webhook: WebhookType) => 
+                <div key={webhook.id} onClick={() =>
+                    router.push(`/dashboard/${guild.id}/webhooks/${webhook.id}`)}
+                >
+                    <Webhook webhook={webhook} />
                 </div>
             )}
         </div>
     );
 };
 
-WebhooksPage.getLayout = (page: ReactElement) =>
-{
+WebhooksPage.getLayout = (page: ReactElement) => {
     return <DashboardLayout>{page}</DashboardLayout>;
 };
 
-export async function getServerSideProps (ctx: GetServerSidePropsContext)
-{
-    const guild = (await getGuild(ctx)).props;
-    const user = (await getUser(ctx)).props;
-    const webhooks = (await fetchWebhooks(ctx))?.props;
+export const getServerSideProps = async(ctx: GetServerSidePropsContext) => {
+    const guild = (await new GuildApi().fetchGuild(ctx)).props;
+    const user = (await new UserApi().fetchUser(ctx)).props;
+    const webhooks = (await new WebhookApi().getWebhooks(ctx))?.props;
 
     return {
         props: {

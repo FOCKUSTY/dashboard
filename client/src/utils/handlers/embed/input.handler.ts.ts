@@ -43,7 +43,7 @@ class Answer {
 };
 
 class Handler {
-    public readonly input = (data: InputHandlerType) => {
+    public readonly handler = (data: InputHandlerType) => {
         const target = data.event.currentTarget;
         const document = target.ownerDocument;
         const ChatPreview = document.getElementById('ChatPreview');

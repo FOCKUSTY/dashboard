@@ -4,7 +4,7 @@ import styles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss'
 import WS from 'components/webhook/oneWebhook.module.scss'
 
 class Handler {
-    public readonly urlInput = (e: FormEvent) => {
+    public readonly handler = (e: FormEvent) => {
         const document = e.currentTarget.ownerDocument;
 
         const url: string = (document.getElementById(WS.avatar_url) as HTMLInputElement)?.value;

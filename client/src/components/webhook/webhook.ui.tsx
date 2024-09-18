@@ -1,41 +1,76 @@
-import { FC } from "react";
-import type { Webhook as WebhookType } from "types/webhook.types";
 import styles from './index.module.scss';
-import webhooksStyles from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
-import { sendHandler } from 'utils/handlers/global/sendHandler';
+import WS from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+
 import { useRouter } from "next/router";
-import { t } from "utils/helpers";
-import { inputNameHandler } from "utils/handlers/local/nameInputHandler";
-import { inputURLHandler } from "utils/handlers/local/urlInputHandler";
+
+import React from 'react';
+import type { Webhook as WebhookType } from "types/webhook.types";
+
+import SendHandler from 'utils/handlers/global/send.handler';
+import nameInputHandler from "utils/handlers/local/name-input.handler";
+import urlInputHandler from "utils/handlers/local/url-input.handler";
+
+import Locale from 'service/locale.service';
+import Utils from 'api/utils.api';
+
+const utils = new Utils();
 
 type Props = {
     webhook: WebhookType
 };
 
-export const Webhook: FC<Props> = ({ webhook }) => {
-    const router = useRouter();
-    const l = router.locale || 'ru'
-    const avatarsrc = webhook.avatar
-        ? `https://cdn.discordapp.com/avatars/${webhook.id}/${webhook.avatar}`
-        : '/TheVoidAvatarSite.png';
+class Component extends React.Component<Props> {
+    constructor(props: Props) {
+        super(props);
+    };
 
-    return (
-        <div className={styles.container}>
-            <div className={styles.inner}>
-            <img src={avatarsrc} id={styles.avatar} alt={webhook.name} />
-            
-            <div className={styles.name_container}>
-                <p>{t('Название', l)}:</p>
-                <textarea maxLength={32} name="name" id={styles.name} onInput={inputNameHandler} defaultValue={webhook.name}></textarea>
+    private readonly Webhook = () => {
+        const router = useRouter();
+        const avatarsrc = utils.getAvatar(this.props.webhook);
+    
+        const t = new Locale(router.locale || 'ru').translate;
+    
+        return (
+            <div className={styles.container}>
+                <div className={styles.inner}>
+                    <img id={styles.avatar} src={avatarsrc} alt={this.props.webhook.name} />
+                    
+                    <div className={styles.name_container}>
+                        <p>{t('Название')}:</p>
+                        <textarea
+                            id={styles.name}
+                            name="name"
+                            maxLength={32}
+                            defaultValue={this.props.webhook.name}
+                            onInput={new nameInputHandler().handler}
+                        ></textarea>
+                    </div>
+    
+                    <div className={styles.name_container}>
+                        <p>{t('URL аватара')}</p>
+                        <textarea
+                            id={styles.avatar_url}
+                            name="avatar_url"
+                            onInput={new urlInputHandler().handler}
+                        ></textarea>
+                    </div>
+                </div>
+                
+                <input
+                    id={WS.send}
+                    className={WS.btn}
+                    type="button"
+                    value={`${t('Отправить')}`}
+                    onClick={(e) =>
+                        new SendHandler().handler(this.props.webhook, e)}
+                />
             </div>
+        );
+    };
 
-            <div className={styles.name_container}>
-                <p>{t('URL аватара', l)}</p>
-                <textarea name="avatar_url" id={styles.avatar_url} onInput={inputURLHandler}></textarea>
-            </div>
-
-            </div>
-            <input className={webhooksStyles.btn} id={webhooksStyles.send} type="button" value={`${t('Отправить', l)}`} onClick={(e) => {sendHandler(webhook, e)}} />
-        </div>
-    );
+    public readonly render = (): React.ReactNode => {
+        return this.Webhook();
+    };
 };
+
+export default Component;

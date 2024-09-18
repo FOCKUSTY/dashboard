@@ -13,7 +13,7 @@ import type { Webhook } from "types/webhook.types";
 import type { ColorResolvable } from "discord.js";
 
 class Handler {
-    public readonly send = async(webhook: Webhook, e: FormEvent) => {
+    public readonly handler = async(webhook: Webhook, e: FormEvent) => {
         const document = e.currentTarget.ownerDocument;
     
         const textAreaContent: any = document.getElementById(styles.content);

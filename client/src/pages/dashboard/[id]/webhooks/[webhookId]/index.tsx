@@ -1,6 +1,8 @@
+import styles from './index.module.scss';
+
 import { ReactElement, useContext, useEffect, useState } from "react";
+import type { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import { GetServerSidePropsContext } from "next";
 
 import type { Webhook as WebhookType } from "types/webhook.types";
 import type { Fields } from "types/embed.types";
@@ -8,25 +10,23 @@ import type { FullGuild } from "types/guild.types";
 import type { NextPageWithLayout } from "types/next.types";
 import type { User } from "types/user.types";
 
+import Locale from 'service/locale.service';
+
 import Utils from "api/utils.api";
 import GuildApi from "api/guild.api";
 import WebhookApi from "api/webhook.api";
 import UserApi from "api/user.api";
 
-import { GuildContext } from "utils/contexts/guild.context";
-import { EmbedsContext } from 'utils/contexts/embed.context';
+import GuildContext from "contexts/guild.context";
+import EmbedsContext from 'contexts/embed.context';
+
+import CreateHandler from "utils/handlers/global/create.handler";
+import ContentInputHandler from "utils/handlers/local/content-input.handler";
 
 import { Webhook } from "ui/webhook/webhook.ui";
 import { EmbedItem } from "ui/embed/EmbedItem";
 import { EmbedPreviewItem } from "ui/embed/EmbedPreviewItem";
 import { DashboardLayout } from "ui/layouts/dashboard";
-
-import { createHandler } from "utils/handlers/global/createHandler";
-import { contentInputHandler } from "utils/handlers/local/contentInputHandler";
-
-import { t } from 'utils/helpers';
-
-import styles from './index.module.scss';
 
 type Props = {
     guild: FullGuild;
@@ -34,13 +34,16 @@ type Props = {
     webhook: WebhookType;
 };
 
-const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
-{
-    const router = useRouter();
-    const l = router.locale || 'ru';
+const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) => {
+    const embedsContext = new EmbedsContext();
 
-    const { setGuild } = useContext(GuildContext);
-    const { setEmbeds } = useContext(EmbedsContext);
+    const router = useRouter();
+    const t = new Locale(router.locale || 'ru').translate;
+
+    new GuildContext().setContext(guild);
+    
+    const embedContext = embedsContext.context;
+    const setEmbeds = embedsContext.setContext;
 
     const [ _fields, setField ] = useState<Fields>({
         "1": [], "2": [], "3": [], "4": [], "5": [], "6": [],
@@ -50,10 +53,6 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
     const [ embeds, setEmbed ] = useState<string[]>([]);
     const [ count, setCount ] = useState(1);
 
-    useEffect(() => {
-        setGuild(guild);
-    }, []);
-
     const avatarsrc = new Utils().getAvatar(webhook);
 
     return (
@@ -62,15 +61,17 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                 <Webhook webhook={webhook}/>
                 <div className={styles.container}>
                     <div className={styles.left_container} id="ChatInput">
+
                         <textarea
                             maxLength={2000}
                             name="content"
                             id={styles.content}
-                            onInput={contentInputHandler}
-                            defaultValue={`${t('Привет', l)}!`}
+                            onInput={new ContentInputHandler().handler}
+                            defaultValue={`${t('Привет')}!`}
                         ></textarea>
+
                         <div id={styles.embed_container}>
-                            <EmbedsContext.Provider value={{ embeds: embeds, setEmbeds }}>
+                            <embedContext.Provider value={{ embeds: embeds, setEmbeds }}>
                                 {embeds.map(embed =>
                                     <EmbedItem
                                         id={`${embeds.indexOf(embed)}`}
@@ -83,7 +84,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                 <button
                                     id={styles.embed_createbtn}
                                     className={styles.btn}
-                                    onClick={() => createHandler({
+                                    onClick={() => new CreateHandler().handler({
                                         count: count,
                                         attacments: embeds,
                                         maxAttacments: 10,
@@ -91,8 +92,8 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                         setCount: setCount,
                                         fields: _fields
                                     })}
-                                >{t('Создать embed', l)}</button>
-                            </EmbedsContext.Provider>
+                                >{t('Создать embed')}</button>
+                            </embedContext.Provider>
                         </div>
                     </div>
 
@@ -104,7 +105,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
                                     <span id={styles.name}>{webhook.name}</span>
 
                                     <div id={styles.msg_content}>
-                                        <p id={styles.msg_content_paragraph}>{t('Привет', l)}!</p>
+                                        <p id={styles.msg_content_paragraph}>{t('Привет')}!</p>
                                     </div>
 
                                     <div className={styles.embeds}>
@@ -126,13 +127,11 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) =>
     );
 };
 
-WebhookPage.getLayout = (page: ReactElement) =>
-{
+WebhookPage.getLayout = (page: ReactElement) => {
     return <DashboardLayout>{page}</DashboardLayout>;
 };
 
-export async function getServerSideProps (ctx: GetServerSidePropsContext)
-{
+export const getServerSideProps = async(ctx: GetServerSidePropsContext) => {
     const guild = (await new GuildApi().fetchGuild(ctx)).props;
     const user = (await new UserApi().fetchUser(ctx)).props;
     const webhook = (await new WebhookApi().getWebhook(ctx))?.props;

@@ -9,7 +9,7 @@ type ClickHandlerType = {
 }
 
 class Handler {
-    public readonly click = (data: ClickHandlerType) => {
+    public readonly handler = (data: ClickHandlerType) => {
         const document = data.event.currentTarget.ownerDocument;
         const main = document.getElementsByClassName(data.id)[0];
     

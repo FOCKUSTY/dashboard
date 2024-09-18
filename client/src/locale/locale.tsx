@@ -7,15 +7,19 @@ import type {
 
 import localizations from './index';
 
-const locales: any = localizations;
+const locales: {
+    [key: string]: {
+        [key: string]: JSX.Element
+    }
+} = localizations;
 
 type Props<T extends string> = {
     type: TranslatedTexts;
     language: Language<T>;
 };
 
-class Locale<T extends ''> {
-    public readonly getComponentTranslatedText: FC<Props<T>> = ({ type, language }) => {
+class Locale<T extends Language<string>> {
+    public readonly TranslatedText: FC<Props<T>> = ({ type, language }) => {
         const component = locales[language][type];
 
         return component;

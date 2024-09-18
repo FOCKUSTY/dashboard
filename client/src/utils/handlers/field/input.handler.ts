@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 
 class Handler {
-    public readonly input = (event: FormEvent<HTMLTextAreaElement|HTMLInputElement>, previewId: string, embedId: string, fieldId: string) => {
+    public readonly handler = (event: FormEvent<HTMLTextAreaElement|HTMLInputElement>, previewId: string, embedId: string, fieldId: string) => {
         const document = event.currentTarget.ownerDocument;
         
         const ChatPreview = document.getElementById('ChatPreview');

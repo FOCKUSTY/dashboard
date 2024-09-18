@@ -23,8 +23,7 @@ type Props = {
     user?: User
 };
  
-const Home: NextPage<Props> = ({ user }) =>
-{
+const Home: NextPage<Props> = ({ user }) => {
     const router = useRouter();
     const t = new Locale(router.locale || 'ru').translate;
 

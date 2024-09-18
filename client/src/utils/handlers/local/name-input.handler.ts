@@ -4,7 +4,7 @@ import styles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss'
 import WS from 'components/webhook/oneWebhook.module.scss'
 
 class Handler {
-    public readonly nameInput = (e: FormEvent) => {
+    public readonly handler = (e: FormEvent) => {
         const document = e.currentTarget.ownerDocument;
         
         const textarea: any = document.getElementById(WS.name);

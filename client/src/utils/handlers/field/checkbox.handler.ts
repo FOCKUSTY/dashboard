@@ -16,7 +16,7 @@ class Remover {
 };
 
 class Handler extends Remover {
-    public readonly checkbox = (event: FormEvent<HTMLInputElement>, fieldId: string, embedId: string, styles: any) => {
+    public readonly handler = (event: FormEvent<HTMLInputElement>, fieldId: string, embedId: string, styles: any) => {
         const document = event.currentTarget.ownerDocument;
         const id = Number(fieldId);
     

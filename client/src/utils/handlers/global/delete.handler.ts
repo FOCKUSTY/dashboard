@@ -16,7 +16,7 @@ type DataDeleteFieldType = {
 };
 
 class Handler {
-    public readonly delete = (data: DataDeleteType) => {
+    public readonly handler = (data: DataDeleteType) => {
         const fields: { [key: string]: string[] } = {};
     
         for(let i = 1; i <= 10; i++)

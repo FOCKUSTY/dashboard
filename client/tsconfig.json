@@ -18,6 +18,7 @@
         ],
         "paths": {
             "ui/*": ["./src/components/*"],
+            "contexts/*": ["./src/contexts/*"],
             "service/*": ["./src/service/*"],
             "locale/*": ["./src/locale/*"],
             "types/*": ["./src/types/*"],
