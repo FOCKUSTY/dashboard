@@ -1,7 +1,7 @@
 import type { GetServerSidePropsContext } from "next";
 import type { ReactElement } from "react";
 
-import { DashboardLayout } from "ui/layouts/dashboard";
+import { DashboardLayout } from "ui/layouts/dashboard.ui";
 
 import type { User } from "types/user.types";
 import type { NextPageWithLayout } from "types/next.types";

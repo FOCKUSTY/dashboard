@@ -23,10 +23,10 @@ import EmbedsContext from 'contexts/embed.context';
 import CreateHandler from "utils/handlers/global/create.handler";
 import ContentInputHandler from "utils/handlers/local/content-input.handler";
 
-import { Webhook } from "ui/webhook/webhook.ui";
+import Webhook from "ui/webhook/webhook.ui";
 import { EmbedItem } from "ui/embed/EmbedItem";
 import { EmbedPreviewItem } from "ui/embed/EmbedPreviewItem";
-import { DashboardLayout } from "ui/layouts/dashboard";
+import { DashboardLayout } from "ui/layouts/dashboard.ui";
 
 type Props = {
     guild: FullGuild;
