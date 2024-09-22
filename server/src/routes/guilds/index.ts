@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { isAuthenticated } from '../../utils/middlewares'
-import { getGuildsController, getGuildPermissionsController, getGuildController, getGuildWebhooks } from "../../controllers/guilds";
+import Controller from "../../controllers/guilds";
 
+const controller = new Controller();
 const router = Router();
 
-router.get('/', isAuthenticated, getGuildsController);
-router.get('/:guildId/permissions', isAuthenticated, getGuildPermissionsController);
-router.get('/:guildId/webhooks', isAuthenticated, getGuildWebhooks);
-router.get('/:guildId', isAuthenticated, getGuildController);
+router.get('/', isAuthenticated, controller.getGuilds);
+router.get('/:guildId/permissions', isAuthenticated, controller.getGuildPermissions);
+router.get('/:guildId/webhooks', isAuthenticated, controller.getGuildWebhooks);
+router.get('/:guildId', isAuthenticated, controller.getGuild);
 
 export default router;

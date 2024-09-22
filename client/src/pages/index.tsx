@@ -1,8 +1,10 @@
-import styles from 'utils/styles/home.module.scss';
+import styles from 'styles/home.module.scss';
 
 import type { GetServerSidePropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
+
 import Link from "next/link";
+import Image from 'next/image';
 
 import type { User } from "types/user.types";
 
@@ -32,9 +34,9 @@ const Home: NextPage<Props> = ({ user }) => {
     return (
         <div className={`page ${styles.page}`}>
             <div className={styles.background}></div>
-            <div className={styles.human_container}><img className={styles.human} src="/human.png"/></div>
-            <img className={styles.comet} src="/comet.png"/>
-            <img className={styles.comet_two} src="/comet.png"/>
+            <div className={styles.human_container}><Image alt='human' className={styles.human} src="/human.png"/></div>
+            <Image alt='comet' className={styles.comet} src="/comet.png"/>
+            <Image alt='comet' className={styles.comet_two} src="/comet.png"/>
             
             <div className={styles.contain}>
                 <div className={styles.dropdown}>

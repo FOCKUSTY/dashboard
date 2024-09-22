@@ -1,8 +1,9 @@
 import styles from './index.module.scss';
 
-import { ReactElement, useContext, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import type { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
+import Image from 'next/image';
 
 import type { Webhook as WebhookType } from "types/webhook.types";
 import type { Fields } from "types/embed.types";
@@ -24,8 +25,8 @@ import CreateHandler from "utils/handlers/global/create.handler";
 import ContentInputHandler from "utils/handlers/local/content-input.handler";
 
 import Webhook from "ui/webhook/webhook.ui";
-import { EmbedItem } from "ui/embed/EmbedItem";
-import { EmbedPreviewItem } from "ui/embed/EmbedPreviewItem";
+import Embed from "ui/embed/embed.component";
+import EmbedPreview from "ui/embed/embed-preview.component";
 import { DashboardLayout } from "ui/layouts/dashboard.ui";
 
 type Props = {
@@ -73,7 +74,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) => {
                         <div id={styles.embed_container}>
                             <embedContext.Provider value={{ embeds: embeds, setEmbeds }}>
                                 {embeds.map(embed =>
-                                    <EmbedItem
+                                    <Embed
                                         id={`${embeds.indexOf(embed)}`}
                                         key={embed}
                                         setEmbed={setEmbed}
@@ -101,7 +102,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) => {
                         <div className={styles.chat}>
                             <div id={styles.message}>
                                 <div>
-                                    <img id={styles.msg_avatar} src={avatarsrc} alt={webhook.name} />
+                                    <Image id={styles.msg_avatar} src={avatarsrc} alt={webhook.name} />
                                     <span id={styles.name}>{webhook.name}</span>
 
                                     <div id={styles.msg_content}>
@@ -110,7 +111,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) => {
 
                                     <div className={styles.embeds}>
                                         {embeds.map(embed =>
-                                            <EmbedPreviewItem
+                                            <EmbedPreview
                                                 id={`${embeds.indexOf(embed)}`}
                                                 key={embed}
                                                 _fields={_fields}

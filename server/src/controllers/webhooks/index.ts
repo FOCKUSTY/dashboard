@@ -16,7 +16,7 @@ class Controller {
         };
     };
 
-    public readonly getWebhookController = async (req: Request, res: Response) =>  {
+    public readonly getWebhook = async (req: Request, res: Response) =>  {
         try {
             const webhook = await service.getWebhook(req.params.webhookId, req.params.webhookToken);
             

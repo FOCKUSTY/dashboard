@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import fs from 'node:fs';
 
 export enum Colors {
     reset = "\u001B[0m",
@@ -92,14 +91,6 @@ class Formatter {
     public static FromJSON = (json: string): any => {
         let file;
         JSON.stringify(json, (_, value) => { eval(`file = ${value}`) } );
-        return file;
-    };
-
-    public static FromJSONwithPath = (path: string): any => {
-        let file: any;
-        const json = fs.readFileSync(path, { encoding: "utf-8" });
-        JSON.stringify(json, (_, value) => { eval(`file = ${value}`) } );
-
         return file;
     };
 

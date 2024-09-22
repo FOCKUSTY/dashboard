@@ -1,11 +1,12 @@
 import styles from 'styles/404.module.scss';
 
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 import Locale from 'service/locale.service';
 import Animation404 from 'service/404.service';
 
-const page404 = () => {
+const Page404 = () => {
     let started = false;
 
     const animation = new Animation404(styles);
@@ -15,8 +16,8 @@ const page404 = () => {
     return (
         <div className={`page ${styles.page}`}>
             <div id={styles.background}></div>
-            <div className={styles.human_container}><img id={styles.human} src="/human.png"/></div>
-            <img id={styles.hat} src="/hat.png" onAnimationEnd={(e) => animation.execute(e, started)}/>
+            <div className={styles.human_container}><Image alt='human' id={styles.human} src="/human.png"/></div>
+            <Image alt='hat' id={styles.hat} src="/hat.png" onAnimationEnd={(e) => animation.execute(e, started)}/>
             
             <div className={`aligned-center ${styles.aligned_center}`}>
                 <div className={styles.container}>
@@ -27,4 +28,4 @@ const page404 = () => {
     );
 };
 
-export default page404;
+export default Page404;

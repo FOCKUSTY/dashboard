@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { isAuthenticated } from '../../utils/middlewares'
-import { getWebhookController, postWebhookController } from "../../controllers/webhooks";
+import Controller from "../../controllers/webhooks";
 
+const controller = new Controller();
 const router = Router();
 
-router.get('/:webhookId', isAuthenticated, getWebhookController);
-router.get('/:webhookId/:webhookToken', getWebhookController);
-router.post('/:webhookId/:webhookToken', postWebhookController);
+router.get('/:webhookId', isAuthenticated, controller.getWebhook);
+router.get('/:webhookId/:webhookToken', controller.getWebhook);
+router.post('/:webhookId/:webhookToken', controller.postWebhook);
 
 export default router;

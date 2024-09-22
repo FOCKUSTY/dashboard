@@ -1,4 +1,4 @@
-import '/styles/global.scss';
+import 'styles/global.scss';
 
 import { useState } from 'react';
 import GuildContext from 'contexts/guild.context';

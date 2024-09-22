@@ -20,6 +20,7 @@
             "ui/*": ["./src/components/*"],
             "contexts/*": ["./src/contexts/*"],
             "service/*": ["./src/service/*"],
+            "styles/*": ["./src/styles/*"],
             "locale/*": ["./src/locale/*"],
             "types/*": ["./src/types/*"],
             "pages/*": ["./src/pages/*"],

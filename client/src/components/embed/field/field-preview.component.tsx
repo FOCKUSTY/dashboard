@@ -1,4 +1,4 @@
-import styles from './fieldPreview.module.scss';
+import styles from './field-preview.module.scss';
 import React from 'react';
 
 type Props = {

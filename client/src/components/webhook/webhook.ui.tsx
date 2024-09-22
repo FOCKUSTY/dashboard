@@ -1,5 +1,5 @@
 import styles from './index.module.scss';
-import WS from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+import WS from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 
 import { useRouter } from "next/router";
 

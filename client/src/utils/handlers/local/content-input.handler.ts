@@ -1,5 +1,5 @@
+import WS from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 import { FormEvent } from "react";
-import WS from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss'
 
 class Handler {
     public readonly handler = (e: FormEvent) => {

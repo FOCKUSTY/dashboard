@@ -22,7 +22,7 @@ const SettingsPage: NextPageWithLayout<Props> = ({ guild, user }) => {
 
     return (
         <div className="page">
-            <p>{guild?.name}'s settings page</p>
+            <p>{guild?.name}&#39;s settings page</p>
         </div>
     );
 };

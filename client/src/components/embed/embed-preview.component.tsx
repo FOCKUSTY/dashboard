@@ -1,4 +1,4 @@
-import styles from './embedPreview.module.scss';
+import styles from './embed-preview.module.scss';
 
 import React from 'react';
 

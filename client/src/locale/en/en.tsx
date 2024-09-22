@@ -16,12 +16,12 @@ export default
                     <li>
                         <p>
                         To start you must open <a className={styles.link} href={`${api.client_url}/en`}>main page</a> of site
-                        then click on button "Add to Discord" or "Sign in"
+                        then click on button &#39;Add to Discord&#39; or &#39;Sign in&#39;
                         </p>
                     </li>
 
                     <li>
-                        <p>After success login, you can click on button "Servers" and go to menu for selecting your servers</p>
+                        <p>After success login, you can click on button &#39;Servers&#39; and go to menu for selecting your servers</p>
                     </li>
                 </ul>
             </div>

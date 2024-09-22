@@ -1,7 +1,7 @@
-import { FormEvent } from "react";
-
 import styles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
-import WS from 'components/webhook/oneWebhook.module.scss'
+import WS from 'ui/webhook/profile.module.scss';
+
+import { FormEvent } from "react";
 
 class Handler {
     public readonly handler = (e: FormEvent) => {

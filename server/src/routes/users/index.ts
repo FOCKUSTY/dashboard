@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { isAuthenticated } from '../../utils/middlewares'
-import { getUserController } from '../../controllers/users'
+import Controller from '../../controllers/users'
 
+const controller = new Controller;
 const router = Router();
 
-router.get('/', isAuthenticated, getUserController);
-router.get('/:userId', isAuthenticated, getUserController);
+router.get('/', isAuthenticated, controller.getUser);
+router.get('/:userId', isAuthenticated, controller.getUser);
 
 export default router;

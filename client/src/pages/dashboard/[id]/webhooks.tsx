@@ -28,7 +28,7 @@ const WebhooksPage: NextPageWithLayout<Props> = ({ guild, user, webhooks }) => {
 
     return (
         <div className="page">
-            <p>{guild?.name}'s webhooks page</p>
+            <p>{guild?.name}&#39;s webhooks page</p>
 
             {webhooks.map((webhook: WebhookType) => 
                 <div key={webhook.id} onClick={() =>

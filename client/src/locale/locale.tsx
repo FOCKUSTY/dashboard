@@ -20,12 +20,18 @@ type Props<T extends string> = {
 
 class Locale<T extends Language<string>> {
     public readonly TranslatedText: FC<Props<T>> = ({ type, language }) => {
+        if(language === 'default')
+            language = 'ru';
+        
         const component = locales[language][type];
 
         return component;
     };
 
     public getTranslatedText<T extends string>(type: TranslatedTexts, language: Language<T>) {
+        if(language === 'default')
+            language = 'ru';
+        
         const text = locales[language][type];
 
         return text;

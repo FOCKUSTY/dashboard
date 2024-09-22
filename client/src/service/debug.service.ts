@@ -1,4 +1,4 @@
-import Formatter, { Colors } from "service/formatter.service";
+import { Colors } from "service/formatter.service";
 
 import Api from 'api/api';
 

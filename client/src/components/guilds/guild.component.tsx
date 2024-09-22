@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 
 import Image from 'next/image'
-import React, { FC } from 'react';
+import React from 'react';
 
 import type { Guild } from 'types/guild.types';
 
