@@ -1,8 +1,8 @@
 import styles from './embedPreview.module.scss';
 
-import React, { FC } from 'react';
+import React from 'react';
 
-import { FieldPreviewItem } from './field/FieldPreviewItem';
+import Field from './field/field-preview.component';
 
 type Props = {
     id: string;
@@ -35,7 +35,7 @@ class Component extends React.Component<Props> {
     
                     <div id={styles.fields}>
                         {fields?.map(field =>
-                            <FieldPreviewItem
+                            <Field
                                 id={`${fields.indexOf(field)}`}
                                 key={field}
                             />

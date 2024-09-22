@@ -10,7 +10,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import EmbedsContext from 'contexts/embed.context';
 import FieldsContext from 'contexts/field.context';
 
-import { FieldItem } from './field/FieldItem';
+import Field from './field/field.component';
 
 import DeleteHandler from 'utils/handlers/global/delete.handler';
 import CreateHandler from 'utils/handlers/global/create.handler';
@@ -234,7 +234,7 @@ class Component extends React.Component<Props> {
                             <div id={styles.fields_container}>
                                 <this.FieldContext.Provider value={{fields: fields, setFields: this.setFields}}>
                                     {fields.map(field =>
-                                        <FieldItem
+                                        <Field
                                             id={`${fields.indexOf(field)}`}
                                             key={field}
                                             setField={setField}
