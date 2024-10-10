@@ -1,5 +1,5 @@
-import styles from 'pages/documentation/index.module.scss';
-import Api from 'api/api';
+import styles from '../../pages/documentation/index.module.scss';
+import Api from '../../api/api';
 
 const api = new Api();
 

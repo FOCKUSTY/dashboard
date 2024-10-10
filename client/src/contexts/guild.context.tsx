@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect } from 'react';
-import type { FullGuild } from 'types/guild.types';
+import type { FullGuild } from '../types/guild.types';
 
 type GuildContextType = {
     guild?: FullGuild;

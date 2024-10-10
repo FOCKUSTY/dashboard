@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 import Sidebar from "../misc/sidebar.ui";
 import Appbar from "../misc/appbar.ui";
 
-import GuildContext from "contexts/guild.context";
+import GuildContext from "../../contexts/guild.context";
 
 export const DashboardLayout = ({ children }: { children: ReactElement }) => {
     const { guild } = new GuildContext().getContext();

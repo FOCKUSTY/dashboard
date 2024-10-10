@@ -1,10 +1,10 @@
-import styles from 'styles/404.module.scss';
+import styles from '../styles/404.module.scss';
 
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import Locale from 'service/locale.service';
-import Animation404 from 'service/404.service';
+import Locale from '../service/locale.service';
+import Animation404 from '../service/404.service';
 
 const Page404 = () => {
     let started = false;

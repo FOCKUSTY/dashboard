@@ -6,9 +6,9 @@ import { AiFillFileText } from "react-icons/ai";
 import { FaServer } from "react-icons/fa";
 import Image from 'next/image'
 
-import { User } from "types/user.types";
+import { User } from "../../types/user.types";
 
-import Service from 'service/homepage.service';
+import Service from '../../service/homepage.service';
 
 type Props = {
     t: (text: string, variable?: string) => string|undefined;

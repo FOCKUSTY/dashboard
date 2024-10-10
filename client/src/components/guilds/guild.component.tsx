@@ -3,10 +3,10 @@ import styles from './index.module.scss';
 import Image from 'next/image'
 import React from 'react';
 
-import type { Guild } from 'types/guild.types';
+import type { Guild } from '../../types/guild.types';
 
-import PseudoRandom from 'service/pseudo-random.service';
-import Utils from 'api/utils.api';
+import PseudoRandom from '../../service/pseudo-random.service';
+import Utils from '../../api/utils.api';
 
 const utils = new Utils();
 

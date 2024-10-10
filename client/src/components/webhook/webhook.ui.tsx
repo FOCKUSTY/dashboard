@@ -1,17 +1,17 @@
 import styles from './index.module.scss';
-import WS from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+import WS from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 
 import { useRouter } from "next/router";
 
 import React from 'react';
-import type { Webhook as WebhookType } from "types/webhook.types";
+import type { Webhook as WebhookType } from "../../types/webhook.types";
 
-import SendHandler from 'utils/handlers/global/send.handler';
-import nameInputHandler from "utils/handlers/local/name-input.handler";
-import urlInputHandler from "utils/handlers/local/url-input.handler";
+import SendHandler from '../../utils/handlers/global/send.handler';
+import nameInputHandler from "../../utils/handlers/local/name-input.handler";
+import urlInputHandler from "../../utils/handlers/local/url-input.handler";
 
-import Locale from 'service/locale.service';
-import Utils from 'api/utils.api';
+import Locale from '../../service/locale.service';
+import Utils from '../../api/utils.api';
 
 const utils = new Utils();
 

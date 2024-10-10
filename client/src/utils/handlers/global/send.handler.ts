@@ -1,15 +1,16 @@
-import styles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+import styles from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 
-import WS from 'ui/webhook/profile.module.scss';
-import ES from 'ui/embed/index.module.scss';
-import FS from 'ui/embed/field/index.module.scss';
+import WS from '../../../components/webhook/profile.module.scss';
+import ES from '../../../components/embed/index.module.scss';
+import FS from '../../../components/embed/field/index.module.scss';
 
 import { FormEvent } from "react";
 
-import WebhookApi from 'api/webhook.api';
+import WebhookApi from '../../../api/webhook.api';
 
-import type { Embed, Author, Footer } from "types/embed.types";
-import type { Webhook } from "types/webhook.types";
+import type { Embed, Author, Footer } from "../../../types/embed.types";
+import type { Webhook } from "../../../types/webhook.types";
+
 import type { ColorResolvable } from "discord.js";
 
 class Handler {

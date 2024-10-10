@@ -1,5 +1,5 @@
 import type { GetServerSidePropsContext } from "next";
-import type { Guild } from 'types/guild.types';
+import type { Guild } from '../types/guild.types';
 
 import axios from "axios";
 import Api from "./api";

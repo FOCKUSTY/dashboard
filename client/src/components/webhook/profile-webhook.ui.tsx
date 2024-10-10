@@ -3,9 +3,9 @@ import styles from './profile.module.scss';
 import React from 'react';
 import Image from 'next/image'
 
-import type { Webhook } from "types/webhook.types"
+import type { Webhook } from "../../types/webhook.types"
 
-import Utils from 'api/utils.api';
+import Utils from '../../api/utils.api';
 
 type Props = {
     webhook: Webhook

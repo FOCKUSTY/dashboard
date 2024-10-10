@@ -1,5 +1,5 @@
-import { Debug } from "service/debug.service";
-import Array from "service/array.service";
+import { Debug } from "../service/debug.service";
+import Array from "../service/array.service";
 
 import { Random as RandomJS } from 'random-js';
 

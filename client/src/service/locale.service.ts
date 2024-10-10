@@ -1,5 +1,5 @@
-import localizations from 'locale/locales.json';
-import type { Language } from "types/locale.types";
+import localizations from '../locale/locales.json';
+import type { Language } from "../types/locale.types";
 
 const locales: {
     [key: string]: {

@@ -2,9 +2,9 @@ import styles from './index.module.scss'
 
 import React from 'react';
 
-import type { User } from 'types/user.types';
+import type { User } from '../../types/user.types';
 
-import Utils from 'api/utils.api'
+import Utils from '../../api/utils.api'
 
 type Props = {
     user?: User;

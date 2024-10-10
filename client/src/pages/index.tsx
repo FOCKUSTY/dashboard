@@ -1,4 +1,4 @@
-import styles from 'styles/home.module.scss';
+import styles from '../styles/home.module.scss';
 
 import type { GetServerSidePropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
@@ -6,18 +6,18 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from 'next/image';
 
-import type { User } from "types/user.types";
-
-import Info from 'ui/home/info.component';
-
 import { FaDiscord } from 'react-icons/fa'
 import { IoLanguageSharp } from "react-icons/io5";
 
-import Locale from 'service/locale.service'
-import Service from 'service/homepage.service';
+import type { User } from "../types/user.types";
 
-import Utils from 'api/utils.api';
-import UserApi from "api/user.api";
+import Info from '../components/home/info.component';
+
+import Locale from '../service/locale.service'
+import Service from '../service/homepage.service';
+
+import Utils from '../api/utils.api';
+import UserApi from "../api/user.api";
 
 const utils = new Utils();
 

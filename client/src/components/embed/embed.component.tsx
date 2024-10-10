@@ -7,19 +7,19 @@ import React, { FormEvent, useState } from 'react';
 import { IoIosArrowForward } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
 
-import EmbedsContext from 'contexts/embed.context';
-import FieldsContext from 'contexts/field.context';
+import EmbedsContext from '../../contexts/embed.context';
+import FieldsContext from '../../contexts/field.context';
 
 import Field from './field/field.component';
 
-import DeleteHandler from 'utils/handlers/global/delete.handler';
-import CreateHandler from 'utils/handlers/global/create.handler';
-import ClickHandler from 'utils/handlers/local/click.handler';
+import DeleteHandler from '../../utils/handlers/global/delete.handler';
+import CreateHandler from '../../utils/handlers/global/create.handler';
+import ClickHandler from '../../utils/handlers/local/click.handler';
 
-import InputHandler from 'utils/handlers/embed/input.handler.ts';
-import ColorInputHandler from 'utils/handlers/embed/color-input.handler';
+import InputHandler from '../../utils/handlers/embed/input.handler.ts';
+import ColorInputHandler from '../../utils/handlers/embed/color-input.handler';
 
-import Locale from 'service/locale.service';
+import Locale from '../../service/locale.service';
 
 type Props = {
     id: string;

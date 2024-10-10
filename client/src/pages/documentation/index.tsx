@@ -3,7 +3,7 @@ import styles from './index.module.scss';
 import { useRouter } from "next/router";
 import type { NextPage } from "next";
 
-import Locale from 'locale/locale';
+import Locale from '../../locale/locale';
 
 const DocumentationPage: NextPage = () => {
     const router = useRouter();

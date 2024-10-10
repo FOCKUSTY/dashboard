@@ -1,6 +1,6 @@
-import { Colors } from "service/formatter.service";
+import { Colors } from "../service/formatter.service";
 
-import Api from 'api/api';
+import Api from '../api/api';
 
 const api = new Api();
 

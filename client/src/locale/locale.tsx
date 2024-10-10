@@ -3,7 +3,7 @@ import { FC } from "react";
 import type {
     Language,
     TranslatedTexts
-} from "types/locale.types";
+} from "../types/locale.types";
 
 import localizations from './index';
 

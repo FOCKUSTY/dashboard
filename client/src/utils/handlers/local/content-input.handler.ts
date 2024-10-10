@@ -1,4 +1,4 @@
-import WS from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+import WS from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 import { FormEvent } from "react";
 
 class Handler {

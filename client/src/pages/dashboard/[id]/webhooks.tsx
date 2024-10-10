@@ -2,19 +2,19 @@ import type { GetServerSidePropsContext } from "next";
 import type { ReactElement} from "react";
 import { useRouter } from "next/router";
 
-import { DashboardLayout } from "ui/layouts/dashboard.ui";
+import { DashboardLayout } from "../../../components/layouts/dashboard.ui";
 
-import type { User } from "types/user.types";
-import type { NextPageWithLayout } from "types/next.types";
-import type { FullGuild } from "types/guild.types";
-import type { Webhook as WebhookType } from "types/webhook.types";
+import type { User } from "../../../types/user.types";
+import type { NextPageWithLayout } from "../../../types/next.types";
+import type { FullGuild } from "../../../types/guild.types";
+import type { Webhook as WebhookType } from "../../../types/webhook.types";
 
-import WebhookApi from "api/webhook.api";
-import GuildApi from "api/guild.api";
-import UserApi from "api/user.api";
-import GuildContext from "contexts/guild.context";
+import WebhookApi from "../../../api/webhook.api";
+import GuildApi from "../../../api/guild.api";
+import UserApi from "../../../api/user.api";
+import GuildContext from "../../../contexts/guild.context";
 
-import Webhook from "ui/webhook/webhook.ui";
+import Webhook from "../../../components/webhook/webhook.ui";
 
 type Props = {
     guild: FullGuild;

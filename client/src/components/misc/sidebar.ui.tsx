@@ -3,15 +3,15 @@ import styles from './index.module.scss'
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-import React, { FC } from "react";
+import React from "react";
 
 import { MdSpaceDashboard } from "react-icons/md";
 import { PiWebhooksLogoBold } from "react-icons/pi";
 import { FaWrench } from "react-icons/fa";
 
-import type { FullGuild } from "types/guild.types";
+import type { FullGuild } from "../../types/guild.types";
 
-import Utils from "api/utils.api";
+import Utils from "../../api/utils.api";
 
 const utils = new Utils();
 

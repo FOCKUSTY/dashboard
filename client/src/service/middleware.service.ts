@@ -1,6 +1,6 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
-import Api from "api/api";
-import GuildApi from "api/guild.api";
+import Api from "../api/api";
+import GuildApi from "../api/guild.api";
 
 const api = new Api();
 const guildApi = new GuildApi();

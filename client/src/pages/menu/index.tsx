@@ -3,13 +3,13 @@ import styles from './index.module.scss'
 import { GetServerSidePropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { Guild } from "types/guild.types";
+import { Guild } from "../../types/guild.types";
 
-import Locale from 'service/locale.service';
-import GuildComponent from "ui/guilds/guild.component";
+import Locale from '../../service/locale.service';
+import GuildComponent from "../../components/guilds/guild.component";
 
-import GuildApi from "api/guild.api";
-import Api from 'api/api';
+import GuildApi from "../../api/guild.api";
+import Api from '../../api/api';
 
 const guildApi = new GuildApi();
 const api = new Api();

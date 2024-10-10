@@ -1,5 +1,5 @@
-import styles from 'pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
-import WS from 'ui/webhook/profile.module.scss';
+import styles from '../../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
+import WS from '../../../components/webhook/profile.module.scss';
 
 import { FormEvent } from "react";
 

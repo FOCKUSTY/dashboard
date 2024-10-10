@@ -2,12 +2,12 @@ import styles from './index.module.scss';
 
 import { useRouter } from 'next/router';
 
-import React, { FC } from 'react';
+import React from 'react';
 import { RiMenu3Line } from 'react-icons/ri'
 
-import type { FullGuild } from 'types/guild.types';
+import type { FullGuild } from '../../types/guild.types';
 
-import Locale from 'service/locale.service';
+import Locale from '../../service/locale.service';
 
 type Props = {
     guild?: FullGuild;

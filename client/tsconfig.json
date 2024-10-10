@@ -16,24 +16,15 @@
         "plugins": [
             { "name": "next" }
         ],
-        "paths": {
-            "ui/*": ["./src/components/*"],
-            "contexts/*": ["./src/contexts/*"],
-            "service/*": ["./src/service/*"],
-            "styles/*": ["./src/styles/*"],
-            "locale/*": ["./src/locale/*"],
-            "types/*": ["./src/types/*"],
-            "pages/*": ["./src/pages/*"],
-            "api/*": ["./src/api/*"],
-            "utils/*": ["./src/utils/*"]
-        }
+        "paths": {}
     },
     "include": [
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts"
-, "src/locale/index.tx"    ],
+        ".next/types/**/*.ts",
+        "src/locale/index.tx"
+    ],
     "exclude": [
         "node_modules"
     ]

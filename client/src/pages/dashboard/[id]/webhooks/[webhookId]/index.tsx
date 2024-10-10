@@ -5,29 +5,29 @@ import type { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import Image from 'next/image';
 
-import type { Webhook as WebhookType } from "types/webhook.types";
-import type { Fields } from "types/embed.types";
-import type { FullGuild } from "types/guild.types";
-import type { NextPageWithLayout } from "types/next.types";
-import type { User } from "types/user.types";
+import type { Webhook as WebhookType } from "../../../../../types/webhook.types";
+import type { Fields } from "../../../../../types/embed.types";
+import type { FullGuild } from "../../../../../types/guild.types";
+import type { NextPageWithLayout } from "../../../../../types/next.types";
+import type { User } from "../../../../../types/user.types";
 
-import Locale from 'service/locale.service';
+import Locale from '../../../../../service/locale.service';
 
-import Utils from "api/utils.api";
-import GuildApi from "api/guild.api";
-import WebhookApi from "api/webhook.api";
-import UserApi from "api/user.api";
+import Utils from "../../../../../api/utils.api";
+import GuildApi from "../../../../../api/guild.api";
+import WebhookApi from "../../../../../api/webhook.api";
+import UserApi from "../../../../../api/user.api";
 
-import GuildContext from "contexts/guild.context";
-import EmbedsContext from 'contexts/embed.context';
+import GuildContext from "../../../../../contexts/guild.context";
+import EmbedsContext from '../../../../../contexts/embed.context';
 
-import CreateHandler from "utils/handlers/global/create.handler";
-import ContentInputHandler from "utils/handlers/local/content-input.handler";
+import CreateHandler from "../../../../../utils/handlers/global/create.handler";
+import ContentInputHandler from "../../../../../utils/handlers/local/content-input.handler";
 
-import Webhook from "ui/webhook/webhook.ui";
-import Embed from "ui/embed/embed.component";
-import EmbedPreview from "ui/embed/embed-preview.component";
-import { DashboardLayout } from "ui/layouts/dashboard.ui";
+import Webhook from "../../../../../components/webhook/webhook.ui";
+import Embed from "../../../../../components/embed/embed.component";
+import EmbedPreview from "../../../../../components/embed/embed-preview.component";
+import { DashboardLayout } from "../../../../../components/layouts/dashboard.ui";
 
 type Props = {
     guild: FullGuild;

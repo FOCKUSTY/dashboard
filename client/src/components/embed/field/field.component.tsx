@@ -1,16 +1,16 @@
 import styles from './index.module.scss';
 import FPS from './field-preview.module.scss';
 
-import React, { FC } from 'react';
+import React from 'react';
 
 import { IoIosArrowForward } from "react-icons/io"
 import { RxCrossCircled } from 'react-icons/rx';
 
-import ClickHandler from 'utils/handlers/local/click.handler';
-import DeleteHandler from 'utils/handlers/global/delete.handler';
-import EmbedInputHandler from 'utils/handlers/embed/input.handler.ts';
-import FieldInputHandler from 'utils/handlers/field/input.handler';
-import CheckboxHandler from 'utils/handlers/field/checkbox.handler';
+import ClickHandler from '../../../utils/handlers/local/click.handler';
+import DeleteHandler from '../../../utils/handlers/global/delete.handler';
+import EmbedInputHandler from '../../../utils/handlers/embed/input.handler.ts';
+import FieldInputHandler from '../../../utils/handlers/field/input.handler';
+import CheckboxHandler from '../../../utils/handlers/field/checkbox.handler';
 
 const onClick = new ClickHandler().handler;
 const input = new FieldInputHandler().handler;

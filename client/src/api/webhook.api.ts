@@ -1,4 +1,4 @@
-import type { WebhookMessage, Webhook } from "types/webhook.types";
+import type { WebhookMessage, Webhook } from "../types/webhook.types";
 import type { GetServerSidePropsContext } from "next";
 
 import axios from 'axios';
