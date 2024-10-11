@@ -11,7 +11,7 @@ class UserApi {
             return null;
     
         try {
-            const res = await fetch(`${api.url}/users/${context.query.id}`, { headers });
+            const res = await fetch(`${api.url}/users`, { headers });
             const user = await res.json();
     
             return user;

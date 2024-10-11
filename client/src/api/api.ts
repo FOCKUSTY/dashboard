@@ -4,7 +4,7 @@ import config from '../../config.json';
 class Api {
     public readonly env = config;
     
-    public readonly url: string = config.server_url || 'http://localhost:3001' + '/api';
+    public readonly url: string = (config.server_url || 'http://localhost:3001') + '/api';
     public readonly client_url = config.client_url || 'http://localhost:3000';
     public readonly dev_mode = config.dev_mode || false;
 

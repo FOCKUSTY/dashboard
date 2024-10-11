@@ -29,7 +29,7 @@ const Home: NextPage<Props> = ({ user }) => {
 
     const t = new Locale(router.locale || 'ru').translate;
 
-    const avatarsrc = utils.getAvatar(user!);
+    const avatarsrc = utils.getAvatar(user);
 
     return (
         <div className={`page ${styles.page}`}>
