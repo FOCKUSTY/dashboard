@@ -6,7 +6,7 @@ const api = new Api();
 class UserApi {
     public readonly fetchUser = async (context: GetServerSidePropsContext) => {
         const headers = api.validateCookies(context);
-    
+
         if(!headers)
             return null;
     

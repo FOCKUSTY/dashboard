@@ -1,13 +1,12 @@
-import { config } from 'dotenv';
 import type { GetServerSidePropsContext } from "next";
-
-config();
+import config from '../../config.json';
 
 class Api {
-    public readonly env = process.env;
-    public readonly url: string = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3001' + '/api';
-    public readonly client_url = process.env.NEXT_PUBLIC_CLIENT_URL || 'http://localhost:3000';
-    public readonly dev_mode = process.env.NEXT_PUBLIC_DEV_MODE || false;
+    public readonly env = config;
+    
+    public readonly url: string = config.server_url || 'http://localhost:3001' + '/api';
+    public readonly client_url = config.client_url || 'http://localhost:3000';
+    public readonly dev_mode = config.dev_mode || false;
 
     public readonly validateCookies = (ctx?: GetServerSidePropsContext) => {
         if(!ctx)

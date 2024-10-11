@@ -4,7 +4,7 @@ const api = new Api();
 
 class Service {
     public readonly login = () => {
-        return window.location.href = `${api.url}/api/auth/discord`
+        return window.location.href = `${api.url}/api/auth/discord`;
     };
 
     public readonly invite = () => {

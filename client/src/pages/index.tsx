@@ -4,7 +4,6 @@ import type { GetServerSidePropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
 
 import Link from "next/link";
-import Image from 'next/image';
 
 import { FaDiscord } from 'react-icons/fa'
 import { IoLanguageSharp } from "react-icons/io5";
@@ -27,6 +26,7 @@ type Props = {
  
 const Home: NextPage<Props> = ({ user }) => {
     const router = useRouter();
+
     const t = new Locale(router.locale || 'ru').translate;
 
     const avatarsrc = utils.getAvatar(user!);
@@ -34,9 +34,9 @@ const Home: NextPage<Props> = ({ user }) => {
     return (
         <div className={`page ${styles.page}`}>
             <div className={styles.background}></div>
-            <div className={styles.human_container}><Image alt='human' className={styles.human} src="/human.png"/></div>
-            <Image alt='comet' className={styles.comet} src="/comet.png"/>
-            <Image alt='comet' className={styles.comet_two} src="/comet.png"/>
+            <div className={styles.human_container}><img alt='human' className={styles.human} src="/human.png"/></div>
+            <img alt='comet' className={styles.comet} src="/comet.png"/>
+            <img alt='comet' className={styles.comet_two} src="/comet.png"/>
             
             <div className={styles.contain}>
                 <div className={styles.dropdown}>
@@ -61,7 +61,7 @@ const Home: NextPage<Props> = ({ user }) => {
                             <div className={styles.inner_buttons}>
                                 <button id={styles.discord_login} className={`${styles.button}`} onClick={new Service().invite}>
                                     <FaDiscord id={styles.discord_logo} className={styles.inner} size={50}></FaDiscord>
-                                    <span className={styles.inner}>{t('Добавить в Discord')}</span>
+                                    <span className={styles.inner}>{t('Добавить в')} Discord</span>
                                 </button>
 
                                 <Info

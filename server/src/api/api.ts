@@ -1,6 +1,14 @@
+import { config } from "dotenv";
+
+config();
+
 class Api {
-    public readonly discord_url = 'https://discord.com/api/v9';
+    public readonly env = process.env;
+
+    public readonly client_url = process.env.CLIENT_URL;
+
     public readonly discord_token = process.env.DISCORD_BOT_TOKEN;
+    public readonly discord_url = 'https://discord.com/api/v9';
 
     public readonly getBotAuth = () => {
         return { Authorization: 'Bot ' + this.discord_token };

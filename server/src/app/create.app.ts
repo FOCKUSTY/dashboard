@@ -14,7 +14,7 @@ class App {
     private readonly _session: Session;
 
     protected readonly _port: string|number = process.env.PORT || 3001;
-    protected readonly _client_url: string = `${process.env.CLIENT_URL}`;
+    protected readonly _client_url: string = process.env.CLIENT_URL!;
 
     constructor() {
         this._app = express();
@@ -23,7 +23,7 @@ class App {
         this.init();
     };
 
-    private init = () => {
+    private readonly init = () => {
         try {
             this._app.use(cors({  origin: [ this._client_url ], credentials: true }));
             this._app.use(express.json());
@@ -42,7 +42,7 @@ class App {
         };
     };
 
-    public listen = () => {
+    public readonly listen = () => {
         try {
             this._app.listen(this._port, () =>
                 console.log(`Запускаю на порте ${this._port}\nhttp://localhost:${this._port}`));   

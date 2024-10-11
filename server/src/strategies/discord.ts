@@ -5,14 +5,18 @@ import passport from "passport";
 import { Profile, Strategy } from "passport-discord";
 import type { VerifyCallback } from 'passport-oauth2';
 
-class Passport {
-    private _passport = passport;
+import Api from '../api/api';
 
-    constructor() {
+const api = new Api();
+
+class Passport {
+    private readonly _passport = passport;
+
+    public constructor() {
         this.init();
     };
     
-    private init = () => {
+    private readonly init = () => {
         this._passport.serializeUser((user: any, done) => {
             return done(null, user.id);
         }); 
@@ -32,9 +36,9 @@ class Passport {
         });
 
         this._passport.use(new Strategy({
-            clientID: process.env.DISCORD_ID!,
-            clientSecret: process.env.DISCORD_SECRET!,
-            callbackURL: process.env.DISCORD_CALLBACK_URL,
+            clientID: api.env.DISCORD_ID!,
+            clientSecret: api.env.DISCORD_SECRET!,
+            callbackURL: api.env.DISCORD_CALLBACK_URL,
             scope: ['identify', 'email', 'guilds']
             }, async (
                     accessToken: string,
@@ -68,15 +72,15 @@ class Passport {
         ));
     };
 
-    public initialize = () => {
+    public readonly initialize = () => {
         return this._passport.initialize();
     };
     
-    public session = () => {
+    public readonly session = () => {
         return this._passport.session();
     };
 
-    get passport () {
+    public get passport () {
         return this._passport;
     };
 };

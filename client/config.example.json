@@ -1,0 +1,5 @@
+{
+    "server_url": "SERVER_URL",
+    "client_url": "CLIENT_URL",
+    "dev_mode": "boolean"
+}
