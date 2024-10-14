@@ -33,12 +33,12 @@ SettingsPage.getLayout = (page: ReactElement) => {
 
 export const getServerSideProps = async(ctx: GetServerSidePropsContext) => {
     const guild = (await new GuildApi().fetchGuild(ctx)).props;
-    const user = (await new UserApi().fetchUser(ctx)).props;
+    const user = (await new UserApi().fetchUser(ctx));
 
     return {
         props: {
             guild: guild?.guild!,
-            user: user.user
+            user: user
         }
     };
 };

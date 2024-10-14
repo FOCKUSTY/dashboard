@@ -8,7 +8,7 @@ import type { Webhook } from "../../types/webhook.types"
 import Utils from '../../api/utils.api';
 
 type Props = {
-    webhook: Webhook
+    webhook: Webhook;
 };
 
 class Component extends React.Component<Props> {

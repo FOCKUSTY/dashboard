@@ -14,7 +14,7 @@ import GuildApi from "../../../api/guild.api";
 import UserApi from "../../../api/user.api";
 import GuildContext from "../../../contexts/guild.context";
 
-import Webhook from "../../../components/webhook/webhook.ui";
+import Webhook from "../../../components/webhook/profile-webhook.ui";
 
 type Props = {
     guild: FullGuild;
@@ -47,13 +47,13 @@ WebhooksPage.getLayout = (page: ReactElement) => {
 
 export const getServerSideProps = async(ctx: GetServerSidePropsContext) => {
     const guild = (await new GuildApi().fetchGuild(ctx)).props;
-    const user = (await new UserApi().fetchUser(ctx)).props;
+    const user = (await new UserApi().fetchUser(ctx));
     const webhooks = (await new WebhookApi().getWebhooks(ctx))?.props;
 
     return {
         props: {
+            user: user,
             guild: guild?.guild!,
-            user: user.user,
             webhooks: webhooks?.webhooks!
         }
     };

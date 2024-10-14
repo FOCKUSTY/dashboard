@@ -7,7 +7,7 @@ const service = new Service();
 
 class Controller {
     private async getValid(user: User, guildId: string) {
-        const { guilds, guildsWithoutBot } = await service.getMutualGuilds(user.id);
+        const [ guilds, guildsWithoutBot ] = await service.getMutualGuilds(user.id);
     
         const valid = guilds.some((guild) =>
             guild.id === guildId)
@@ -41,7 +41,7 @@ class Controller {
         try {
             const guilds = await service.getMutualGuilds(user.id);
             
-            return res.send({ guilds });
+            return res.send(guilds);
         }
         catch (err) {
             console.error(err);

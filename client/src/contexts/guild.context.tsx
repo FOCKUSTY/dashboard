@@ -6,10 +6,12 @@ type GuildContextType = {
     setGuild: (guild?: FullGuild) => void;
 };
 
+export const context = createContext<GuildContextType>({
+    setGuild: () => {},
+});
+
 class GuildContext {
-    private readonly _context = createContext<GuildContextType>({
-        setGuild: () => {},
-    });
+    private readonly _context = context;
 
     public setContext = (guild?: FullGuild) => {
         const { setGuild } = useContext(this._context);

@@ -40,7 +40,7 @@ class GuildApi {
         try {
             const { data: guilds } = await axios.get<Guild[]>(`${api.url}/guilds`, { headers });
     
-            return { props: guilds };
+            return { props: { guilds } };
         } catch (err) {
             console.error(err);
     

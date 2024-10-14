@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 import WS from '../../pages/dashboard/[id]/webhooks/[webhookId]/index.module.scss';
 
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 
 import React from 'react';
 import type { Webhook as WebhookType } from "../../types/webhook.types";
@@ -16,7 +16,8 @@ import Utils from '../../api/utils.api';
 const utils = new Utils();
 
 type Props = {
-    webhook: WebhookType
+    webhook: WebhookType;
+    router: NextRouter;
 };
 
 class Component extends React.Component<Props> {
@@ -25,7 +26,7 @@ class Component extends React.Component<Props> {
     };
 
     private readonly Webhook = () => {
-        const router = useRouter();
+        const router = this.props.router;
         const avatarsrc = utils.getAvatar(this.props.webhook);
     
         const t = new Locale(router.locale || 'ru').translate;

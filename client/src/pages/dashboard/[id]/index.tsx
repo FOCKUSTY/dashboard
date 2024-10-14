@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 
 import type { GetServerSidePropsContext } from "next";
-import type { ReactElement } from "react";
+import { useContext, useEffect, type ReactElement } from "react";
 import { useRouter } from "next/router";
 
 import { DashboardLayout } from "../../../components/layouts/dashboard.ui";
@@ -25,7 +25,11 @@ const DashboardPage: NextPageWithLayout<Props> = ({ guild, user }) => {
     const router = useRouter();
     const t = new Locale(router.locale || 'ru').translate;
     
-    new GuildContext().setContext(guild);
+    const { setGuild } = useContext(new GuildContext().context);
+
+    useEffect(() => {
+        setGuild(guild);
+    }, []);
 
     return (
         <div className="page">
@@ -40,12 +44,12 @@ DashboardPage.getLayout = (page: ReactElement) => {
 
 export const getServerSideProps = async(ctx: GetServerSidePropsContext) => {
     const guild = (await new GuildApi().fetchGuild(ctx)).props;
-    const user = (await new UserApi().fetchUser(ctx)).props;
+    const user = (await new UserApi().fetchUser(ctx));
 
     return {
         props: {
             guild: guild?.guild!,
-            user: user.user
+            user: user
         }
     };
 };

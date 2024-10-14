@@ -50,7 +50,9 @@ const MenuPage: NextPage<Props> = ({ guilds }) => {
                 <div className={styles.container}>
                     <h1 className={styles.title}>{t('Выберите гильдию')}</h1>
                     {validGuilds.map((guild) =>
-                        <div key={guild.id} onClick={()=> router.push(`/dashboard/${guild.id}`)}>
+                        <div key={guild.id} onClick={() =>
+                            router.push(`/dashboard/${guild.id}`)}
+                        >
                             <GuildComponent guild={guild}/>
                         </div>
                     )}
@@ -62,9 +64,8 @@ const MenuPage: NextPage<Props> = ({ guilds }) => {
     );;
 };
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) =>
-{
-    return guildApi.getMutialGuilds(context);
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+    return await guildApi.getMutialGuilds(context);
 };
 
 export default MenuPage;

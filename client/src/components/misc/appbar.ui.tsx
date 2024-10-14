@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 
 import { useRouter } from 'next/router';
 
-import React from 'react';
+import React, { FC } from 'react';
 import { RiMenu3Line } from 'react-icons/ri'
 
 import type { FullGuild } from '../../types/guild.types';
@@ -13,34 +13,24 @@ type Props = {
     guild?: FullGuild;
 };
 
-class Component extends React.Component<Props> {
-    constructor(props: Props) {
-        super(props);
-    };
+const Appbar: FC<Props> = ({ guild }) => {
+    const router = useRouter()
+    const t = new Locale(router.locale || 'ru').translate; 
 
-    private readonly Appbar = () => {
-        const router = useRouter();
-        const t = new Locale(router.locale || 'ru').translate; 
-
-        return (
-            <div className={styles.appbar}>
-                <div className={styles.menu} onClick={() =>
-                    router.push('/menu')}
-                >
-                    <RiMenu3Line size={65}/>
-                    <p>{t('Меню')}</p>
-                </div>
-    
-                <div>
-                    <p>{this.props.guild?.name}</p>
-                </div>
+    return (
+        <div className={styles.appbar}>
+            <div className={styles.menu} onClick={() =>
+                router.push('/menu')}
+            >
+                <RiMenu3Line size={65}/>
+                <p>{t('Меню')}</p>
             </div>
-        );
-    };
 
-    public readonly render = (): React.ReactNode => {
-        return this.Appbar(); 
-    };
+            <div>
+                <p>{guild?.name || 'Error, guild is not defined'}</p>
+            </div>
+        </div>
+    );
 };
 
-export default Component;
+export default Appbar;

@@ -59,7 +59,7 @@ const WebhookPage: NextPageWithLayout<Props> = ({ guild, user, webhook }) => {
     return (
         <div className="page">
             <div className={styles.outer_container}>
-                <Webhook webhook={webhook}/>
+                <Webhook router={router} webhook={webhook}/>
                 <div className={styles.container}>
                     <div className={styles.left_container} id="ChatInput">
 
@@ -134,13 +134,13 @@ WebhookPage.getLayout = (page: ReactElement) => {
 
 export const getServerSideProps = async(ctx: GetServerSidePropsContext) => {
     const guild = (await new GuildApi().fetchGuild(ctx)).props;
-    const user = (await new UserApi().fetchUser(ctx)).props;
     const webhook = (await new WebhookApi().getWebhook(ctx))?.props;
+    const user = (await new UserApi().fetchUser(ctx));
 
     return {
         props: {
+            user: user,
             guild: guild?.guild!,
-            user: user.user,
             webhook: webhook?.webhook!
         }
     };

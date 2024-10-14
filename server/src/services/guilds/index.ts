@@ -43,7 +43,7 @@ class Service {
         adminUserGuilds.map((userGuild) => (guilds.find((g) =>
             userGuild.id === g.id)) ?? guildsWithoutBot.push(userGuild));
         
-        return { guilds, guildsWithoutBot };
+        return [ guilds, guildsWithoutBot ];
     };
 };
 
