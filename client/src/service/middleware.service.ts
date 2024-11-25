@@ -23,7 +23,7 @@ class Middleware {
     public readonly execute = async (req: NextRequest, ev: NextFetchEvent) => {
         const nextUrl = req.nextUrl
         const headers = req.headers;
-    
+
         if(!headers)
             return NextResponse.redirect('/');
     
