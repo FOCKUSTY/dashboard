@@ -20,6 +20,9 @@ importers:
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
+      fbit-field:
+        specifier: 1.0.3-alpha.1a
+        version: 1.0.3-alpha.1a
       mongodb:
         specifier: ^6.17.0
         version: 6.17.0
@@ -1513,6 +1516,9 @@ packages:
 
   fb-watchman@2.0.2:
     resolution: {integrity: sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA==}
+
+  fbit-field@1.0.3-alpha.1a:
+    resolution: {integrity: sha512-tW1DBqLg1FpWYcp3BcwlpBN3vXfIgkGI9Ce8b+pJkFkqxgfrJvmxJSiu0N5L0E7ROeM0t9lafeZeAyB5hGPptw==}
 
   fflate@0.8.2:
     resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
@@ -4776,6 +4782,8 @@ snapshots:
   fb-watchman@2.0.2:
     dependencies:
       bser: 2.1.1
+
+  fbit-field@1.0.3-alpha.1a: {}
 
   fflate@0.8.2: {}
 
