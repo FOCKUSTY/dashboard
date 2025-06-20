@@ -42,16 +42,12 @@ const data: SchemaParameters<IAuthUser> = {
     type: mongoose.SchemaTypes.String,
     required: true
   }
-}
+};
 const keys = Object.keys(data);
 const schema = new Schema<IAuthUser>(data);
 
 const database = mongoose.model("auth", schema);
 
-export {
-  schema as AuthSchema,
-  keys as AuthKeys,
-  data as AuthData,
-};
+export { schema as AuthSchema, keys as AuthKeys, data as AuthData };
 
 export default database;

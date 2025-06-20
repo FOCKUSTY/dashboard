@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 
 import { IStatus, useStatus, useError } from "types/status.type";
 
-const deleteModel = async (name: string): Promise<IStatus<mongoose.Mongoose, any>> => {
+const deleteModel = async (
+  name: string
+): Promise<IStatus<mongoose.Mongoose, any>> => {
   try {
     const data = mongoose.deleteModel(name);
 

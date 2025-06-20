@@ -8,11 +8,15 @@ const getData = async <T>(
   options: FindOptions<T>
 ): Promise<IStatus<T[], any, boolean>> => {
   try {
-    const data = await Model.find(options.filter, options.projection, options.options);
+    const data = await Model.find(
+      options.filter,
+      options.projection,
+      options.options
+    );
 
     if (!data || data.length === 0) {
       return useError(new Error(`Возможно, таблиц не существует.`), data);
-    };
+    }
 
     return useStatus("Таблицы были найдены.", true, { data });
   } catch (err) {

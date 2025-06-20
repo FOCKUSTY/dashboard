@@ -12,16 +12,10 @@ const SCHEMAS = {
 } as const;
 
 const MODELS = {
-  Auth, User
+  Auth,
+  User
 } as const;
 
-export {
-  KEYS,
-  SCHEMAS,
-  MODELS,
-  
-  AuthSchema,
-  UserSchema
-};
+export { KEYS, SCHEMAS, MODELS, AuthSchema, UserSchema };
 
 export default SCHEMAS;

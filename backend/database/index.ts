@@ -6,7 +6,7 @@ import {
   FindOptions,
   Model as Models,
   PickTypeInObject,
-  UpdateOptions,
+  UpdateOptions
 } from "types/mongodb.types";
 
 import { Helpers } from "./helpers";
@@ -29,10 +29,15 @@ class Database<T extends { id: string }, K = Partial<T>> {
     return this._model;
   }
 
-  public static parse = <T extends { id: string }>(data: T, type: Models): T => Helpers.parse<T>(data, type);
+  public static parse = <T extends { id: string }>(data: T, type: Models): T =>
+    Helpers.parse<T>(data, type);
 
   public findLast = async (): Promise<Readonly<T>> => {
-    return (await this._model.findOne({}, {}, { sort: { "created_at": -1 }, new: true }))!;
+    return (await this._model.findOne(
+      {},
+      {},
+      { sort: { "created_at": -1 }, new: true }
+    ))!;
   };
 
   public generateId = async (): Promise<string> => {

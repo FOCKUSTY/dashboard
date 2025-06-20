@@ -4,4 +4,4 @@ export interface IConfig {
       roles: string[];
     };
   };
-};
+}

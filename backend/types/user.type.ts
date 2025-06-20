@@ -1,6 +1,6 @@
 export interface ICreateUser {
   username: string;
-  
+
   //** ISO format */
   created_at: string;
 }
@@ -12,10 +12,10 @@ export interface IUser {
   nickname: string;
 
   avatar_url: string;
-  
+
   /** ISO format */
   created_at: string;
 
   /** @type {bigint} */
   config: string;
-};
+}

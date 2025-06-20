@@ -9,9 +9,9 @@ const getAllModels = async (): Promise<IStatus<Model[], any, boolean>> => {
 
     if (!data) {
       return useError(new Error(`Возможно, таблиц не существует.`), []);
-    };
+    }
 
-    return useStatus("Таблицы успешно найдены.", true, { data })
+    return useStatus("Таблицы успешно найдены.", true, { data });
   } catch (err) {
     console.error(err);
 

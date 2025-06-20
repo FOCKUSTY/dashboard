@@ -31,34 +31,48 @@ class Authenticator {
     for (const passport of defaultPassports) {
       const strategy = require(passport[1]).Strategy;
       this.strategy(strategy, {
-        ...getPassportAuthEnv(passport[0].toUpperCase() as Uppercase<AuthTypes>),
+        ...getPassportAuthEnv(
+          passport[0].toUpperCase() as Uppercase<AuthTypes>
+        ),
         type: passport[0],
         scopes: passport[2]
       });
     }
   };
 
-  protected verify<Done extends (...data: unknown[]) => void = VerifyCallback>(type: AuthTypes) {
-    return async (access_token: string, refresh_token: string, profile: Profile, done: Done) => {
+  protected verify<Done extends (...data: unknown[]) => void = VerifyCallback>(
+    type: AuthTypes
+  ) {
+    return async (
+      access_token: string,
+      refresh_token: string,
+      profile: Profile,
+      done: Done
+    ) => {
       try {
         const { id } = profile;
         const now = new Date().toISOString();
 
-        const user = (await User.create({
-          username: profile.username || profile.displayName || profile.name.givenName,
-          created_at: now,
-        })).toObject();
+        const user = (
+          await User.create({
+            username:
+              profile.username || profile.displayName || profile.name.givenName,
+            created_at: now
+          })
+        ).toObject();
 
-        const authUser = (await Auth.create({
-          service_id: id,
-          profile_id: user.id,
+        const authUser = (
+          await Auth.create({
+            service_id: id,
+            profile_id: user.id,
 
-          access_token,
-          refresh_token,
-          
-          created_at: now,
-          type: type,
-        })).toObject();
+            access_token,
+            refresh_token,
+
+            created_at: now,
+            type: type
+          })
+        ).toObject();
 
         return done(null, {
           id: authUser.id,

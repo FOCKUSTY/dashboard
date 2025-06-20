@@ -29,7 +29,8 @@ class Session {
 
     this._secret = this._secret || secret;
     this._resave = data?.resave || this._resave;
-    this._save_uninitialized = data?.saveUninitialized || this._save_uninitialized;
+    this._save_uninitialized =
+      data?.saveUninitialized || this._save_uninitialized;
     this._cookie = data?.cookie || this._cookie;
   }
 
@@ -39,7 +40,7 @@ class Session {
         secret: this._secret,
         resave: this._resave,
         saveUninitialized: this._save_uninitialized,
-        cookie: this._cookie,
+        cookie: this._cookie
       })
     );
   }

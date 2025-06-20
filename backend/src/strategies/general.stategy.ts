@@ -16,7 +16,7 @@ class GeneralStrategy {
 
     this._authenticator = new Authenticator(this._passport);
   }
-  
+
   public readonly initialize = () => {
     return this._passport.initialize();
   };
@@ -50,11 +50,13 @@ class GeneralStrategy {
 
     this._passport.deserializeUser(async (u: string, done) => {
       try {
-        const user = (await AuthUsers.findOne({
-          where: {
-            id: u
-          }
-        })).dataValues;
+        const user = (
+          await AuthUsers.findOne({
+            where: {
+              id: u
+            }
+          })
+        ).dataValues;
 
         return user
           ? done(null, {
