@@ -1,3 +1,5 @@
+import { IConfig } from "./config.type";
+
 export interface ICreateUser {
   username: string;
 
@@ -17,5 +19,7 @@ export interface IUser {
   created_at: string;
 
   /** @type {bigint} */
-  config: string;
+  settings: string;
+
+  config: IConfig;
 }

@@ -13,10 +13,10 @@ export const settings = {
     whenUserLeaveFromGuildSendMessageToUser: 1n << 1n,
 
     /** @value 4 */
-    whenUserJoinIntoGuildSendHelloMessageIntoChannel: 1n << 2n,
+    whenUserJoinIntoGuildSendHelloMessageToChannel: 1n << 2n,
 
     /** @value 8 */
-    whenUserLeaveFromGuildSendGoodbyeMessageIntoChannel: 1n << 3n,
+    whenUserLeaveFromGuildSendGoodbyeMessageToChannel: 1n << 3n,
 
     /** @value 16 */
     whenUserJoinIntoGuildGrantRoles: 1n << 4n
@@ -65,6 +65,33 @@ export const settings = {
 
   roles: {} as const
 } as const;
+
+export type IConfig = {
+  users: [];
+  guild: [
+    when_user_join_into_guild_send_message_to_user: unknown,
+    when_user_leave_from_guild_send_message_to_user: unknown,
+    when_user_join_into_guild_send_hello_message_to_channel: unknown,
+    when_user_leave_from_guild_send_goodbye_message_to_channel: unknown,
+    when_user_join_into_guild_grant_roles: unknown
+  ];
+  logging: [
+    when_bot_join_into_guild_send_log_into_channel: unknown,
+    when_bot_leave_from_guild_send_log_into_channel: unknown,
+    when_user_join_into_guild_send_log_into_channel: unknown,
+    when_user_leave_from_guild_send_log_into_channel: unknown,
+    when_message_was_sended_send_log_into_channel: unknown,
+    when_message_was_changed_send_log_into_channel: unknown,
+    when_message_was_deleted_send_log_into_channel: unknown,
+    when_user_change_profile_send_log_into_channel: unknown,
+    when_user_change_activity_send_log_into_channel: unknown,
+    when_user_takes_mute_send_log_into_channel: unknown,
+    when_user_takes_ban_send_log_into_channel: unknown,
+    when_roles_changes_at_user_send_log_into_channel: unknown,
+    when_guild_profile_changes_send_log_into_channel: unknown
+  ];
+  roles: [];
+};
 
 export type Keys = keyof typeof settings;
 export type Settings<T extends Keys> = (typeof settings)[T];
