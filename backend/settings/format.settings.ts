@@ -1,6 +1,6 @@
 /**
  * - this file was auto genereted by compiler
- * - if you see inconsistencies: https://github.com/FOCKUSTY/dashboard/issues
+ * - if you see inconsistencies: https://github.com/FOCKUSTY/bit-field/issues
  */
 export const settings = {
   users: {} as const,
