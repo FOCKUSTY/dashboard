@@ -1,11 +1,11 @@
 import type { Message as DiscordMessage } from "discord.js";
 
-type Optional<
+export type Optional<
   Main,
   Default = null
 > = Main | Default;
 
-type ConfigurableMessage = {
+export type ConfigurableMessage = {
   message: Optional<DiscordMessage<true>, string>;
   channel_id: Optional<string>;
 };

@@ -1,4 +1,5 @@
 import mongoose, { Schema, SchemaTypes } from "mongoose";
+import { Settings } from "settings/settings";
 import { SchemaParameters } from "types/mongodb.types";
 
 import type { IUser } from "types/user.type";
@@ -14,7 +15,12 @@ const data: SchemaParameters<IUser> = {
   username: { type: SchemaTypes.String, required: true, unique: true },
   nickname: { type: SchemaTypes.String, required: false, unique: false },
 
-  created_at: { type: SchemaTypes.String, required: true, unique: false }
+  created_at: { type: SchemaTypes.String, required: true, unique: false },
+
+  settings: { type: SchemaTypes.String, unique: false, default: Settings.CONSTANTS.raw.available.users.toString() },
+  config: {
+    
+  }
 };
 const keys = Object.keys(data);
 const schema = new Schema<IUser>(data);
