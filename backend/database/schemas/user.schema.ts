@@ -17,10 +17,13 @@ const data: SchemaParameters<IUser> = {
 
   created_at: { type: SchemaTypes.String, required: true, unique: false },
 
+  guilds: {
+    type: [SchemaTypes.String],
+    required: true
+  },
+
   settings: { type: SchemaTypes.String, unique: false, default: Settings.CONSTANTS.raw.available.users.toString() },
-  config: {
-    
-  }
+  config: {}
 };
 const keys = Object.keys(data);
 const schema = new Schema<IUser>(data);

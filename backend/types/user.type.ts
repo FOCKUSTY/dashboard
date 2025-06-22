@@ -15,6 +15,8 @@ export interface IUser {
 
   avatar_url: string;
 
+  guilds: string[];
+
   /** ISO format */
   created_at: string;
 
