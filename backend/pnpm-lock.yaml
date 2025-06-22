@@ -24,8 +24,8 @@ importers:
         specifier: ^14.20.0
         version: 14.20.0
       fbit-field:
-        specifier: 1.2.1-alpha.1e
-        version: 1.2.1-alpha.1e
+        specifier: 1.4.0-alpha.1a
+        version: 1.4.0-alpha.1a
       mongodb:
         specifier: ^6.17.0
         version: 6.17.0
@@ -1574,8 +1574,8 @@ packages:
   fb-watchman@2.0.2:
     resolution: {integrity: sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA==}
 
-  fbit-field@1.2.1-alpha.1e:
-    resolution: {integrity: sha512-T0qrYlxMR2YTUvIeZ4FtGoZGyqn+AhcsJo0skyxE+e/jSmFZjFIKdddJiQbH/bgvRunldMYNU+4Th8wR/70eqQ==}
+  fbit-field@1.4.0-alpha.1a:
+    resolution: {integrity: sha512-uuO+gVh1XkhDCL4W8Vsjp2YYVFX5EuPyGTtPHZM/BXKJzWFPNR0lW129nS5+b0e2U9UwreVMrL+UmtRJAXXdGw==}
 
   fflate@0.8.2:
     resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
@@ -4948,7 +4948,7 @@ snapshots:
     dependencies:
       bser: 2.1.1
 
-  fbit-field@1.2.1-alpha.1e: {}
+  fbit-field@1.4.0-alpha.1a: {}
 
   fflate@0.8.2: {}
 

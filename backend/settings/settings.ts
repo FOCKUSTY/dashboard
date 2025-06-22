@@ -1,4 +1,5 @@
 import { BitBuilder } from "fbit-field";
+import Compiler from "fbit-field/compiler";
 
 type ISettigns<T extends any[] | readonly any[]> = Record<T[number], bigint>;
 
@@ -108,6 +109,115 @@ export namespace Settings {
     export const RAW_AVAILABLE: bigint = builder.resolve(AVAILABLE);
   }
 
+  // ## { COMPILED__WRITE_COMPILED_HERE } ## \\
+
+  /**
+   * - this file was auto genereted by compiler
+   * - if you see inconsistencies: https://github.com/FOCKUSTY/bit-field/issues
+   */
+  export const settings = {
+    users: {} as const,
+
+    guild: {
+      /** @value 1 */
+      whenUserJoinIntoGuildSendMessageToUser: 1n << 0n,
+
+      /** @value 2 */
+      whenUserLeaveFromGuildSendMessageToUser: 1n << 1n,
+
+      /** @value 4 */
+      whenUserJoinIntoGuildSendHelloMessageToChannel: 1n << 2n,
+
+      /** @value 8 */
+      whenUserLeaveFromGuildSendGoodbyeMessageToChannel: 1n << 3n,
+
+      /** @value 16 */
+      whenUserJoinIntoGuildGrantRoles: 1n << 4n
+    } as const,
+
+    logging: {
+      /** @value 32 */
+      whenBotJoinIntoGuildSendLogIntoChannel: 1n << 5n,
+
+      /** @value 64 */
+      whenBotLeaveFromGuildSendLogIntoChannel: 1n << 6n,
+
+      /** @value 128 */
+      whenUserJoinIntoGuildSendLogIntoChannel: 1n << 7n,
+
+      /** @value 256 */
+      whenUserLeaveFromGuildSendLogIntoChannel: 1n << 8n,
+
+      /** @value 512 */
+      whenMessageWasSendedSendLogIntoChannel: 1n << 9n,
+
+      /** @value 1024 */
+      whenMessageWasChangedSendLogIntoChannel: 1n << 10n,
+
+      /** @value 2048 */
+      whenMessageWasDeletedSendLogIntoChannel: 1n << 11n,
+
+      /** @value 4096 */
+      whenUserChangeProfileSendLogIntoChannel: 1n << 12n,
+
+      /** @value 8192 */
+      whenUserChangeActivitySendLogIntoChannel: 1n << 13n,
+
+      /** @value 16384 */
+      whenUserTakesMuteSendLogIntoChannel: 1n << 14n,
+
+      /** @value 32768 */
+      whenUserTakesBanSendLogIntoChannel: 1n << 15n,
+
+      /** @value 65536 */
+      whenRolesChangesAtUserSendLogIntoChannel: 1n << 16n,
+
+      /** @value 131072 */
+      whenGuildProfileChangesSendLogIntoChannel: 1n << 17n
+    } as const,
+
+    roles: {} as const
+  } as const;
+  // ## { COMPILED__WRITE_COMPILED_HERE } ## \\
+  // ## COMPILED__WRITE_VALUES_HERE ## \\
+
+  export type IConfig = {
+    users: [test_one: unknown, test_two: unknown];
+    guild: [
+      when_user_join_into_guild_send_message_to_user: unknown,
+      when_user_leave_from_guild_send_message_to_user: unknown,
+      when_user_join_into_guild_send_hello_message_to_channel: unknown,
+      when_user_leave_from_guild_send_goodbye_message_to_channel: unknown,
+      when_user_join_into_guild_grant_roles: unknown
+    ];
+    logging: [
+      when_bot_join_into_guild_send_log_into_channel: unknown,
+      when_bot_leave_from_guild_send_log_into_channel: unknown,
+      when_user_join_into_guild_send_log_into_channel: unknown,
+      when_user_leave_from_guild_send_log_into_channel: unknown,
+      when_message_was_sended_send_log_into_channel: unknown,
+      when_message_was_changed_send_log_into_channel: unknown,
+      when_message_was_deleted_send_log_into_channel: unknown,
+      when_user_change_profile_send_log_into_channel: unknown,
+      when_user_change_activity_send_log_into_channel: unknown,
+      when_user_takes_mute_send_log_into_channel: unknown,
+      when_user_takes_ban_send_log_into_channel: unknown,
+      when_roles_changes_at_user_send_log_into_channel: unknown,
+      when_guild_profile_changes_send_log_into_channel: unknown
+    ];
+    roles: [test_three: unknown, test_four: unknown];
+  };
+
+  // ## COMPILED__WRITE_VALUES_HERE ## \\
+  export namespace Raw {
+    // ## { COMPILED__WRITE_EXPORT_HERE } ## \\
+
+    export type Keys = keyof typeof settings;
+    export type Settings<T extends Keys> = (typeof settings)[T];
+    export type SettingsKeys<T extends Keys> = keyof Settings<T>;
+    // ## { COMPILED__WRITE_EXPORT_HERE } ## \\
+  }
+
   export const CONSTANTS = {
     raw: {
       default: {
@@ -141,4 +251,46 @@ export namespace Settings {
       } as const
     } as const
   } as const;
+}
+
+if (process.env.NODE_ENV === "compile_settings") {
+  const settings = Object.fromEntries(
+    Object.keys(Settings.CONSTANTS.object.available).map((key) => [
+      key,
+      Object.keys(Settings.CONSTANTS.object.available[key])
+    ])
+  );
+
+  const typeCompiler = new Compiler(settings, __dirname + "\\settings.ts", {
+    settingsFormat(settings) {
+      return settings.map((string: string) =>
+        string.replaceAll("__", "_").toLocaleLowerCase()
+      );
+    },
+    compile(me): any {
+      return Object.fromEntries(
+        me.keys.map((key) => [
+          key,
+          me.parse(key).map((key) => `${key}: unknown`)
+        ])
+      );
+    },
+    writeFile(me): string {
+      const data = JSON.stringify(me.compile(me), undefined, 2)
+        .replaceAll('"', "")
+        .replaceAll("'\\n'", "\n");
+
+      return `\nexport type IConfig = ${data};\n`;
+    }
+  });
+
+  new Compiler(
+    settings,
+    __dirname + "\\settings.ts",
+    {},
+    {
+      writeInCompiler: true,
+      defaultExportOn: false
+    }
+  ).execute(typeCompiler.writeFile(typeCompiler));
 }

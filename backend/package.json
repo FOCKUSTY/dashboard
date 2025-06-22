@@ -14,7 +14,8 @@
     "template"
   ],
   "scripts": {
-    "build": "nest build",
+    "build": "pnpm run compile && nest build",
+    "compile": "set NODE_ENV=compile_settings&& ts-node ./settings/settings.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -33,7 +34,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "cookie-parser": "^1.4.7",
     "discord.js": "^14.20.0",
-    "fbit-field": "1.2.1-alpha.1e",
+    "fbit-field": "1.4.0-alpha.1a",
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.0",
     "passport": "^0.7.0",
@@ -85,5 +86,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }
