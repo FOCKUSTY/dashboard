@@ -1,0 +1,20 @@
+{
+  "name": "@thevoidcommunity-dashboard/types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsc-alias": "catalog:",
+    "typescript": "catalog:",
+    "@types/node": "catalog:",
+    "mongoose": "catalog:",
+    "discord.js": "catalog:"
+  },
+  "packageManager": "pnpm@10.12.4"
+}
