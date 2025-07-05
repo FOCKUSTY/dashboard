@@ -1,0 +1,26 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "cross-env": "catalog:",
+    "eslint": "catalog:",
+    "globals": "catalog:",
+    "typescript-eslint": "catalog:"
+  },
+  "keywords": [],
+  "author": {
+    "name": "FOCKUSTY",
+    "url": "https://fockusty.netlify.app/",
+    "email": "viserd.yt@gmail.com"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.12.4"
+}

@@ -1,0 +1,106 @@
+.container {
+    display: flex;
+    background-color: #121212;
+    
+    flex-direction: column; 
+
+    margin: 10px;
+    
+    border-radius: 20px;
+}
+
+.container_title {
+    background-color: #424242;
+    border-radius: 10px;
+    padding: 0.5em 0.75em;
+    margin: 0.5em 0;
+    display: flex;
+    align-items: center;
+}
+
+#field_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#field_container {
+    transition: 1s;
+    flex-direction: column; 
+    display: none;
+}
+
+#inline_container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: 0.25em 0;
+}
+
+#inline {
+    margin: 0 1em;
+
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+
+    height: 1.25em;
+    width: 1.25em;
+    cursor: pointer;
+}
+
+#arrow {
+    transition: 1s;
+}
+
+#cross {
+    cursor: pointer;
+}
+
+.textarea {
+    background-color: #121212;
+    color: #fff;
+    
+    width: 100%;
+    min-width: 40%;
+    padding: 0.75em;
+  
+    resize: none;
+    border-radius: 10px;
+}
+
+.textarea_main {
+    background-color: #121212;
+    color: #fff;
+    
+    padding: 0.5em;
+  
+    resize: vertical;
+    border-radius: 10px;
+}
+
+.textarea::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 12px;
+}
+  
+.textarea::-webkit-scrollbar-track {
+    background: #121212;
+    margin: 10px;
+}
+  
+.textarea::-webkit-scrollbar-thumb {
+    background-color: #424242;
+    border-radius: 20px;
+    border: 3px solid #121212;
+}
+
+#title_count, #value_count {
+    font-size: 12px;
+    font-style: italic;
+    color: #bbb
+}
+
+#textarea_field_name, #textarea_field_value {
+    transition: 1s;
+}

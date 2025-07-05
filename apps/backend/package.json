@@ -1,0 +1,86 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "",
+  "author": "FOCKUSTY",
+  "license": "MIT",
+  "keywords": [
+    "nest",
+    "nest.js",
+    "passport",
+    "passport auth"
+  ],
+  "scripts": {
+    "build": "pnpm run compile && nest build",
+    "compile": "set NODE_ENV=compile_settings&& ts-node ./settings/settings.ts",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/platform-express": "^10.0.0",
+    "cookie-parser": "^1.4.7",
+    "discord.js": "catalog:",
+    "fbit-field": "catalog:",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.16.0",
+    "passport": "^0.7.0",
+    "passport-discord": "^0.1.4",
+    "passport-oauth2": "^1.8.0",
+    "reflect-metadata": "^0.2.0",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.0.0",
+    "@nestjs/schematics": "^10.0.0",
+    "@nestjs/testing": "^10.0.0",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.3.1",
+    "@types/passport": "^1.0.17",
+    "@types/passport-oauth2": "^1.4.17",
+    "@types/supertest": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "dotenv": "catalog:",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^29.5.0",
+    "prettier": "^3.0.0",
+    "source-map-support": "^0.5.21",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.0",
+    "ts-loader": "^9.4.3",
+    "ts-node": "catalog:",
+    "tsconfig-paths": "catalog:",
+    "typescript": "catalog:"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

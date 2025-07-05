@@ -1,0 +1,33 @@
+.aligned_center {
+    padding: 0;
+}
+
+.info {
+    background-color: black;
+
+    width: 70%;
+    min-width: 150px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.hello_text {
+    margin: 10px;
+    text-align: center;
+}
+
+.main_text {
+    margin: 10px;
+    text-align: left;
+}
+
+.link {
+    text-decoration: underline;
+    color: aqua;
+}
+
+.list li {
+    margin: 0 20px;
+}
