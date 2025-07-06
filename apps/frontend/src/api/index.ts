@@ -5,13 +5,13 @@ class Api {
   public readonly client_url = "http://localhost:3000";
 
   public readonly validateCookies = (ctx?: GetServerSidePropsContext) => {
-    if (!ctx) { return false };
+    if (!ctx) {
+      return false;
+    }
 
     const token = ctx.req.cookies["id-token"];
 
-    return token
-      ? token
-      : false;
+    return token ? token : false;
   };
 }
 
