@@ -26,8 +26,8 @@
       "routes/*": ["./src/routes/*"],
       "settings": ["./src/settings"],
       "settings/*": ["./src/settings/*"],
-      "types": ["./src/types", "./node_modules/@thevoidcommunity-dashboard/types/dist"],
-      "types/*": ["./src/types/*", "./node_modules/@thevoidcommunity-dashboard/types/dist/*"],
+      "types": ["./src/types", "./node_modules/@thevoidcommunity/dashboard-types/dist"],
+      "types/*": ["./src/types/*", "./node_modules/@thevoidcommunity/dashboard-types/dist/*"],
       "api": ["src/api"],
       "api/*": ["src/api/*"],
       "src/*": ["./src/*"]
