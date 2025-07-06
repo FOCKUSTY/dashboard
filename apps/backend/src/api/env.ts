@@ -34,7 +34,7 @@ const DEFAULT: Record<Unrequired, string> = {
   COOKIE_MAX_AGE: "604800000"
 };
 
-type EnvType = Record<Keys, string>; 
+type EnvType = Record<Keys, string>;
 
 class Env {
   private readonly _env = process.env;

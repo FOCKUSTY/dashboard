@@ -19,15 +19,27 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@thevoid/database/*": ["./node_modules/@thevoidcommunity/the-void-database/*"],
-      "database": ["./node_modules/@thevoidcommunity/the-void-database/database"],
-      "database/*": ["./node_modules/@thevoidcommunity/the-void-database/database/*"],
+      "@thevoid/database/*": [
+        "./node_modules/@thevoidcommunity/the-void-database/*"
+      ],
+      "database": [
+        "./node_modules/@thevoidcommunity/the-void-database/database"
+      ],
+      "database/*": [
+        "./node_modules/@thevoidcommunity/the-void-database/database/*"
+      ],
       "routes": ["./src/routes"],
       "routes/*": ["./src/routes/*"],
       "settings": ["./src/settings"],
       "settings/*": ["./src/settings/*"],
-      "types": ["./src/types", "./node_modules/@thevoidcommunity/dashboard-types/dist"],
-      "types/*": ["./src/types/*", "./node_modules/@thevoidcommunity/dashboard-types/dist/*"],
+      "types": [
+        "./src/types",
+        "./node_modules/@thevoidcommunity/dashboard-types/dist"
+      ],
+      "types/*": [
+        "./src/types/*",
+        "./node_modules/@thevoidcommunity/dashboard-types/dist/*"
+      ],
       "api": ["src/api"],
       "api/*": ["src/api/*"],
       "src/*": ["./src/*"]

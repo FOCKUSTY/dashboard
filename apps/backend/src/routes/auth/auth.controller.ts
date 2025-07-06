@@ -25,14 +25,22 @@ export class AuthController {
   }
 
   @Get(AUTH_ROUTES.GET)
-  public auth(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction) {
+  public auth(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Next() next: NextFunction
+  ) {
     new AuthApi(req.params.method).auth(req, res, next);
 
     return;
   }
 
   @Get(AUTH_ROUTES.GET_CALLBACK)
-  public callback(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction) {
+  public callback(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Next() next: NextFunction
+  ) {
     new AuthApi(req.params.method).callback(req, res, next, (...args) => {
       const user = args[1];
 

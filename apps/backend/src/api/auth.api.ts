@@ -21,7 +21,10 @@ class AuthApi {
     };
   }
 
-  private getMethod(): [boolean, { [key: string]: unknown; method: string; body: unknown }] {
+  private getMethod(): [
+    boolean,
+    { [key: string]: unknown; method: string; body: unknown }
+  ] {
     if (!(AUTH_TYPES as unknown as string[]).includes(this._method)) {
       if (abbreviations.get(this._method))
         return [true, { body: null, method: abbreviations.get(this._method) }];
@@ -40,7 +43,11 @@ class AuthApi {
     return [true, { body: null, method: this._method }];
   }
 
-  public auth(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction): unknown {
+  public auth(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Next() next: NextFunction
+  ): unknown {
     const [successed, { method, body }] = this.getMethod();
 
     if (!successed) return res.send(body);

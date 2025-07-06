@@ -14,26 +14,26 @@ export class Deployer {
       } catch {
         console.log(folder, FILE_FORMAT.test(folder));
         if (!FILE_FORMAT.test(folder)) continue;
-        console.log(1)
+        console.log(1);
 
         try {
-          require(join(filesPath, folder))
+          require(join(filesPath, folder));
         } catch (error) {
-          console.log(error)
-        };
+          console.log(error);
+        }
         const module = require(join(filesPath, folder)).default;
-        console.log({module});
+        console.log({ module });
 
         data.push(module);
       }
-    };
+    }
 
-    console.log({data});
+    console.log({ data });
 
     return data;
-  };
-};
+  }
+}
 
-new Deployer().execute()
+new Deployer().execute();
 
 export default Deployer;

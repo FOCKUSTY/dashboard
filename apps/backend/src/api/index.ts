@@ -9,7 +9,7 @@ export { Env, getPassportAuth, getPassportAuthEnv };
 export class Api {
   public static env = Env;
   public static auth = AuthApi;
-  public static hash = Hash
-};
+  public static hash = Hash;
+}
 
 export default Api;
