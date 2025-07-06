@@ -1,5 +1,3 @@
-import "database";
-
 import cookieParser = require("cookie-parser");
 
 import { json, urlencoded } from "express";

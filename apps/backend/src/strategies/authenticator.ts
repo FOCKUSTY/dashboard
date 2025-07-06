@@ -1,4 +1,4 @@
-import { MODELS } from "src/database";
+import { MODELS } from "database";
 
 import passport = require("passport");
 import { Profile } from "passport";
