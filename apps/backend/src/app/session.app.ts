@@ -1,9 +1,9 @@
-import Env from "src/env";
+import Api from "api";
 
 import { INestApplication } from "@nestjs/common";
 import { Express } from "express";
 
-const { env } = new Env();
+const { env } = new Api.env();
 
 class Session {
   private readonly _secret: string = env.SESSION_SECRET;

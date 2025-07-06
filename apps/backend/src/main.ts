@@ -5,13 +5,13 @@ import cookieParser = require("cookie-parser");
 import { json, urlencoded } from "express";
 import { NestFactory } from "@nestjs/core";
 
-import Env from "env";
+import Api from "api";
 
 import { AppModule } from "./app.module";
 import Passport from "./strategies";
 import Session from "./app/session.app";
 
-const { env } = new Env();
+const { env } = new Api.env();
 const passport = new Passport();
 
 async function bootstrap() {

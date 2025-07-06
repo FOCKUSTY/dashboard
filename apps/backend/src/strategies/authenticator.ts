@@ -6,7 +6,7 @@ import { Profile } from "passport";
 import { AuthTypes, IAuthUser } from "types/auth-user.type";
 import { Strategy, VerifyCallback, VerifyFunction } from "passport-oauth2";
 
-import { getPassportAuthEnv } from "src/env";
+import { getPassportAuthEnv } from "src/api";
 
 const { Auth, User } = MODELS;
 

@@ -15,6 +15,8 @@ const REQUIRED = [
   "DISCORD_API_URL",
   "MONGO_URL",
 
+  "HASH_KEY",
+
   "SESSION_SECRET"
 ] as const;
 
