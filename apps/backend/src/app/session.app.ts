@@ -1,4 +1,4 @@
-import Env from "env";
+import Env from "src/env";
 
 import { INestApplication } from "@nestjs/common";
 import { Express } from "express";

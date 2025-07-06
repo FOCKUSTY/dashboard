@@ -1,6 +1,6 @@
 import type { Model as ModelType } from "mongoose";
 
-import { FindOptions } from "types/mongodb.types";
+import { FindOptions } from "src/types/mongodb.types";
 import { IStatus, useStatus, useError } from "types/status.type";
 
 const getData = async <T>(

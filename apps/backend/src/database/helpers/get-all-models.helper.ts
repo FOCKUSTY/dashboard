@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { Model } from "types/mongodb.types";
+import { Model } from "src/types/mongodb.types";
 import { IStatus, useStatus, useError } from "types/status.type";
 
 const getAllModels = async (): Promise<IStatus<Model[], any, boolean>> => {

@@ -19,10 +19,17 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@database": ["./database"],
-      "@types": ["./types"],
-      "@env": ["./env"],
-      "@src": ["./src"]
+      "database": ["./src/database"],
+      "database/*": ["./src/database/*"],
+      "routes": ["./src/routes"],
+      "routes/*": ["./src/routes/*"],
+      "settings": ["./src/settings"],
+      "settings/*": ["./src/settings/*"],
+      "types": ["./src/types", "./node_modules/@thevoidcommunity-dashboard/types/dist"],
+      "types/*": ["./src/types/*", "./node_modules/@thevoidcommunity-dashboard/types/dist/*"],
+      "env": ["./src/env"],
+      "env/*": ["./src/env/*"],
+      "src/*": ["./src/*"]
     }
   }
 }

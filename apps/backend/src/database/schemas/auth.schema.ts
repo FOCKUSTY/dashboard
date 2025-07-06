@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 import type { IAuthUser } from "types/auth-user.type";
-import type { SchemaParameters } from "types/mongodb.types";
+import type { SchemaParameters } from "src/types/mongodb.types";
 
 const data: SchemaParameters<IAuthUser> = {
   id: {

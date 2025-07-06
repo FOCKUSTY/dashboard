@@ -10,7 +10,7 @@ import type {
   UpdateWithAggregationPipeline
 } from "mongoose";
 
-import { SCHEMAS } from "database/schemas";
+import { SCHEMAS } from "src/database/schemas";
 import mongoose from "mongoose";
 
 export type Model = keyof typeof SCHEMAS;

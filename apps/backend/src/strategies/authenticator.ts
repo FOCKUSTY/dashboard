@@ -1,4 +1,4 @@
-import { MODELS } from "database";
+import { MODELS } from "src/database";
 
 import passport = require("passport");
 import { Profile } from "passport";
@@ -6,7 +6,7 @@ import { Profile } from "passport";
 import { AuthTypes, IAuthUser } from "types/auth-user.type";
 import { Strategy, VerifyCallback, VerifyFunction } from "passport-oauth2";
 
-import { getPassportAuthEnv } from "env";
+import { getPassportAuthEnv } from "src/env";
 
 const { Auth, User } = MODELS;
 

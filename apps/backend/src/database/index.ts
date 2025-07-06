@@ -7,7 +7,7 @@ import {
   Model as Models,
   PickTypeInObject,
   UpdateOptions
-} from "types/mongodb.types";
+} from "src/types/mongodb.types";
 
 import { Helpers } from "./helpers";
 import { IStatus } from "types/status.type";
