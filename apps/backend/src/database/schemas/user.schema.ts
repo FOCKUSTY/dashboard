@@ -1,7 +1,7 @@
 import mongoose, { Schema, SchemaTypes } from "mongoose";
-import { Settings } from "src/settings/settings";
-import { SchemaParameters } from "src/types/mongodb.types";
 
+import { Settings } from "types/settings";
+import { SchemaParameters } from "types/mongodb.types"
 import type { IUser } from "types/user.type";
 
 const data: SchemaParameters<IUser> = {

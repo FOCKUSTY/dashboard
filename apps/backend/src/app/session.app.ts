@@ -3,17 +3,17 @@ import Env from "src/env";
 import { INestApplication } from "@nestjs/common";
 import { Express } from "express";
 
-const env = new Env();
+const { env } = new Env();
 
 class Session {
-  private readonly _secret: string = env.get("SESSION_SECRET");
+  private readonly _secret: string = env.SESSION_SECRET;
   private readonly _app: INestApplication<unknown> | Express;
 
   private readonly _resave: boolean = false;
   private readonly _save_uninitialized: boolean = false;
 
   private readonly _cookie: { maxAge: number } = {
-    maxAge: Number(env.get("COOKIE_MAX_AGE", true))
+    maxAge: Number(env.COOKIE_MAX_AGE)
   };
 
   constructor(

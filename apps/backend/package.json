@@ -11,8 +11,7 @@
     "passport auth"
   ],
   "scripts": {
-    "build": "pnpm run compile && nest build",
-    "compile": "set NODE_ENV=compile_settings&& ts-node ./settings/settings.ts",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -26,12 +25,13 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@thevoidcommunity-dashboard/types": "workspace:^",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@thevoidcommunity-dashboard/types": "workspace:^",
     "cookie-parser": "^1.4.7",
     "discord.js": "catalog:",
+    "express-session": "^1.18.1",
     "fbit-field": "catalog:",
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.0",

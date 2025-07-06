@@ -1,9 +1,9 @@
 import mongoose, { Schema } from "mongoose";
-import { Settings } from "src/settings/settings";
 
+import { Settings } from "types/settings";
 import type { IGuild } from "types/guild.type";
 import type { ConfigurableMessage } from "types/config.type";
-import type { SchemaParameters } from "src/types/mongodb.types";
+import type { SchemaParameters } from "types/mongodb.types";
 
 const configurableMessage: SchemaParameters<ConfigurableMessage> = {
   channel_id: mongoose.SchemaTypes.String,
