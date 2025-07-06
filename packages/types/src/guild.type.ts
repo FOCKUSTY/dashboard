@@ -5,13 +5,13 @@ export interface ICreateGuild {
   owner_id: string;
   created_at: string;
   members: string[];
-};
+}
 
 export interface IGuild {
   id: string;
   name: string;
   icon_url: string;
-  
+
   created_at: string;
   owner_id: string;
 
@@ -20,7 +20,7 @@ export interface IGuild {
   /** @type {bigint} */
   settings: string;
   config: {
-    guild: IConfig["guild"],
-    logging: IConfig["logging"]
+    guild: IConfig["guild"];
+    logging: IConfig["logging"];
   };
-};
+}
