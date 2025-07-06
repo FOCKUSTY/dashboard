@@ -4,14 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "pnpm run compile && tsc && pnpm run format && pnpm run remove-compiler",
+    "compile": "cross-env NODE_ENV=rights_compile ts-node ./src/compiler.ts",
+    "format": "prettier ./src/settings.ts -c -w",
+    "remove-compiler": "rimraf ./dist/compiler.d.ts && rimraf ./dist/compiler.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "fbit-field": "catalog:"
+  },
   "devDependencies": {
-    "tsc-alias": "catalog:",
     "typescript": "catalog:",
+    "prettier": "catalog:",
+    "ts-node": "catalog:",
+    "rimraf": "^6.0.1",
     "@types/node": "catalog:",
     "mongoose": "catalog:",
     "discord.js": "catalog:"
