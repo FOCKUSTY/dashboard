@@ -1,1 +1,3 @@
-export const modules = [] as const;
+import Deployer from "./deployer";
+
+export const modules = new Deployer().execute();
