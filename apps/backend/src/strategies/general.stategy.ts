@@ -1,11 +1,11 @@
-import Database from "database/tables";
+import { MODELS } from "database/schemas";
 
 import passport = require("passport");
 
 import Authenticator from "./authenticator";
 import { IAuthUser } from "types/auth-user.type";
 
-const { AuthUsers } = new Database();
+const { Auth } = MODELS;
 
 class GeneralStrategy {
   protected readonly _passport: passport.PassportStatic = passport;
@@ -51,12 +51,12 @@ class GeneralStrategy {
     this._passport.deserializeUser(async (u: string, done) => {
       try {
         const user = (
-          await AuthUsers.findOne({
+          await Auth.findOne({
             where: {
               id: u
             }
           })
-        ).dataValues;
+        ).toObject();
 
         return user
           ? done(null, {

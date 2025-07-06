@@ -11,12 +11,12 @@ import { AppModule } from "./app.module";
 import Passport from "./strategies";
 import Session from "./app/session.app";
 
-const env = new Env();
+const { env } = new Env();
 const passport = new Passport();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors: { origin: [env.get("CLIENT_URL")], credentials: true }
+    cors: { origin: [env.CLIENT_URL], credentials: true }
   });
 
   new Session(app).create();
@@ -28,7 +28,7 @@ async function bootstrap() {
   app.use(passport.session());
   app.use(passport.initialize());
 
-  await app.listen(env.get("PORT", true));
+  await app.listen(env.PORT);
 }
 
 bootstrap();

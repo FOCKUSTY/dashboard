@@ -2,7 +2,7 @@ import { AuthTypes } from "types/auth-user.type";
 
 import Env from "./env";
 
-const env = new Env();
+const { env } = new Env();
 
 const getPassportAuth = (type: Uppercase<AuthTypes>) => {
   return {
@@ -19,10 +19,10 @@ const getPassportAuthEnv = (type: Uppercase<AuthTypes>) => {
   const data = getPassportAuth(type);
 
   return {
-    id: env.get(data.id),
-    secret: env.get(data.secret),
-    callback: env.get(data.callback),
-    api: env.get(data.api)
+    id: env[data.id],
+    secret: env[data.secret],
+    callback: env[data.callback],
+    api: env[data.api]
   } as const;
 };
 

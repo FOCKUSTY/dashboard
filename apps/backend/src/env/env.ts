@@ -37,6 +37,8 @@ const DEFAULT: Record<Unrequired, string> = {
   COOKIE_MAX_AGE: "604800000"
 };
 
+type EnvType = Record<Keys, string>; 
+
 class Env {
   private readonly _env = process.env;
   private readonly _keys = Object.keys(process.env);
@@ -45,32 +47,8 @@ class Env {
     this.init();
   }
 
-  public readonly get = <
-    T extends boolean = false,
-    DefaultIncludes extends boolean = false,
-    Key extends T extends false
-      ? DefaultIncludes extends true
-        ? Unrequired
-        : Keys
-      : string = T extends false
-      ? DefaultIncludes extends true
-        ? Unrequired
-        : Keys
-      : string
-  >(
-    key: Key,
-    defaultIncludes: DefaultIncludes = false as DefaultIncludes
-  ): Key extends Required
-    ? string
-    : DefaultIncludes extends true
-      ? string
-      : string | null => {
-    return (this._env[key] ||
-      (defaultIncludes == true ? DEFAULT[key as Unrequired] : null)) as any;
-  };
-
-  public get env() {
-    return this._env;
+  public get env(): EnvType {
+    return { ...DEFAULT, ...this._env } as EnvType;
   }
 
   private init() {
@@ -89,7 +67,5 @@ class Env {
     }
   }
 }
-
-new Env().get("DATABASE_HOST");
 
 export default Env;
