@@ -1,12 +1,11 @@
-import { GetServerSidePropsContext } from "next";
-import { FC } from "react";
+"use client";
 
-export const Page: FC = () => {
-  return <div></div>;
+const Page = () => {
+  return (
+    <div>
+      I'm Page
+    </div>
+  );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  // ...some code...
-};
+export default Page;

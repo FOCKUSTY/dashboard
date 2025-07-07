@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "types/*": ["./node_modules/@thevoidcommunity/dashboard-types/dist/*"]
+      "types/*": ["./node_modules/@thevoidcommunity/dashboard-types/dist/*"],
+      "api": ["./src/api/index.ts"],
+      "api/*": ["./src/api/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -6,7 +6,7 @@ import { User } from "./user";
 import { SignUp } from "./sing-up";
 
 type Props = {
-  user?: IUser;
+  user?: IUser | null;
 };
 
 export const LogIn: FC<Props> = ({ user }) => {
