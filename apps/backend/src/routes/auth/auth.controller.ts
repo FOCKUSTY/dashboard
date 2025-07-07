@@ -48,7 +48,11 @@ export class AuthController {
 
       res.cookie(
         "id-token",
-        `${user.id}-${user.profile_id}-${new Hash().execute(user.access_token)}`
+        JSON.stringify({
+          id: user.id,
+          profile_id: user.profile_id,
+          token: new Hash().execute(user.access_token)
+        })
       );
       res.redirect(env.CLIENT_URL);
     });

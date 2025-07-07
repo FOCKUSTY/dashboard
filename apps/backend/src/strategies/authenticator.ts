@@ -53,40 +53,61 @@ class Authenticator {
         const { id } = profile;
         const now = new Date().toISOString();
 
-        const user = (
-          await User.create({
-            id: Database.generateId(),
-            username:
-              profile.username || profile.displayName || profile.name.givenName,
-            created_at: now,
-          })
-        ).toObject();
+        const username = profile.username || profile.displayName || profile.name.givenName;
 
-        const authUser = (
-          await Auth.create({
-            id: Database.generateId(),
-            service_id: id,
-            profile_id: user.id,
+        const findedUser = await User.findOne({username});
 
-            access_token,
-            refresh_token,
+        if (!findedUser) {
+          const user = (
+            await User.create({
+              id: Database.generateId(),
+              username,
+              created_at: now,
+            })
+          ).toObject();
+  
+          const authUser = (
+            await Auth.create({
+              id: Database.generateId(),
+              service_id: id,
+              profile_id: user.id,
+  
+              access_token,
+              refresh_token,
+  
+              created_at: now,
+              type: type
+            })
+          ).toObject();
+  
+          return done(null, {
+            id: authUser.id,
+            profile_id: authUser.profile_id,
+            service_id: authUser.service_id,
+  
+            access_token: authUser.access_token,
+            refresh_token: authUser.refresh_token,
+  
+            created_at: authUser.created_at,
+            type: authUser.type
+          } as IAuthUser);
+        }
 
-            created_at: now,
-            type: type
-          })
-        ).toObject();
+        const authUser = (await Auth.findOneAndUpdate({profile_id: findedUser.id}, {
+          access_token, refresh_token, type,
+        })).toObject();
 
         return done(null, {
-          id: authUser.id,
-          profile_id: authUser.profile_id,
-          service_id: authUser.service_id,
-
-          access_token: authUser.access_token,
-          refresh_token: authUser.refresh_token,
-
-          created_at: authUser.created_at,
-          type: authUser.type
-        } as IAuthUser);
+            id: authUser.id,
+            profile_id: authUser.profile_id,
+            service_id: authUser.service_id,
+  
+            access_token: authUser.access_token,
+            refresh_token: authUser.refresh_token,
+  
+            created_at: authUser.created_at,
+            type: authUser.type
+        })
       } catch (error) {
         console.log(error);
 

@@ -11,7 +11,7 @@ class Service {
 
     if (!successed) return false;
 
-    const findedUser = await Auth.findOne({ id: id });
+    const findedUser = (await Auth.findOne({ id: id })).toObject();
 
     if (!findedUser) return false;
     if (findedUser.profile_id !== profile_id) return false;
