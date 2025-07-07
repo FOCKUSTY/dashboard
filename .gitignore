@@ -24,6 +24,7 @@ pnpm-lock.yaml
 .env.local
 
 # compiled output
+.next
 dist
 node_modules
 build
