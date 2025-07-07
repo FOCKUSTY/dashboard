@@ -1,4 +1,4 @@
-import { MODELS } from "database";
+import Database, { MODELS } from "database";
 
 import passport = require("passport");
 import { Profile } from "passport";
@@ -55,6 +55,7 @@ class Authenticator {
 
         const user = (
           await User.create({
+            id: Database.generateId(),
             username:
               profile.username || profile.displayName || profile.name.givenName,
             created_at: now
@@ -63,6 +64,7 @@ class Authenticator {
 
         const authUser = (
           await Auth.create({
+            id: Database.generateId(),
             service_id: id,
             profile_id: user.id,
 
