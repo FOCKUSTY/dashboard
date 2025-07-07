@@ -9,6 +9,8 @@ import { AppModule } from "./app.module";
 import Passport from "./strategies";
 import Session from "./app/session.app";
 
+import connect from "database/connection"
+
 const { env } = new Api.env();
 const passport = new Passport();
 
@@ -25,6 +27,8 @@ async function bootstrap() {
 
   app.use(passport.session());
   app.use(passport.initialize());
+
+  connect(env.MONGO_URL);
 
   await app.listen(env.PORT);
 }

@@ -58,7 +58,7 @@ class Authenticator {
             id: Database.generateId(),
             username:
               profile.username || profile.displayName || profile.name.givenName,
-            created_at: now
+            created_at: now,
           })
         ).toObject();
 
