@@ -32,7 +32,7 @@ type Unrequired = Exclude<Keys, Required>;
 const DEFAULT: Record<Unrequired, string> = {
   PORT: "3001",
   COOKIE_MAX_AGE: "604800000",
-  COOKIE_TOKEN_MAX_AGE: "1080000"
+  COOKIE_TOKEN_MAX_AGE: "10800000"
 };
 
 type EnvType = Record<Keys, string>;
