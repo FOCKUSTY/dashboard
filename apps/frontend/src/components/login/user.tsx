@@ -17,8 +17,9 @@ const AvatarUser = ({ user }: { user: IUser }) => {
 export const User = ({ user }: { user: IUser }) => {
   return (
     <div>
-      <Dropdown summary={<AvatarUser user={user}/>}>
-        <span>{user.username}</span>
+      <Dropdown id="user-dropdown" summary={<AvatarUser user={user}/>}>
+        <span>{user.nickname || user.username}</span>
+        <span>Выйти</span>
       </Dropdown>
     </div>
   );

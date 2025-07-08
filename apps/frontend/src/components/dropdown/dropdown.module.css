@@ -1,25 +1,32 @@
 .dropdown {
-  display: inline;
+  display: flex;
+}
+
+.dropdown .summary {
+  cursor: pointer;
 }
 
 .dropdown .content {
   * {
-    display: block;
-    background-color: rgb(197, 197, 197);
-    padding: 10px 15px;
+    display: flex;
+    padding: 0.5em 1em;
     text-decoration: none;
-    color: black;
+    color: var(--foreground);
   }
 
   position: absolute;
+
   display: none;
-  width: 100px;
-}
+  right: 1.5em;
 
-.dropdown:hover .content {
-  display: block;
-}
+  width: 160px;
+  height: fit-content;
 
-.dropdown *:hover {
-  background-color:rgb(219, 219, 219);
+  flex-direction: column;
+
+  margin-top: 3em;
+  padding: 0.25em 0.75em;
+  
+  background-color: var(--component-color);
+  border-radius: 0.5em;
 }
