@@ -8,6 +8,7 @@ import { Strategy, VerifyCallback, VerifyFunction } from "passport-oauth2";
 
 import { getPassportAuthEnv } from "src/api";
 import { IUser } from "types/user.type";
+import { Model } from "mongoose";
 
 const { Auth, User } = MODELS;
 
@@ -20,6 +21,16 @@ const { Auth, User } = MODELS;
 const defaultPassports: [AuthTypes, string, string[]?][] = [
   ["discord", "passport-discord", ["identify", "email", "guilds"]]
 ];
+
+const CreateOrUpdate = async <T>({ model, findData, data }: {model: Model<T>, findData: Partial<T>, data: Partial<T>}) => {
+  const finded = await model.findOne({ ...findData });
+  
+  if (!finded) {
+    return model.create({...findData, ...data, id: Database.generateId() })
+  };
+
+  return model.findOneAndUpdate({...findData}, { ...data });
+};
 
 class Authenticator {
   private readonly _passport: passport.PassportStatic;
@@ -56,43 +67,20 @@ class Authenticator {
 
         const username = profile.username || profile.displayName || profile.name.givenName;
 
-        const findedUser = await User.findOne({username});
-
-        if (!findedUser) {
-          const user = (
-            await User.create({
-              id: Database.generateId(),
-              username,
-              created_at: now,
-            })
-          ).toObject();
-  
-          const auth = (
-            await Auth.create({
-              id: Database.generateId(),
-              service_id: id,
-              profile_id: user.id,
-  
-              access_token,
-              refresh_token,
-  
-              created_at: now,
-              type: type
-            })
-          ).toObject();
-  
-          return done(null, {
-            auth, user
-          } as { auth: IAuthUser, user: IUser });
-        }
-
-        const authUser = (await Auth.findOneAndUpdate({profile_id: findedUser.id}, {
-          access_token, refresh_token, type,
-        })).toObject();
+        const user = (await CreateOrUpdate({ model: User, findData: { username }, data: { created_at: now }})).toObject();
+        const auth = (await CreateOrUpdate({ model: Auth, findData: { service_id: id }, data: {
+          service_id: id,
+          profile_id: user.id,
+    
+          access_token,
+          refresh_token,
+    
+          created_at: now,
+          type: type
+        }})).toObject();
 
         return done(null, {
-          auth: authUser,
-          user: findedUser
+          auth, user
         } as { auth: IAuthUser, user: IUser })
       } catch (error) {
         console.log(error);
