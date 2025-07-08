@@ -52,7 +52,9 @@ export class AuthController {
       res.cookie("user", JSON.stringify({
         auth_id: auth.id,
         ...user
-      }));
+      }), {
+        maxAge: Number(env.COOKIE_MAX_AGE),
+      });
       
       res.cookie(
         `${auth.id}-${auth.profile_id}-token`,
@@ -60,7 +62,9 @@ export class AuthController {
           id: auth.id,
           profile_id: auth.profile_id,
           token: new Hash().execute(auth.access_token)
-        })
+        }), {
+          maxAge: Number(env.COOKIE_TOKEN_MAX_AGE),
+        }
       );
       res.redirect(env.CLIENT_URL);
     });

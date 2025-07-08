@@ -24,14 +24,15 @@ type Required =
   | (typeof REQUIRED)[number]
   | `${Uppercase<AuthTypes>}_${AuthData}`;
 
-const KEYS = [...REQUIRED, "PORT", "COOKIE_MAX_AGE"] as const;
+const KEYS = [...REQUIRED, "PORT", "COOKIE_MAX_AGE", "COOKIE_TOKEN_MAX_AGE"] as const;
 
 type Keys = (typeof KEYS)[number];
 
 type Unrequired = Exclude<Keys, Required>;
 const DEFAULT: Record<Unrequired, string> = {
   PORT: "3001",
-  COOKIE_MAX_AGE: "604800000"
+  COOKIE_MAX_AGE: "604800000",
+  COOKIE_TOKEN_MAX_AGE: "1080000"
 };
 
 type EnvType = Record<Keys, string>;
