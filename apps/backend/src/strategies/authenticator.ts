@@ -78,9 +78,7 @@ class Authenticator {
           created_at: now,
           type: type
         }})).toObject();
-
-        console.log("get", access_token);
-
+        
         return done(null, {
           auth, user
         } as { auth: IAuthUser, user: IUser })
