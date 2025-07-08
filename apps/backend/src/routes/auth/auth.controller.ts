@@ -1,6 +1,7 @@
 import { Controller, Get, Injectable, Next, Req, Res } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
 
+import { MODELS } from "database";
 import Api from "api";
 
 import { AUTH_CONTROLLER, AUTH_ROUTES } from "./auth.routes";
@@ -8,6 +9,8 @@ import { AUTH_CONTROLLER, AUTH_ROUTES } from "./auth.routes";
 const AuthApi = Api.auth;
 const Hash = Api.hash;
 const { env } = new Api.env();
+
+const { User } = MODELS;
 
 @Injectable()
 @Controller(AUTH_CONTROLLER)
@@ -46,8 +49,15 @@ export class AuthController {
 
       if (!user) return;
 
+      User.findOne({id: user.profile_id}).then(profile => {
+        res.cookie("user", JSON.stringify({
+          auth_id: user.id,
+          ...profile.toObject()
+        }));
+      });
+      
       res.cookie(
-        "id-token",
+        `${user.id}-${user.profile_id}-token`,
         JSON.stringify({
           id: user.id,
           profile_id: user.profile_id,
