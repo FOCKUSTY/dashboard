@@ -23,13 +23,14 @@ const defaultPassports: [AuthTypes, string, string[]?][] = [
 ];
 
 const CreateOrUpdate = async <T>({ model, findData, data }: {model: Model<T>, findData: Partial<T>, data: Partial<T>}) => {
-  const finded = await model.findOne({ ...findData });
+  const finded = await model.findOne(findData);
   
   if (!finded) {
     return model.create({...findData, ...data, id: Database.generateId() })
   };
 
-  return model.findOneAndUpdate({...findData}, { ...data });
+  await model.updateOne(findData, data);
+  return model.findOne(findData);
 };
 
 class Authenticator {
@@ -77,6 +78,8 @@ class Authenticator {
           created_at: now,
           type: type
         }})).toObject();
+
+        console.log("get", access_token);
 
         return done(null, {
           auth, user
