@@ -2,12 +2,6 @@
   display: inline;
 }
 
-.dropdown .button {
-  background-color: rgb(197, 197, 197);
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .dropdown .content {
   * {
     display: block;
