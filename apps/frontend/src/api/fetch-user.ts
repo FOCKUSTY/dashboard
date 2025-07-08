@@ -10,7 +10,7 @@ export const fetchUser = async (token: string): Promise<IUser | null> => {
       headers: { authentication: token }
     });
 
-    return await user.json();
+    return (await user.json()).data;
   } catch (error) {
     console.error(error);
     return null;

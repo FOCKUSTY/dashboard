@@ -13,7 +13,7 @@ export const fetchGuild = async (
       headers: { authentication: token }
     });
 
-    return await guild.json();
+    return (await guild.json()).data;
   } catch (error) {
     console.error(error);
     return null;
@@ -27,7 +27,7 @@ export const fetchGuilds = async (token: string): Promise<IGuild[] | null> => {
       headers: { authentication: token }
     });
 
-    return await guilds.json();
+    return (await guilds.json()).data;
   } catch (error) {
     console.error(error);
     return null;
