@@ -69,7 +69,6 @@ class Authenticator {
 
         const user = (await CreateOrUpdate({ model: User, findData: { username }, data: { created_at: now }})).toObject();
         const auth = (await CreateOrUpdate({ model: Auth, findData: { service_id: id }, data: {
-          service_id: id,
           profile_id: user.id,
     
           access_token,
