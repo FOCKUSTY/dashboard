@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import passport = require("passport");
 
 import { AUTH_TYPES, AuthTypes, IAuthUser } from "types/auth-user.type";
+import { IUser } from "types/user.type";
 
 const abbreviations: Map<string, AuthTypes> = new Map([]);
 
@@ -61,7 +62,7 @@ class AuthApi {
     @Req() req: Request,
     @Res() res: Response,
     @Next() next: NextFunction,
-    callback: (...args: [unknown, IAuthUser | null, unknown]) => unknown
+    callback: (...args: [unknown, { auth: IAuthUser, user: IUser } | null, unknown]) => unknown
   ): unknown {
     const [successed, { method, body }] = this.getMethod();
 

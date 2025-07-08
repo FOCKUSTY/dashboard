@@ -7,6 +7,7 @@ import { AuthTypes, IAuthUser } from "types/auth-user.type";
 import { Strategy, VerifyCallback, VerifyFunction } from "passport-oauth2";
 
 import { getPassportAuthEnv } from "src/api";
+import { IUser } from "types/user.type";
 
 const { Auth, User } = MODELS;
 
@@ -66,7 +67,7 @@ class Authenticator {
             })
           ).toObject();
   
-          const authUser = (
+          const auth = (
             await Auth.create({
               id: Database.generateId(),
               service_id: id,
@@ -81,16 +82,8 @@ class Authenticator {
           ).toObject();
   
           return done(null, {
-            id: authUser.id,
-            profile_id: authUser.profile_id,
-            service_id: authUser.service_id,
-  
-            access_token: authUser.access_token,
-            refresh_token: authUser.refresh_token,
-  
-            created_at: authUser.created_at,
-            type: authUser.type
-          } as IAuthUser);
+            auth, user
+          } as { auth: IAuthUser, user: IUser });
         }
 
         const authUser = (await Auth.findOneAndUpdate({profile_id: findedUser.id}, {
@@ -98,16 +91,9 @@ class Authenticator {
         })).toObject();
 
         return done(null, {
-            id: authUser.id,
-            profile_id: authUser.profile_id,
-            service_id: authUser.service_id,
-  
-            access_token: authUser.access_token,
-            refresh_token: authUser.refresh_token,
-  
-            created_at: authUser.created_at,
-            type: authUser.type
-        })
+          auth: authUser,
+          user: findedUser
+        } as { auth: IAuthUser, user: IUser })
       } catch (error) {
         console.log(error);
 

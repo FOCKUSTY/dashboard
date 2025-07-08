@@ -45,23 +45,21 @@ export class AuthController {
     @Next() next: NextFunction
   ) {
     new AuthApi(req.params.method).callback(req, res, next, (...args) => {
-      const user = args[1];
+      if (!args[1]) return;
 
-      if (!user) return;
+      const { auth, user } = args[1];
 
-      User.findOne({id: user.profile_id}).then(profile => {
-        res.cookie("user", JSON.stringify({
-          auth_id: user.id,
-          ...profile.toObject()
-        }));
-      });
+      res.cookie("user", JSON.stringify({
+        auth_id: auth.id,
+        ...user
+      }));
       
       res.cookie(
-        `${user.id}-${user.profile_id}-token`,
+        `${auth.id}-${auth.profile_id}-token`,
         JSON.stringify({
-          id: user.id,
-          profile_id: user.profile_id,
-          token: new Hash().execute(user.access_token)
+          id: auth.id,
+          profile_id: auth.profile_id,
+          token: new Hash().execute(auth.access_token)
         })
       );
       res.redirect(env.CLIENT_URL);
