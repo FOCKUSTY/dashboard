@@ -50,12 +50,16 @@ export class AuthController {
       const { auth, user } = args[1];
 
       res.cookie("user", JSON.stringify({
-        auth_id: auth.id,
         ...user
       }), {
         maxAge: Number(env.COOKIE_MAX_AGE),
       });
       
+      res.cookie("auth-data", JSON.stringify({
+        auth_id: auth.id,
+        profile_id: auth.profile_id
+      }));
+
       res.cookie(
         `${auth.id}-${auth.profile_id}-token`,
         JSON.stringify({
