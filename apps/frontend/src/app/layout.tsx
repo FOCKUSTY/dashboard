@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import "./globals.css"
+import "./globals.css";
 
 import React from "react";
 
@@ -16,7 +16,7 @@ import { FaDiscord, FaTelegram, FaGithub } from "react-icons/fa";
 import { Api } from "api";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const [ user, setUser ] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -33,22 +33,28 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ru">
       <body>
-        <img className="background" src="/background.png" alt="background"/>
+        <img className="background" src="/background.png" alt="background" />
         <div className="human-container">
           <img className="human noselect" src="/human.png" alt="human" />
         </div>
-        
+
         <div id="page">
           <header>
             <div id="logo">
               <h1>The Void</h1>
               <div className="links">
-                <a href={Api.the_void.discord_url} target="_blank"><FaDiscord size={24}/></a>
-                <a href={Api.the_void.telegram_url} target="_blank"><FaTelegram size={24}/></a>
-                <a href={Api.the_void.github_url} target="_blank"><FaGithub size={24}/></a>
+                <a href={Api.the_void.discord_url} target="_blank">
+                  <FaDiscord size={24} />
+                </a>
+                <a href={Api.the_void.telegram_url} target="_blank">
+                  <FaTelegram size={24} />
+                </a>
+                <a href={Api.the_void.github_url} target="_blank">
+                  <FaGithub size={24} />
+                </a>
               </div>
             </div>
-            
+
             <LogIn user={user} />
           </header>
 

@@ -35,17 +35,19 @@ class GeneralStrategy {
   }
 
   private serializer() {
-    this._passport.serializeUser((user: { auth: IAuthUser, user: IUser}, done) => {
-      return done(null, user);
-    });
+    this._passport.serializeUser(
+      (user: { auth: IAuthUser; user: IUser }, done) => {
+        return done(null, user);
+      }
+    );
 
     this._passport.deserializeUser(async (u: string, done) => {
       try {
         const auth = (await Auth.findOne({ id: u })).toObject();
-        const user = (await User.findOne({id: auth.profile_id})).toObject();
+        const user = (await User.findOne({ id: auth.profile_id })).toObject();
 
         return user
-          ? done(null, { auth, user } as { auth: IAuthUser, user: IUser })
+          ? done(null, { auth, user } as { auth: IAuthUser; user: IUser })
           : done(null, null);
       } catch (err) {
         console.error(err);

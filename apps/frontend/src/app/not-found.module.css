@@ -20,3 +20,67 @@
 #main div span {
   font-size: 24px;
 }
+
+#comet {
+  position: fixed;
+  z-index: 0;
+
+  height: 20%;
+  margin: 0 auto;
+  right: 0;
+  top: -150px;
+
+  animation: fly 8s infinite ease-in-out;
+
+  transform: rotateZ(330deg);
+}
+
+@keyframes fly {
+  0% {
+    right: 0;
+    top: -350px;
+    -webkit-filter: blur(0px);
+  }
+
+  50% {
+    -webkit-filter: blur(3px);
+  }
+
+  100% {
+    -webkit-filter: blur(0px);
+    right: 1800px;
+    top: 800px;
+  }
+}
+
+#comet_two {
+  position: fixed;
+  z-index: 0;
+  height: 20%;
+  margin: 0 auto;
+
+  left: -300px;
+  top: -350px;
+
+  animation: fly-two 5s infinite ease-in-out;
+
+  transform: rotateZ(210deg);
+}
+
+@keyframes fly-two {
+  0% {
+    left: -300px;
+    top: -350px;
+    -webkit-filter: blur(0px);
+  }
+
+  50% {
+    -webkit-filter: blur(3px);
+  }
+
+  100% {
+    -webkit-filter: blur(0px);
+    left: 1500px;
+    top: 1000px;
+  }
+}

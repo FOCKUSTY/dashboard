@@ -33,12 +33,16 @@ class Hash {
   }
 
   public static parse(token: string | Request): ParseReturnType {
-    if (typeof token !== "string" && !token.headers.authentication) return PARSE_ERROR;
+    if (typeof token !== "string" && !token.headers.authentication)
+      return PARSE_ERROR;
 
-    const { id, profile_id, token: hash } =
-      typeof token === "string"
-        ? JSON.parse(token)
-        : JSON.parse(token.headers.authentication.toString());
+    const {
+      id,
+      profile_id,
+      token: hash
+    } = typeof token === "string"
+      ? JSON.parse(token)
+      : JSON.parse(token.headers.authentication.toString());
 
     if (!id || !hash || !profile_id) return PARSE_ERROR;
 

@@ -10,7 +10,7 @@
     --background: #0a0a0a;
     --foreground: #ededed;
 
-    --component-color: #272727; 
+    --component-color: #272727;
   }
 }
 
@@ -29,6 +29,8 @@ body {
 }
 
 * {
+  z-index: 0;
+
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -62,6 +64,7 @@ button {
 
 footer,
 header {
+  z-index: 1;
   position: fixed;
 
   display: flex;
@@ -80,7 +83,6 @@ header {
 }
 
 header {
-  z-index: 1;
   top: 0;
 
   -webkit-box-shadow: 0 10px 100px 0 rgba(0, 0, 0, 0.9);
@@ -105,8 +107,7 @@ header {
   gap: 10px;
 }
 
-footer { 
-  z-index: 1;
+footer {
   bottom: 0;
 
   -webkit-box-shadow: 0 -50px 100px 0 rgba(0, 0, 0, 0.75);
@@ -129,14 +130,15 @@ main {
   left: 0;
 
   padding: 0.75em 2em;
-  
+
   margin: 120px 0;
   height: calc(100% - 240px);
 }
 
 .background {
+  z-index: 0;
+
   position: fixed;
-  z-index: -999;
   background-size: cover;
   background-image: url("/background.png");
 }
@@ -144,7 +146,7 @@ main {
 .human-container {
   position: fixed;
   display: flex;
-  
+
   align-items: center;
 
   height: 100%;
@@ -152,11 +154,12 @@ main {
 }
 
 .human {
-  --animation-start-top: -2em
+  z-index: 5;
   
+  --animation-start-top: -2em;
+
   position: relative;
 
-  z-index: -999;
   height: 40em;
 
   top: var(--animation-start-top);
@@ -171,7 +174,7 @@ main {
   }
 
   50% {
-    top: calc(2em);
+    top: 2em;
   }
 
   100% {
@@ -181,11 +184,11 @@ main {
 
 .noselect {
   -webkit-touch-callout: none;
-    -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @media (prefers-color-scheme: dark) {

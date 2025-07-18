@@ -49,16 +49,23 @@ export class AuthController {
 
       const { auth, user } = args[1];
 
-      res.cookie("user", JSON.stringify({
-        ...user
-      }), {
-        maxAge: Number(env.COOKIE_MAX_AGE),
-      });
-      
-      res.cookie("auth-data", JSON.stringify({
-        auth_id: auth.id,
-        profile_id: auth.profile_id
-      }));
+      res.cookie(
+        "user",
+        JSON.stringify({
+          ...user
+        }),
+        {
+          maxAge: Number(env.COOKIE_MAX_AGE)
+        }
+      );
+
+      res.cookie(
+        "auth-data",
+        JSON.stringify({
+          auth_id: auth.id,
+          profile_id: auth.profile_id
+        })
+      );
 
       res.cookie(
         `${auth.id}-${auth.profile_id}-token`,
@@ -66,8 +73,9 @@ export class AuthController {
           id: auth.id,
           profile_id: auth.profile_id,
           token: new Hash().execute(auth.access_token)
-        }), {
-          maxAge: Number(env.COOKIE_TOKEN_MAX_AGE),
+        }),
+        {
+          maxAge: Number(env.COOKIE_TOKEN_MAX_AGE)
         }
       );
       res.redirect(env.CLIENT_URL);

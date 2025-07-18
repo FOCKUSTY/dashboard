@@ -62,7 +62,9 @@ class AuthApi {
     @Req() req: Request,
     @Res() res: Response,
     @Next() next: NextFunction,
-    callback: (...args: [unknown, { auth: IAuthUser, user: IUser } | null, unknown]) => unknown
+    callback: (
+      ...args: [unknown, { auth: IAuthUser; user: IUser } | null, unknown]
+    ) => unknown
   ): unknown {
     const [successed, { method, body }] = this.getMethod();
 

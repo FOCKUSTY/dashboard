@@ -38,16 +38,18 @@ export class UsersController {
   ) {}
 
   @Get(ROUTES.GET_ME)
-  public async getMe(@Req() req: Request, @Query("cache") cache?: string): Promise<IResponse<IUser>> {
+  public async getMe(
+    @Req() req: Request,
+    @Query("cache") cache?: string
+  ): Promise<IResponse<IUser>> {
     const { successed, profile_id } = Hash.parse(req);
-    
-    if (!successed) { return Api.createError("Hash parse error", null) };
- 
-    const cacheManager = useCache<IUser>(
-      this.cacheManager,
-      cache
-    );
- 
+
+    if (!successed) {
+      return Api.createError("Hash parse error", null);
+    }
+
+    const cacheManager = useCache<IUser>(this.cacheManager, cache);
+
     return cacheManager<[Partial<IUser> | string]>({
       getFunction: this.service.getUser,
       key: `user-${profile_id}`,
@@ -56,10 +58,16 @@ export class UsersController {
   }
 
   @Get(ROUTES.GET)
-  public async get(@Req() req: Request, @Param("id") id: string, @Query("cache") cache?: string): Promise<IResponse<IUser>> {
+  public async get(
+    @Req() req: Request,
+    @Param("id") id: string,
+    @Query("cache") cache?: string
+  ): Promise<IResponse<IUser>> {
     const { successed } = Hash.parse(req);
-    
-    if (!successed) { return Api.createError("Hash parse error", null) };
+
+    if (!successed) {
+      return Api.createError("Hash parse error", null);
+    }
 
     const cacheManager = useCache<IUser>(this.cacheManager, cache);
 
@@ -68,15 +76,22 @@ export class UsersController {
       key: `user-${id}`,
       data: [id]
     });
-  };
+  }
 
   @Put(ROUTES.PUT)
-  public async put(@Req() req: Request, @Param("id") id: string): Promise<IResponse<UpdateWriteOpResult, UpdateWriteOpResult|null>> {
+  public async put(
+    @Req() req: Request,
+    @Param("id") id: string
+  ): Promise<IResponse<UpdateWriteOpResult, UpdateWriteOpResult | null>> {
     const { successed, profile_id } = Hash.parse(req);
 
-    if (!successed) { return Api.createError("Hash parse error", null) };
-    if (profile_id !== id) { return Api.createError("Access denied", null) };
+    if (!successed) {
+      return Api.createError("Hash parse error", null);
+    }
+    if (profile_id !== id) {
+      return Api.createError("Access denied", null);
+    }
 
     return this.service.updateUser(id, Helpers.parse(req.body, "user"));
-  };
+  }
 }

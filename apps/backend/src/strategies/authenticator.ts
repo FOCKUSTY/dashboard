@@ -14,16 +14,28 @@ import { APIUser } from "discord.js";
 const { env } = new Api.env();
 const { Auth, User } = MODELS;
 
-const defaultPassports: Record<AuthTypes, {path: string, scopes?: string[]}> = {
-  discord: { path: "passport-discord", scopes: ["identify", "email", "guilds"] }
-}
-
-const CreateOrUpdate = async <T>({ model, findData, data }: {model: Model<T>, findData: Partial<T>, data: Partial<T>}) => {
-  const finded = await model.findOne(findData);
-  
-  if (!finded) {
-    return model.create({...findData, ...data, id: Database.generateId() })
+const defaultPassports: Record<AuthTypes, { path: string; scopes?: string[] }> =
+  {
+    discord: {
+      path: "passport-discord",
+      scopes: ["identify", "email", "guilds"]
+    }
   };
+
+const CreateOrUpdate = async <T>({
+  model,
+  findData,
+  data
+}: {
+  model: Model<T>;
+  findData: Partial<T>;
+  data: Partial<T>;
+}) => {
+  const finded = await model.findOne(findData);
+
+  if (!finded) {
+    return model.create({ ...findData, ...data, id: Database.generateId() });
+  }
 
   await model.updateOne(findData, data);
   return model.findOne(findData);
@@ -40,9 +52,7 @@ class Authenticator {
     for (const passport in defaultPassports) {
       const strategy = require(defaultPassports[passport].path).Strategy;
       this.strategy(strategy, {
-        ...getPassportAuthEnv(
-          passport.toUpperCase() as Uppercase<AuthTypes>
-        ),
+        ...getPassportAuthEnv(passport.toUpperCase() as Uppercase<AuthTypes>),
         type: defaultPassports[passport].path,
         scopes: defaultPassports[passport]?.scopes || []
       });
@@ -62,38 +72,65 @@ class Authenticator {
         const { id } = profile;
         const now = new Date().toISOString();
 
-        const username = profile.username || profile.displayName || profile.name.givenName;
+        const username =
+          profile.username || profile.displayName || profile.name.givenName;
 
         let user: IUser;
         try {
-          const apiUser: APIUser = await (await fetch(env.DISCORD_API_URL + "/users/@me", {
-            method: "GET",
-            headers: { Authorization: "Bearer " + access_token }
-          })).json();
-          
-          user = (await CreateOrUpdate({ model: User, findData: { username }, data: {
-            created_at: now,
-            nickname: apiUser.global_name,
-            // ВЫНЕСТИ В КОНСТАНТУ
-            avatar_url: "https://cdn.discordapp.com/avatars/" + apiUser.id + "/" + apiUser.avatar + ".webp"
-          }})).toObject();
+          const apiUser: APIUser = await (
+            await fetch(env.DISCORD_API_URL + "/users/@me", {
+              method: "GET",
+              headers: { Authorization: "Bearer " + access_token }
+            })
+          ).json();
+
+          user = (
+            await CreateOrUpdate({
+              model: User,
+              findData: { username },
+              data: {
+                created_at: now,
+                nickname: apiUser.global_name,
+                // ВЫНЕСТИ В КОНСТАНТУ
+                avatar_url:
+                  "https://cdn.discordapp.com/avatars/" +
+                  apiUser.id +
+                  "/" +
+                  apiUser.avatar +
+                  ".webp"
+              }
+            })
+          ).toObject();
         } catch {
-          user = (await CreateOrUpdate({ model: User, findData: { username }, data: { created_at: now }})).toObject();
+          user = (
+            await CreateOrUpdate({
+              model: User,
+              findData: { username },
+              data: { created_at: now }
+            })
+          ).toObject();
         }
 
-        const auth = (await CreateOrUpdate({ model: Auth, findData: { service_id: id }, data: {
-          profile_id: user.id,
-    
-          access_token,
-          refresh_token,
-    
-          created_at: now,
-          type: type
-        }})).toObject();
-        
+        const auth = (
+          await CreateOrUpdate({
+            model: Auth,
+            findData: { service_id: id },
+            data: {
+              profile_id: user.id,
+
+              access_token,
+              refresh_token,
+
+              created_at: now,
+              type: type
+            }
+          })
+        ).toObject();
+
         return done(null, {
-          auth, user
-        } as { auth: IAuthUser, user: IUser })
+          auth,
+          user
+        } as { auth: IAuthUser; user: IUser });
       } catch (error) {
         console.log(error);
 

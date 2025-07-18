@@ -24,12 +24,17 @@ const texts = [
 
 export const NotFound = () => {
   return (
-    <div id={styles.main}>
-      <div>
-        <span>Мы искали страницу, но нашли {words[Api.random(0, words.length-1)]}</span>
-        <span>{texts[Api.random(0, texts.length-1)]}</span>
+    <>
+      <img id={styles.comet} src="/comet.png" />
+      <img id={styles.comet_two} src="/comet.png" />
+      
+      <div id={styles.main}>
+        <div> 
+          <span>Мы искали страницу, но нашли {words[Api.random(0, words.length-1)]} :3</span>
+          <span>{texts[Api.random(0, texts.length-1)]}</span>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

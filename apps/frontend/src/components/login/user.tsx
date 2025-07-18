@@ -12,23 +12,35 @@ const AvatarUser = ({ user }: { user: IUser }) => {
       sizes="50px"
       className={styles.avatar_url}
     />
-  )
+  );
 };
 
 export const User = ({ user }: { user: IUser }) => {
   return (
-    <Dropdown className={`${styles.dropdown} noselect`} id="user-dropdown" summary={<AvatarUser user={user}/>}>
+    <Dropdown
+      className={`${styles.dropdown} noselect`}
+      id="user-dropdown"
+      summary={<AvatarUser user={user} />}
+    >
       <span>{user.nickname || user.username}</span>
-      <button onClick={() => {
-        logOut().then(() => {
-          location.reload();
-        });
-      }}>Выйти</button>
-      <button onClick={() => {
-        deleteSession().then(() => {
-          location.reload();
-        });
-      }}>Удалить сессию</button>
+      <button
+        onClick={() => {
+          logOut().then(() => {
+            location.reload();
+          });
+        }}
+      >
+        Выйти
+      </button>
+      <button
+        onClick={() => {
+          deleteSession().then(() => {
+            location.reload();
+          });
+        }}
+      >
+        Удалить сессию
+      </button>
     </Dropdown>
   );
 };

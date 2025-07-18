@@ -9,7 +9,7 @@ import { AppModule } from "./app.module";
 import Passport from "./strategies";
 import Session from "./app/session.app";
 
-import connect from "database/connection"
+import connect from "database/connection";
 
 const { env } = new Api.env();
 const passport = new Passport();

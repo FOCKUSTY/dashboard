@@ -24,7 +24,12 @@ type Required =
   | (typeof REQUIRED)[number]
   | `${Uppercase<AuthTypes>}_${AuthData}`;
 
-const KEYS = [...REQUIRED, "PORT", "COOKIE_MAX_AGE", "COOKIE_TOKEN_MAX_AGE"] as const;
+const KEYS = [
+  ...REQUIRED,
+  "PORT",
+  "COOKIE_MAX_AGE",
+  "COOKIE_TOKEN_MAX_AGE"
+] as const;
 
 type Keys = (typeof KEYS)[number];
 
