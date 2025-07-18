@@ -31,6 +31,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="ru">
       <body>
         <img className="background" src="/background.png" alt="background"/>
+        <div className="human-container">
+          <img className="human noselect" src="/human.png" alt="human" />
+        </div>
         
         <div id="page">
           <header>
@@ -44,7 +47,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <h2>The Void</h2>
           </footer>
         </div>
-
       </body>
     </html>
   );

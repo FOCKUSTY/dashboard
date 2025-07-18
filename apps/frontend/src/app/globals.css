@@ -105,7 +105,6 @@ main {
   z-index: 0;
 
   position: absolute;
-  display: flex;
 
   width: 100%;
 
@@ -123,10 +122,46 @@ main {
 .background {
   position: fixed;
   z-index: -999;
-  height: 100%;
-  width: 100%;
   background-size: cover;
   background-image: url("/background.png");
+}
+
+.human-container {
+  position: fixed;
+  display: flex;
+  
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+}
+
+.human {
+  --animation-start-top: calc(-2em);
+  
+  position: relative;
+
+  z-index: -999;
+  height: 40em;
+
+  top: var(--animation-start-top);
+
+  animation: 3s ease-in-out infinite forwards;
+  animation-name: human-levitation;
+}
+
+@keyframes human-levitation {
+  0% {
+    top: var(--animation-start-top);
+  }
+
+  50% {
+    top: calc(2em);
+  }
+
+  100% {
+    top: var(--animation-start-top);
+  }
 }
 
 .noselect {
