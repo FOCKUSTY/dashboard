@@ -2,6 +2,7 @@ import { IUser } from "types/user.type";
 
 import { Dropdown } from "../dropdown";
 import styles from "./user.module.css";
+import { deleteSession, logOut } from "./log-out.service";
 
 const AvatarUser = ({ user }: { user: IUser }) => {
   return (
@@ -19,7 +20,16 @@ export const User = ({ user }: { user: IUser }) => {
     <div>
       <Dropdown className={`${styles.dropdown} noselect`} id="user-dropdown" summary={<AvatarUser user={user}/>}>
         <span>{user.nickname || user.username}</span>
-        <button>Выйти</button>
+        <button onClick={() => {
+          logOut().then(() => {
+            location.reload();
+          });
+        }}>Выйти</button>
+        <button onClick={() => {
+          deleteSession().then(() => {
+            location.reload();
+          });
+        }}>Удалить сессию</button>
       </Dropdown>
     </div>
   );
