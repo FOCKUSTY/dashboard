@@ -90,6 +90,21 @@ header {
   border-radius: 0 0 20px 20px;
 }
 
+#logo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.links {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  gap: 10px;
+}
+
 footer { 
   z-index: 1;
   bottom: 0;
