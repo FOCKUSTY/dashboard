@@ -19,7 +19,7 @@ export const User = ({ user }: { user: IUser }) => {
     <div>
       <Dropdown id="user-dropdown" summary={<AvatarUser user={user}/>}>
         <span>{user.nickname || user.username}</span>
-        <span>Выйти</span>
+        <button>Выйти</button>
       </Dropdown>
     </div>
   );

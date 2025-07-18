@@ -1,5 +1,7 @@
 .dropdown {
   display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
 }
 
 .dropdown .summary {
@@ -14,12 +16,9 @@
     color: var(--foreground);
   }
 
-  position: absolute;
-
   display: none;
-  right: 1.5em;
 
-  width: 160px;
+  min-width: 160px;
   height: fit-content;
 
   flex-direction: column;
