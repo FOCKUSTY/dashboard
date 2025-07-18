@@ -161,6 +161,7 @@ main {
   position: relative;
 
   height: 40em;
+  width: 25em;
 
   top: var(--animation-start-top);
 

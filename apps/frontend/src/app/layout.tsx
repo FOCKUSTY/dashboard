@@ -4,16 +4,16 @@ import "./globals.css";
 
 import React from "react";
 
+import Image from "next/image";
+import { FaDiscord, FaTelegram, FaGithub } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 import { IUser } from "types/user.type";
 import { LogIn } from "../components/login";
 
+import { Api } from "api";
 import { validateCookies } from "api/validate-cookies";
 import { fetchUser } from "api/fetch-user";
-
-import { FaDiscord, FaTelegram, FaGithub } from "react-icons/fa";
-import { Api } from "api";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
@@ -33,10 +33,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ru">
       <body>
-        <img className="background" src="/background.png" alt="background" />
+        <Image width={1920} height={1080} className="background" src="/background.png" alt="background" />
         <div className="human-container">
-          <img className="human noselect" src="/human.png" alt="human" />
-        </div>
+          <Image width={597} height={935} className="human noselect" src="/human.png" alt="human" />
+        </div>  
 
         <div id="page">
           <header>

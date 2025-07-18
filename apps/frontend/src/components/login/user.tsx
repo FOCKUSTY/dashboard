@@ -4,12 +4,15 @@ import { Dropdown } from "../dropdown";
 import styles from "./user.module.css";
 import { deleteSession, logOut } from "./log-out.service";
 
+import Image from "next/image";
+
 const AvatarUser = ({ user }: { user: IUser }) => {
   return (
-    <img
+    <Image
       src={user.avatar_url || "/TheVoidAvatarSite.png"}
       alt="user avatar"
-      sizes="50px"
+      width={50}
+      height={50}
       className={styles.avatar_url}
     />
   );
