@@ -1,8 +1,8 @@
 import styles from "./dropdown.module.css";
 
-export const Dropdown = ({ children, summary, id }: { children: React.ReactNode, summary: React.ReactNode, id: string }) => {
+export const Dropdown = ({ children, summary, id, className }: { children: React.ReactNode, summary: React.ReactNode, id: string, className?: string }) => {
   return (
-    <div className={styles.dropdown}>
+    <div className={`${styles.dropdown} ${className}`}>
       <div className={styles.summary} onClick={(event) => {
         const element = event.currentTarget.ownerDocument.getElementById(id) as HTMLElement;
 

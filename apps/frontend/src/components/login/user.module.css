@@ -3,3 +3,17 @@
   width: 50px;
   border-radius: 100%;
 }
+
+.dropdown {
+  * {
+    transition: 0.3s;
+  }
+
+  button:hover {
+    font-size: 18px;
+  }
+
+  button:active {
+    font-size: 14px;
+  }
+}

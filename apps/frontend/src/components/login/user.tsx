@@ -17,7 +17,7 @@ const AvatarUser = ({ user }: { user: IUser }) => {
 export const User = ({ user }: { user: IUser }) => {
   return (
     <div>
-      <Dropdown id="user-dropdown" summary={<AvatarUser user={user}/>}>
+      <Dropdown className={`${styles.dropdown} noselect`} id="user-dropdown" summary={<AvatarUser user={user}/>}>
         <span>{user.nickname || user.username}</span>
         <button>Выйти</button>
       </Dropdown>
