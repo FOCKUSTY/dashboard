@@ -137,7 +137,7 @@ main {
 }
 
 .human {
-  --animation-start-top: calc(-2em);
+  --animation-start-top: -2em
   
   position: relative;
 
