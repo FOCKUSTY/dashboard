@@ -10,14 +10,16 @@ import { useRawCache } from "./cache.api";
 const { env } = new Env();
 
 const unknownError = createUnknownError("discord-api");
-const cache = new Map<string, { date: number, data: APIPartialGuild[] }>();
+const guildsCache = new Map<string, { date: number, data: APIPartialGuild[] }>();
+const guildCache = new Map<string, { date: number, data: APIPartialGuild }>();
 
 export class DiscordApi {
   private static readonly _token = env.DISCORD_TOKEN;
   
   public static readonly url = env.DISCORD_API_URL;
   public static readonly cdn = "https://cdn.discordapp.com" as const;
-  public static readonly cache = useRawCache<APIPartialGuild[]>(cache);
+  public static readonly guildsCache = useRawCache<APIPartialGuild[]>(guildsCache);
+  public static readonly guildCache = useRawCache<APIPartialGuild>(guildCache);
 
   public static getBotAuth() {
     return { Authorization: 'Bot ' + this._token };
@@ -27,13 +29,23 @@ export class DiscordApi {
     return { Authorization: 'Bearer ' + token };  
   }
 
+  public static fetchBanner(data: { id: string, banner?: string}) {
+    return data.banner
+      ? `${this.cdn}/banners/${data.id}/${data.banner}`
+      : null
+  }
+
+  public static fetchGuildIcon(guild: { id: string, icon: string }) {
+    return `${this.cdn}/icons/${guild.id}/${guild.icon}.png`;
+  }
+
   public static fetchUserAvatar(user: { id: string, avatar: string}) {
     return `${this.cdn}/avatar/${user.id}/${user.avatar}.webp`;
   }
 
   public static async fetchUserGuilds(token: string): Promise<IResponse<APIPartialGuild[], APIPartialGuild[]>> {
     try {
-      const data = await this.cache({
+      const data = await this.guildsCache({
         getFunction: async () => {
           return await (await fetch(`${this.url}/users/@me/guilds?limit=20`, {
             method: "GET",
@@ -50,13 +62,36 @@ export class DiscordApi {
         successed: true
       };
     } catch (error) {
-      return unknownError.execute(1, <const>[], error);
+      return unknownError.execute(1001, <const>[], error);
+    }
+  }
+
+  public static async fetchUserGuild(id: string, token: string): Promise<IResponse<APIPartialGuild>> {
+    try {
+      const data = await this.guildCache({
+        getFunction: async () => {
+          return await (await fetch(`${this.url}/users/@me/guilds/${id}`, {
+            method: "GET",
+            headers: this.getUserAuth(token)
+          })).json()
+        },
+        data: [],
+        key: "discord-api-guild-user-" + id + token
+      });
+
+    return {
+        data,
+        error: null,
+        successed: true
+      };
+    } catch (error) {
+      return unknownError.execute(1002, null, error);
     }
   }
 
   public static async fetchBotGuilds(): Promise<IResponse<APIPartialGuild[], APIPartialGuild[]>> {
     try {
-      const data = await this.cache({
+      const data = await this.guildsCache({
         getFunction: async () => {
           return await (await fetch(`${this.url}/users/@me/guilds?limit=20`, {
             method: "GET",
@@ -73,7 +108,7 @@ export class DiscordApi {
         successed: true
       };
     } catch (error) {
-      return unknownError.execute(1, <const>[], error);
+      return unknownError.execute(1003, <const>[], error);
     }
   }
 
