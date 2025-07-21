@@ -1,17 +1,23 @@
 import { APIPartialGuild } from "discord.js";
-import Env from "./env";
-import { createUnknownError } from "./create-error";
+
 import { IResponse } from "types/response.type";
+
+import Env from "./env";
+
+import { createUnknownError } from "./create-error";
+import { useRawCache } from "./cache.api";
 
 const { env } = new Env();
 
 const unknownError = createUnknownError("discord-api");
+const cache = new Map<string, { date: number, data: APIPartialGuild[] }>();
 
 export class DiscordApi {
   private static readonly _token = env.DISCORD_TOKEN;
   
   public static readonly url = env.DISCORD_API_URL;
   public static readonly cdn = "https://cdn.discordapp.com" as const;
+  public static readonly cache = useRawCache<APIPartialGuild[]>(cache);
 
   public static getBotAuth() {
     return { Authorization: 'Bot ' + this._token };
@@ -27,11 +33,19 @@ export class DiscordApi {
 
   public static async fetchUserGuilds(token: string): Promise<IResponse<APIPartialGuild[], APIPartialGuild[]>> {
     try {
+      const data = await this.cache({
+        getFunction: async () => {
+          return await (await fetch(`${this.url}/users/@me/guilds?limit=20`, {
+            method: "GET",
+            headers: this.getUserAuth(token)
+          })).json()
+        },
+        data: [],
+        key: "discord-api-guilds-user-" + token
+      });
+
       return {
-        data: await (await fetch(`${this.url}/users/@me/guilds?limit=20`, {
-          method: "GET",
-          headers: this.getUserAuth(token)
-        })).json(),
+        data,
         error: null,
         successed: true
       };
@@ -42,11 +56,19 @@ export class DiscordApi {
 
   public static async fetchBotGuilds(): Promise<IResponse<APIPartialGuild[], APIPartialGuild[]>> {
     try {
+      const data = await this.cache({
+        getFunction: async () => {
+          return await (await fetch(`${this.url}/users/@me/guilds?limit=20`, {
+            method: "GET",
+            headers: this.getBotAuth()
+          })).json()
+        },
+        data: [],
+        key: "discord-api-guilds-bot-" + this._token
+      });
+
       return {
-        data: await (await fetch(`${this.url}/users/@me/guilds?limit=20`, {
-          method: "GET",
-          headers: this.getBotAuth()
-        })).json(),
+        data,
         error: null,
         successed: true
       };
