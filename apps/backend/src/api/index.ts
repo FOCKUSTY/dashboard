@@ -13,7 +13,7 @@ export class Api {
   public static env = Env;
   public static auth = AuthApi;
   public static hash = Hash;
-  public static Discord = DiscordApi;
+  public static discord = DiscordApi;
   public static useCache = useCache;
 
   public static createError = createError;

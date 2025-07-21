@@ -24,7 +24,7 @@ export class DiscordApi {
     return `${this.cdn}/avatar/${user.id}/${user.avatar}.webp`;
   };
 
-  public static async fetchUserGuilds(token: string): Promise<IResponse<APIPartialGuild[], []>> {
+  public static async fetchUserGuilds(token: string): Promise<IResponse<APIPartialGuild[], APIPartialGuild[]>> {
     try {
       return {
         data: await (await fetch(`${this.url}/users/@me/guilds?limit=20`, {

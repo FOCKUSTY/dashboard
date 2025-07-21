@@ -11,6 +11,7 @@ import { IUser } from "types/user.type";
 import { Model } from "mongoose";
 import { APIUser } from "discord.js";
 
+const { discord: DiscordApi } = Api
 const { env } = new Api.env();
 const { Auth, User } = MODELS;
 
@@ -80,7 +81,7 @@ class Authenticator {
           const apiUser: APIUser = await (
             await fetch(env.DISCORD_API_URL + "/users/@me", {
               method: "GET",
-              headers: { Authorization: "Bearer " + access_token }
+              headers: DiscordApi.getUserAuth(access_token)
             })
           ).json();
 
@@ -91,13 +92,8 @@ class Authenticator {
               data: {
                 created_at: now,
                 nickname: apiUser.global_name,
-                // ВЫНЕСТИ В КОНСТАНТУ
-                avatar_url:
-                  "https://cdn.discordapp.com/avatars/" +
-                  apiUser.id +
-                  "/" +
-                  apiUser.avatar +
-                  ".webp"
+                guilds: (await DiscordApi.fetchUserGuilds(access_token)).data.map(guild => guild.id),
+                avatar_url: DiscordApi.fetchUserAvatar(apiUser)
               }
             })
           ).toObject();
