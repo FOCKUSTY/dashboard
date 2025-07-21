@@ -1,6 +1,7 @@
 import AuthApi from "./auth.api";
-import Env from "./env";
+import DiscordApi from "./discord.api";
 import Hash from "./hash.api";
+import Env from "./env";
 
 import { useCache } from "./cache.api";
 import { createError, createUnknownError } from "./create-error";
@@ -12,6 +13,7 @@ export class Api {
   public static env = Env;
   public static auth = AuthApi;
   public static hash = Hash;
+  public static Discord = DiscordApi;
   public static useCache = useCache;
 
   public static createError = createError;
