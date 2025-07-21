@@ -8,12 +8,13 @@ const { env } = new Env();
 const unknownError = createUnknownError("discord-api");
 
 export class DiscordApi {
+  private static readonly _token = env.DISCORD_TOKEN;
+  
   public static readonly url = env.DISCORD_API_URL;
   public static readonly cdn = "https://cdn.discordapp.com" as const;
 
   public static getBotAuth() {
-    throw new Error("Method not implements.");
-    // return { Authorization: 'Bot ' + this.token };
+    return { Authorization: 'Bot ' + this._token };
   };
 
   public static getUserAuth(token: string) {
