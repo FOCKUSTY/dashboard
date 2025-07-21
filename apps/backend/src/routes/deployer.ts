@@ -24,6 +24,4 @@ export class Deployer {
   }
 }
 
-new Deployer().execute();
-
 export default Deployer;
