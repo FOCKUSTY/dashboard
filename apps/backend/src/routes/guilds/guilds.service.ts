@@ -1,15 +1,17 @@
-import Api from "api";
-import DiscordApi from "api/discord.api";
 import { APIGuild } from "discord.js";
 
+import Api from "api";
+import DiscordApi from "api/discord.api";
+
 import { IResponse } from "types/response.type";
+import { ICardGuild } from "types/guild.type";
 
 const createError = Api.createError;
 const unknownError = Api.createUnknownError("guilds");
 
 export class GuildsService {
   // Вынести в отдельный тип
-  public async getAll(token: string): Promise<IResponse<{id: string, icon_url: string, name: string, banner_url: string|null}[]>> {
+  public async getAll(token: string): Promise<IResponse<ICardGuild[]>> {
     try {
       const { successed, data: guilds, error } = await DiscordApi.fetchUserGuilds(token);
   
@@ -34,9 +36,9 @@ export class GuildsService {
     }
   };
 
-  public async getOne(guildId: string, userId: string): Promise<IResponse<APIGuild>> {
+  public async getOne(guildId: string, token: string): Promise<IResponse<APIGuild>> {
     try {
-      // DiscordApi.fetchUserGuild(id)
+      return DiscordApi.fetchUserGuild(guildId, token);
     } catch (error) {
       return unknownError.execute(1002, null, error);
     }
