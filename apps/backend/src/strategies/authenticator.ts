@@ -11,7 +11,7 @@ import { IUser } from "types/user.type";
 import { Model } from "mongoose";
 import { APIUser } from "discord.js";
 
-const { discord: DiscordApi } = Api
+const { discord: DiscordApi } = Api;
 const { env } = new Api.env();
 const { Auth, User } = MODELS;
 
@@ -92,7 +92,9 @@ class Authenticator {
               data: {
                 created_at: now,
                 nickname: apiUser.global_name,
-                guilds: (await DiscordApi.fetchUserGuilds(access_token)).data.map(guild => guild.id),
+                guilds: (
+                  await DiscordApi.fetchUserGuilds(access_token)
+                ).data.map((guild) => guild.id),
                 avatar_url: DiscordApi.fetchUserAvatar(apiUser)
               }
             })

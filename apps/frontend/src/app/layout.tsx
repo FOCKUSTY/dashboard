@@ -33,10 +33,22 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ru">
       <body>
-        <Image width={1920} height={1080} className="background" src="/background.png" alt="background" />
+        <Image
+          width={1920}
+          height={1080}
+          className="background"
+          src="/background.png"
+          alt="background"
+        />
         <div className="human-container">
-          <Image width={597} height={935} className="human noselect" src="/human.png" alt="human" />
-        </div>  
+          <Image
+            width={597}
+            height={935}
+            className="human noselect"
+            src="/human.png"
+            alt="human"
+          />
+        </div>
 
         <div id="page">
           <header>

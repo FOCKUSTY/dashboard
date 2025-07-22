@@ -1,4 +1,13 @@
-import { Controller, Get, Inject, Injectable, Param, Query, Req, UseGuards } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Inject,
+  Injectable,
+  Param,
+  Query,
+  Req,
+  UseGuards
+} from "@nestjs/common";
 import { Cache, CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Request } from "express";
 
@@ -22,28 +31,25 @@ export class GuildsController {
   ) {}
 
   @Get(ROUTES.GET_ALL)
-  public getAll(
-    @Req() req: Request,
-    @Query("cache") cache?: string
-  ) {
+  public getAll(@Req() req: Request, @Query("cache") cache?: string) {
     const { successed, token } = Hash.parse(req);
-    
+
     if (!successed) {
       return Api.createError("Hash parse error", null);
     }
-    
+
     const cacheManager = useCache<ICardGuild[]>(this.cacheManager, cache);
-  
+
     return cacheManager({
       getFunction: this.service.getAll,
       data: [token],
-      key: "guilds-all-"+token
+      key: "guilds-all-" + token
     });
   }
 
   /**
    * ПЕРЕДЕЛАТЬ
-   * 
+   *
    * использовать IGuild вместо APIGuild
    */
 
@@ -54,7 +60,7 @@ export class GuildsController {
     @Param("id") id?: string
   ) {
     const { successed, token } = Hash.parse(req);
-    
+
     if (!id) {
       return Api.createError("'id' is not defined", null);
     }
@@ -62,13 +68,13 @@ export class GuildsController {
     if (!successed) {
       return Api.createError("Hash parse error", null);
     }
-    
+
     const cacheManager = useCache<APIGuild>(this.cacheManager, cache);
 
     return cacheManager({
       getFunction: this.service.getOne,
       data: [id, token],
-      key: "guild-"+token
+      key: "guild-" + token
     });
   }
 }

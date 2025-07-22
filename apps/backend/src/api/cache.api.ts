@@ -57,22 +57,25 @@ const updateCache = async <T, K extends any[] = any[]>({
   key: string;
   getFunction: (...data: K) => Promise<IResponse<T>>;
   data: K;
-  cache: Map<string, { date: number, data: T }>
+  cache: Map<string, { date: number; data: T }>;
 }) => {
   const { data: value, successed } = await getFunction(...data);
   if (!successed) return null;
-  
-  cache.set(key, { 
+
+  cache.set(key, {
     date: new Date().getTime(),
     data: value
   });
 
   return value;
-}
+};
 
 // one hour
-export const useRawCache = <T>(cache: Map<string, {date: number, data: T}>, cacheAge: number = 3_600_000) => {
-  return (async <K extends any[] = any[]>({
+export const useRawCache = <T>(
+  cache: Map<string, { date: number; data: T }>,
+  cacheAge: number = 3_600_000
+) => {
+  return async <K extends any[] = any[]>({
     getFunction,
     key,
     data
@@ -85,13 +88,13 @@ export const useRawCache = <T>(cache: Map<string, {date: number, data: T}>, cach
     const fromCache = cache.get(key);
 
     if (!fromCache) {
-      return updateCache({cache, data, getFunction, key});
-    };
+      return updateCache({ cache, data, getFunction, key });
+    }
 
     if (fromCache.date - now > cacheAge) {
-      return updateCache({cache, data, getFunction, key});
-    };
+      return updateCache({ cache, data, getFunction, key });
+    }
 
     return fromCache.data;
-  });
-}
+  };
+};

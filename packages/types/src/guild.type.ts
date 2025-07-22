@@ -8,10 +8,10 @@ export interface ICreateGuild {
 }
 
 export interface ICardGuild {
-  id: string,
-  icon_url: string,
-  name: string,
-  banner_url: string|null
+  id: string;
+  icon_url: string;
+  name: string;
+  banner_url: string | null;
 }
 
 export interface IGuild {

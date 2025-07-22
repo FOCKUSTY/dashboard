@@ -1,14 +1,7 @@
 import { Api } from "api";
-import styles from "./not-found.module.css"
+import styles from "./not-found.module.css";
 
-const words = [
-  "котика",
-  "Валю",
-  "шляпу",
-  "фикусы",
-  "Фикуса",
-  "комету"
-];
+const words = ["котика", "Валю", "шляпу", "фикусы", "Фикуса", "комету"];
 
 const texts = [
   "Ты лучший!",
@@ -27,11 +20,14 @@ export const NotFound = () => {
     <>
       <img id={styles.comet} src="/comet.png" />
       <img id={styles.comet_two} src="/comet.png" />
-      
+
       <div id={styles.main}>
-        <div> 
-          <span>Мы искали страницу, но нашли {words[Api.random(0, words.length-1)]} :3</span>
-          <span>{texts[Api.random(0, texts.length-1)]}</span>
+        <div>
+          <span>
+            Мы искали страницу, но нашли{" "}
+            {words[Api.random(0, words.length - 1)]} :3
+          </span>
+          <span>{texts[Api.random(0, texts.length - 1)]}</span>
         </div>
       </div>
     </>
