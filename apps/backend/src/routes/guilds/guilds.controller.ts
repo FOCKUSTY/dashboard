@@ -10,16 +10,22 @@ import {
 } from "@nestjs/common";
 import { Cache, CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Request } from "express";
+import { APIGuild } from "discord.js";
 
 import { AuthGuard } from "src/guards/auth";
-import Hash from "api/hash.api";
 
 import { GuildsService } from "./guilds.service";
 import { ROUTE, ROUTES } from "./guilds.routes";
+
 import Api from "api";
+import Hash from "api/hash.api";
 import { useCache } from "api/cache.api";
+
 import { ICardGuild } from "types/guild.type";
-import { APIGuild } from "discord.js";
+
+import { MODELS } from "database";
+
+const { Auth } = MODELS;
 
 @Injectable()
 @Controller(ROUTE)
@@ -31,8 +37,9 @@ export class GuildsController {
   ) {}
 
   @Get(ROUTES.GET_ALL)
-  public getAll(@Req() req: Request, @Query("cache") cache?: string) {
-    const { successed, token } = Hash.parse(req);
+  public async getAll(@Req() req: Request, @Query("cache") cache?: string) {
+    const { successed, id } = Hash.parse(req);
+    const { access_token: token } = (await Auth.findOne({id})).toObject()
 
     if (!successed) {
       return Api.createError("Hash parse error", null);
@@ -54,15 +61,16 @@ export class GuildsController {
    */
 
   @Get(ROUTES.GET_ONE)
-  public getOne(
+  public async getOne(
     @Req() req: Request,
     @Query("cache") cache?: string,
-    @Param("id") id?: string
+    @Param("id") guildId?: string
   ) {
-    const { successed, token } = Hash.parse(req);
+    const { successed, id } = Hash.parse(req);
+    const { access_token: token } = (await Auth.findOne({id})).toObject()
 
-    if (!id) {
-      return Api.createError("'id' is not defined", null);
+    if (!guildId) {
+      return Api.createError("'guildId' is not defined", null);
     }
 
     if (!successed) {

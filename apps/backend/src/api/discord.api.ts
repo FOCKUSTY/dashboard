@@ -51,6 +51,10 @@ export class DiscordApi {
     try {
       const data = await this.guildsCache({
         getFunction: async () => {
+          fetch(`${this.url}/users/@me/guilds?limit=20`, {
+              method: "GET",
+              headers: this.getUserAuth(token)
+            }).then(async (data) => console.log(await data.json()))
           return await (
             await fetch(`${this.url}/users/@me/guilds?limit=20`, {
               method: "GET",
