@@ -37,12 +37,12 @@ export class DiscordApi {
     return data.banner ? `${this.cdn}/banners/${data.id}/${data.banner}` : null;
   }
 
-  public static fetchGuildIcon(guild: { id: string; icon: string }) {
-    return `${this.cdn}/icons/${guild.id}/${guild.icon}.png`;
+  public static fetchGuildIcon(guild: { id: string; icon?: string }) {
+    return guild.icon ? `${this.cdn}/icons/${guild.id}/${guild.icon}.png` : null;
   }
 
-  public static fetchUserAvatar(user: { id: string; avatar: string }) {
-    return `${this.cdn}/avatar/${user.id}/${user.avatar}.webp`;
+  public static fetchUserAvatar(user: { id: string; avatar?: string }) {
+    return user.avatar ? `${this.cdn}/avatar/${user.id}/${user.avatar}.webp` : null;
   }
 
   public static async fetchUserGuilds(
