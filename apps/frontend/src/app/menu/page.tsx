@@ -11,6 +11,7 @@ import { fetchGuilds } from "api/fetch-guilds";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Mousewheel, Pagination } from "swiper/modules";
+import { useRouter } from "next/router";
 
 const resolveGuilds = (guilds: any[]) => {
   if (guilds.length >= 8) {
@@ -25,6 +26,7 @@ const resolveGuilds = (guilds: any[]) => {
 };
 
 export const Page = () => {
+  const router = useRouter();
   const [ guilds, setGuilds ] = useState<{id: string, name: string, icon_url: string|null, banner_url: string|null}[]|null>(null);
 
   useEffect(() => {
@@ -73,7 +75,7 @@ export const Page = () => {
           <div className="swiper-wrapper">
             {
               resolveGuilds(guilds).map(guild =>
-                <SwiperSlide key={guild.id} className={styles.card}>
+                <SwiperSlide key={guild.id} className={styles.card} onClick={() => router.push("/dashboard/"+guild.id)}>
                   <Image height={50} width={50} src={guild.icon_url || "/TheVoidAvatarSite.png"} alt={guild.name + " icon"}/>
                   <span>{guild.name}</span>
                 </SwiperSlide>
