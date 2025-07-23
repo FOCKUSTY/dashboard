@@ -55,12 +55,12 @@ const updateCache = async <T, K extends any[] = any[]>({
   cache
 }: {
   key: string;
-  getFunction: (...data: K) => Promise<IResponse<T>>;
+  getFunction: (...data: K) => Promise<T>;
   data: K;
   cache: Map<string, { date: number; data: T }>;
 }) => {
-  const { data: value, successed } = await getFunction(...data);
-  if (!successed) return null;
+  const value = await getFunction(...data);
+  if (!value) return null;
 
   cache.set(key, {
     date: new Date().getTime(),
@@ -81,7 +81,7 @@ export const useRawCache = <T>(
     data
   }: {
     key: string;
-    getFunction: (...data: K) => Promise<IResponse<T>>;
+    getFunction: (...data: K) => Promise<T>;
     data: K;
   }) => {
     const now = new Date().getTime();

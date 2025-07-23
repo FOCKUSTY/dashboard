@@ -1,4 +1,4 @@
-import { APIGuild } from "discord.js";
+import { APIGuild, APIPartialGuild } from "discord.js";
 
 import Api from "api";
 import DiscordApi from "api/discord.api";
@@ -23,14 +23,27 @@ export class GuildsService {
         return createError(error, null);
       }
 
+      const {
+        successed: botSuccessed,
+        data: botGuilds,
+        error: botError
+      } = await DiscordApi.fetchBotGuilds();
+
+      if (!botSuccessed) {
+        return createError(botError, null);
+      };
+
       return {
-        data: guilds.map((guild) => {
+        data: DiscordApi.findAvailableUserGuilds({
+          user: guilds as unknown as ((APIPartialGuild & { permissions: string })[]),
+          bot: botGuilds.map(({id}) => id)
+        }).map((guild) => {
           return {
             id: guild.id,
             name: guild.name,
             icon_url: DiscordApi.fetchGuildIcon(guild),
             banner_url: DiscordApi.fetchBanner(guild)
-          };
+          }
         }),
         error: null,
         successed: true

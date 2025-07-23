@@ -1,4 +1,4 @@
-import { APIGuild, APIPartialGuild } from "discord.js";
+import { APIGuild, APIPartialGuild, PermissionFlagsBits } from "discord.js";
 
 import { IResponse } from "types/response.type";
 
@@ -51,10 +51,6 @@ export class DiscordApi {
     try {
       const data = await this.guildsCache({
         getFunction: async () => {
-          fetch(`${this.url}/users/@me/guilds?limit=20`, {
-              method: "GET",
-              headers: this.getUserAuth(token)
-            }).then(async (data) => console.log(await data.json()))
           return await (
             await fetch(`${this.url}/users/@me/guilds?limit=20`, {
               method: "GET",
@@ -131,27 +127,10 @@ export class DiscordApi {
     }
   }
 
-  private static intersectionService<T>(
-    first: T[],
-    second: T[],
-    type: "intersection" | "division"
-  ) {
-    return first.filter((element) =>
-      type === "intersection"
-        ? second.includes(element)
-        : !second.includes(element)
-    );
-  }
-
-  public static findGuildsIntersection(guilds: {
-    user: string[];
-    bot: string[];
-  }) {
-    return this.intersectionService(guilds.bot, guilds.user, "intersection");
-  }
-
-  public static findGuildsDivision(guilds: { user: string[]; bot: string[] }) {
-    return this.intersectionService(guilds.bot, guilds.user, "division");
+  public static findAvailableUserGuilds<T extends APIPartialGuild & { permissions: string }>(guilds: { user: T[], bot: string[]}) {
+    return guilds.user
+      .filter(({permissions}) => (BigInt(permissions) & PermissionFlagsBits.Administrator) === PermissionFlagsBits.Administrator)
+      .filter(guild => guilds.bot.includes(guild.id));
   }
 }
 
