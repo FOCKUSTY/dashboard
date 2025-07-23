@@ -20,7 +20,8 @@ export const fetchGuild = async (
   }
 };
 
-export const fetchGuilds = async (token: string): Promise<IGuild[] | null> => {
+// НЕ ЗАБЫТЬ ЗАМЕНИТЬ
+export const fetchGuilds = async (token: string): Promise<{id: string, name: string, icon_url: string, banner_url: null}[] | null> => {
   try {
     const guilds = await fetch(Api.url + "/guilds", {
       method: "GET",
