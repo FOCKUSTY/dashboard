@@ -10,7 +10,7 @@
 
 #menu {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   align-items: center;
   justify-content: center;
@@ -19,7 +19,14 @@
 
   gap: 10px;
 
-  margin: 0 0 0 20em;
+  margin: 0 0 0 50%;
+}
+
+.swiper {
+  height: 100%;
+  width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .card {
@@ -29,8 +36,9 @@
   align-items: center;
   justify-content: space-between;
 
-  min-width: 20em;
+  border-radius: 1em;
 
+  min-width: calc(20em);
   width: calc(100% - 20em);
   gap: 10px;
 

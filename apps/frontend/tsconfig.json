@@ -21,6 +21,7 @@
     "paths": {
       "types/*": ["./node_modules/@thevoidcommunity/dashboard-types/dist/*"],
       "api": ["./src/api/index.ts"],
+      "components/*": ["./src/components/*"],
       "api/*": ["./src/api/*"]
     }
   },
