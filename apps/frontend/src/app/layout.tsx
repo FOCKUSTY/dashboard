@@ -2,7 +2,7 @@
 
 import "./globals.css";
 
-import React from "react";
+import React, { cache } from "react";
 
 import Image from "next/image";
 import { FaDiscord, FaTelegram, FaGithub } from "react-icons/fa";
