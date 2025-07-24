@@ -22,6 +22,23 @@
   margin: 0 0 0 50%;
 }
 
+#menu button {
+  background-color: var(--component-color);
+  
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+
+  transition: 0.3s;
+}
+
+#menu button:hover {
+  padding: 0.5em 1.5em;
+}
+
+#menu button:active {
+  padding: 0.5em 0.75em;
+}
+
 .swiper {
   height: 100%;
   width: 100%;

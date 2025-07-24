@@ -1,6 +1,8 @@
 "use server";
 
+import { ICardGuild } from "types/guild.type";
 import { IGuild } from "types/discord.types";
+
 import { Api } from "api";
 
 export const fetchGuild = async (
@@ -20,8 +22,7 @@ export const fetchGuild = async (
   }
 };
 
-// НЕ ЗАБЫТЬ ЗАМЕНИТЬ
-export const fetchGuilds = async (token: string): Promise<{id: string, name: string, icon_url: string, banner_url: null}[] | null> => {
+export const fetchGuilds = async (token: string): Promise<ICardGuild[] | null> => {
   try {
     const guilds = await fetch(Api.url + "/guilds", {
       method: "GET",
