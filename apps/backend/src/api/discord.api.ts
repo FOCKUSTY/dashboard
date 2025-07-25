@@ -1,4 +1,4 @@
-import { APIGuild, APIPartialGuild, PermissionFlagsBits } from "discord.js";
+import { APIGuild, APIPartialGuild, GuildMember, PermissionFlagsBits } from "discord.js";
 
 import { IResponse } from "types/response.type";
 
@@ -10,11 +10,6 @@ import { useRawCache } from "./cache.api";
 const { env } = new Env();
 
 const unknownError = createUnknownError("discord-api");
-const guildsCache = new Map<
-  string,
-  { date: number; data: APIPartialGuild[] }
->();
-const guildCache = new Map<string, { date: number; data: APIGuild }>();
 
 export class DiscordApi {
   private static readonly _token = env.DISCORD_TOKEN;
@@ -22,8 +17,9 @@ export class DiscordApi {
   public static readonly url = env.DISCORD_API_URL;
   public static readonly cdn = "https://cdn.discordapp.com" as const;
   public static readonly guildsCache =
-    useRawCache<APIPartialGuild[]>(guildsCache);
-  public static readonly guildCache = useRawCache<APIGuild>(guildCache);
+    useRawCache<APIPartialGuild[]>(new Map());
+  public static readonly guildCache = useRawCache<APIGuild>(new Map());
+  public static readonly membersCache = useRawCache<GuildMember[]>(new Map())
 
   public static getBotAuth() {
     return { Authorization: "Bot " + this._token };
@@ -44,6 +40,31 @@ export class DiscordApi {
   public static fetchUserAvatar(user: { id: string; avatar?: string }) {
     return user.avatar ? `${this.cdn}/avatar/${user.id}/${user.avatar}.webp` : null;
   }
+
+  public static async fetchGuildMembers(id: string, token: string) {
+    try {
+      const data = await this.membersCache({
+        getFunction: async () => {
+          return await (
+            await fetch(`${this.url}/guilds/${id}/members`, {
+              method: "GET",
+              headers: this.getUserAuth(token)
+            })
+          ).json();
+        },
+        data: [],
+        key: "discord-api-guild-user-members-" + id + token
+      });
+
+      return {
+        data,
+        error: null,
+        successed: true
+      };
+    } catch (error) {
+      return unknownError.execute(1002, null, error);
+    }
+  };
 
   public static async fetchUserGuilds(
     token: string

@@ -11,7 +11,7 @@ const { User } = MODELS;
 const createError = Api.createError;
 const unknownError = Api.createUnknownError("user");
 
-export class UsersService {
+export class Service {
   public async getUser(id: string): Promise<IResponse<IUser>> {
     try {
       const user = await User.findOne({ id });
