@@ -29,8 +29,8 @@ const Page = () => {
   }, []);
 
   return (
-    <div id={styles.main}>
-      <div>
+    <div className="page-center">
+      <div id={styles.main}>
         <h2>{user ? `${user.nickname}, д` : "Д"}обро пожаловать в The Void!</h2>
         {user ? (
           <button onClick={() => router.push("/menu")}>

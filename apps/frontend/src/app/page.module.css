@@ -1,14 +1,4 @@
 #main {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-
-  height: 100%;
-}
-
-#main div {
   width: 100%;
 
   display: flex;
@@ -20,7 +10,7 @@
   justify-content: center;
 }
 
-#main div button {
+#main button {
   transition: 0.3s;
 
   background-color: var(--component-color);
@@ -29,10 +19,10 @@
   border-radius: 10px;
 }
 
-#main div button:hover {
+#main button:hover {
   padding: 1em 1.5em;
 }
 
-#main div button:active {
+#main button:active {
   padding: 0.5em 1em;
 }

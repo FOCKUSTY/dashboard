@@ -29,8 +29,8 @@ const resolveGuilds = (guilds: ICardGuild[]): (ICardGuild & { key?: string })[] 
 
 const Parent = ({ children, style }: { children: React.ReactNode, style?: CSSProperties }) => {
   return (
-    <div id={styles.main}>
-      <div id={styles.menu} style={style}>
+    <div className="page-center">
+      <div id={styles.main} style={style}>
         {children}
       </div>
     </div>

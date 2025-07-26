@@ -1,20 +1,14 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 
-import { fetchGuild } from "api/fetch-guilds";
-import { fetchUser } from "api/fetch-user";
 import { validateCookies } from "api/validate-cookies";
+import { fetchUser } from "api/fetch-user";
 
-import type { IGuild } from "types/guild.type";
 import type { IUser } from "types/user.type";
 
 export const Page = () => {
   const [ user, setUser ] = useState<IUser | null>(null);
-  const [ guild, setGuild ] = useState<IGuild | null>(null);
-
-  const { guildId } = useParams<{guildId: string}>();
 
   useEffect(() => {
     (async () => {
@@ -24,18 +18,17 @@ export const Page = () => {
         return;
       }
 
-      if (guildId) setGuild(await fetchGuild(token, guildId));
       setUser(await fetchUser(token));
     })();
   }, []);
 
-  if (!user || !guild) {
+  if (!user) {
     return <></>;
   }
-
+  
   return (
     <div className="page-center">
-      {user.username}, hello in your dashboard: {guild.name}
+      {user.username}, hello, this is general dashboard for bot
     </div>
   )
 }

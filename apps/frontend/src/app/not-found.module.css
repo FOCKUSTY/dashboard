@@ -2,22 +2,11 @@
   position: relative;
   display: flex;
 
-  align-items: center;
-  justify-content: center;
-
-  height: 100%;
-  width: 100%;
-}
-
-#main div {
-  position: relative;
-  display: flex;
-
   flex-direction: column;
   align-items: center;
 }
 
-#main div span {
+#main span {
   font-size: 24px;
 }
 

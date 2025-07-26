@@ -21,8 +21,8 @@ export const NotFound = () => {
       <img id={styles.comet} src="/comet.png" />
       <img id={styles.comet_two} src="/comet.png" />
 
-      <div id={styles.main}>
-        <div>
+      <div className="page-center">
+        <div id={styles.main}>
           <span>
             Мы искали страницу, но нашли{" "}
             {words[Api.random(0, words.length - 1)]} :3

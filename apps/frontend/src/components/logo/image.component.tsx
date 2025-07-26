@@ -29,7 +29,7 @@ const ImageComponent = ({ className, url, alt }: Omit<Props, "name">) => {
 
 export const IconComponent = ({ className, url, alt, name, spanClassName }: Props) => {
   return name
-    ? <div>
+    ? <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: "10px"}}>
         <ImageComponent className={className} alt={alt} url={url} />
         <span className={spanClassName}>{name}</span>
       </div>

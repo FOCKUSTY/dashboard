@@ -170,6 +170,16 @@ main {
   animation-name: human-levitation;
 }
 
+.page-center {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  height: 100%;
+}
+
 @keyframes human-levitation {
   0% {
     top: var(--animation-start-top);
