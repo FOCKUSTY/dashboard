@@ -1,0 +1,38 @@
+.section,
+.main {
+  z-index: 10;
+  
+  display: flex;
+  position: absolute;
+  
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  width: 5em;
+}
+
+.main {
+  min-height: 20%;
+  max-height: 80%;
+  
+  height: max-content;
+  
+  margin: 0 0 0 2em;
+  padding: 0.5em 1em;
+  border-radius: 1em;
+
+  gap: 10px;
+
+  background-color: var(--component-color);
+}
+
+.main::after, .main::before {
+  height: 1em;
+  content: "";
+}
+
+.main .icon {
+  cursor: pointer;
+}

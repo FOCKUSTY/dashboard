@@ -1,5 +1,7 @@
 import { Api } from "api"
-import { FaDiscord, FaGithub, FaTelegram } from "react-icons/fa"
+
+import { FaDiscord, FaGithub, FaTelegram } from "react-icons/fa";
+import { SlGlobe } from "react-icons/sl";
 
 export const Logo = () => {
   return (
@@ -14,6 +16,9 @@ export const Logo = () => {
         </a>
         <a href={Api.the_void.github_url} target="_blank">
           <FaGithub size={24} />
+        </a>
+        <a href={Api.the_void.site} target="_blank">
+          <SlGlobe size={24} />
         </a>
       </div>
     </div>
