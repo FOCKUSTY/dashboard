@@ -1,4 +1,7 @@
+import Image from "next/image";
+
 import { Api } from "api";
+
 import styles from "./not-found.module.css";
 
 const words = ["котика", "Валю", "шляпу", "фикусы", "Фикуса", "комету"];
@@ -15,11 +18,11 @@ const texts = [
   "АААААААААААААААААААААААААААА"
 ];
 
-export const NotFound = () => {
+const NotFound = () => {
   return (
     <>
-      <img id={styles.comet} src="/comet.png" />
-      <img id={styles.comet_two} src="/comet.png" />
+      <Image height={240} width={300} alt="comet" id={styles.comet} src="/comet.png" />
+      <Image height={240} width={300} alt="comet" id={styles.comet_two} src="/comet.png" />
 
       <div className="page-center">
         <div id={styles.main}>

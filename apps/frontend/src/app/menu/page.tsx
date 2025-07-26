@@ -3,6 +3,7 @@
 import styles from "./page.module.css";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { CSSProperties, useEffect, useState } from "react";
 
@@ -11,9 +12,10 @@ import { fetchGuilds } from "api/fetch-guilds";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Mousewheel, Pagination } from "swiper/modules";
-import { useRouter } from "next/navigation";
-import { ICardGuild } from "types/guild.type";
+
 import { Api } from "api";
+
+import type { ICardGuild } from "types/guild.type";
 
 const resolveGuilds = (guilds: ICardGuild[]): (ICardGuild & { key?: string })[] => {
   if (guilds.length >= 8) {
@@ -37,7 +39,7 @@ const Parent = ({ children, style }: { children: React.ReactNode, style?: CSSPro
   )
 }
 
-export const Page = () => {
+const Page = () => {
   const router = useRouter();
   const [ guilds, setGuilds ] = useState<ICardGuild[]|null>(null);
 

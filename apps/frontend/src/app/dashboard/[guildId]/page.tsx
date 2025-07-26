@@ -10,7 +10,7 @@ import { validateCookies } from "api/validate-cookies";
 import type { IGuild } from "types/guild.type";
 import type { IUser } from "types/user.type";
 
-export const Page = () => {
+const Page = () => {
   const [ user, setUser ] = useState<IUser | null>(null);
   const [ guild, setGuild ] = useState<IGuild | null>(null);
 

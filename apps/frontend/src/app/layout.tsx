@@ -3,9 +3,9 @@
 import "./globals.css";
 
 import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 import Image from "next/image";
-import { useParams } from "next/navigation";
 
 import { validateCookies } from "api/validate-cookies";
 import { fetchUser } from "api/fetch-user";
@@ -28,13 +28,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       const token = await validateCookies();
 
       if (!token) {
-        return;
+        return null;
       }
 
       if (guildId) setGuild(await fetchGuild(token, guildId));
       setUser(await fetchUser(token));
     })();
-  }, []);
+  }, [guildId]);
 
   return (
     <html lang="ru">
@@ -59,8 +59,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <div id="page">
           { 
             (guild && user)
-              ? <GuildLayout children={children} user={user} guild={guild}/>
-              : <UserLayout children={children} user={user} />
+              ? <GuildLayout user={user} guild={guild}>{children}</GuildLayout>
+              : <UserLayout user={user}>{children}</UserLayout>
           }
         </div>
       </body>

@@ -19,9 +19,9 @@ const Page = () => {
   useEffect(() => {
     (async () => {
       const token = await validateCookies();
-
+      
       if (!token) {
-        return;
+        return null;
       }
 
       setUser(await fetchUser(token));

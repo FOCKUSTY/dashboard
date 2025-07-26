@@ -7,7 +7,7 @@ import { fetchUser } from "api/fetch-user";
 
 import type { IUser } from "types/user.type";
 
-export const Page = () => {
+const Page = () => {
   const [ user, setUser ] = useState<IUser | null>(null);
 
   useEffect(() => {
