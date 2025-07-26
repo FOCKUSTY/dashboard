@@ -7,6 +7,8 @@ import { useParams } from "next/navigation";
 
 import Image from "next/image";
 
+import useMediaQuery from "hooks/media.hook";
+
 import { validateCookies } from "api/validate-cookies";
 import { fetchUser } from "api/fetch-user";
 import { fetchGuild } from "api/fetch-guilds";
@@ -43,7 +45,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           width={1920}
           height={1080}
           className="background"
-          src="/background.png"
+          src={"/background.png"}
           alt="background"
         />
         <div className="human-container">

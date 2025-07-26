@@ -1,17 +1,26 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --text-color: #ededed;
 
   --component-color: #c4c4c4;
+  --card-color: #ffffff30;
+  --smooth-background-color: #cccccc50;
+  
+  --mini-text-color: #000000
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-
+    --text-color: #ededed;
+    
     --component-color: #272727;
     --card-color: #27272790;
+    --smooth-background-color: #111111;
+
+    --mini-text-color: #ededed40
   }
 }
 
@@ -22,7 +31,7 @@ body {
 }
 
 body {
-  color: var(--foreground);
+  color: var(--text-color);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -35,6 +44,23 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+*::-webkit-scrollbar {
+  width: 0.75em;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+  
+  background: var(--smooth-background-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+
+  background-color: var(--background);
+  border: 2px solid var(--mini-text-color);
 }
 
 a {
@@ -206,5 +232,16 @@ main {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+@media screen and (width < 768px) {
+  footer {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .human {
+    display: none;
   }
 }

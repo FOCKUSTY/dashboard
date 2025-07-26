@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 
 import { CSSProperties, useEffect, useState } from "react";
 
+import useMediaQuery from "hooks/media.hook";
+
 import { validateCookies } from "api/validate-cookies";
 import { fetchGuilds } from "api/fetch-guilds";
 
@@ -55,6 +57,8 @@ const Page = () => {
     })();
   }, []);
 
+  const isScreenToSmall = useMediaQuery("(width < 368px)");
+
   if (!guilds || guilds.length === 0) {
     return (
       <Parent style={{flexDirection: "column", margin: "0 0 0 30%"}}>
@@ -66,9 +70,9 @@ const Page = () => {
     )
   };
 
-  if (guilds.length <= 2) {
+  if (guilds.length <= 2 || isScreenToSmall) {
     return (
-      <Parent style={{flexDirection: "column", margin: "0 0 0 30%"}}>
+      <Parent style={isScreenToSmall ? {flexDirection: "column"} : {flexDirection: "column", margin: "0 0 0 30%"}}>
         {
           guilds.map(guild =>
             <div key={guild.id} className={styles.card} onClick={() => router.push("/dashboard/"+guild.id)}>

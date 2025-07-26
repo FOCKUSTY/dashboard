@@ -20,6 +20,7 @@
     ],
     "paths": {
       "types/*": ["./node_modules/@thevoidcommunity/dashboard-types/dist/*", "./src/types/*"],
+      "hooks/*": ["./src/hooks/*"],
       "api": ["./src/api/index.ts"],
       "components/*": ["./src/components/*"],
       "api/*": ["./src/api/*"]

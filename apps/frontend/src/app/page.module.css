@@ -11,6 +11,7 @@
 }
 
 #main button {
+  color: var(--foreground);
   transition: 0.3s;
 
   background-color: var(--component-color);
@@ -25,4 +26,8 @@
 
 #main button:active {
   padding: 0.5em 1em;
+}
+
+#main h2 {
+  text-align: center;
 }

@@ -63,3 +63,38 @@
     border-radius: 50%;
   }
 }
+
+@media screen and (width < 768px) {
+  #main {
+    width: 100%;
+    margin: 0;
+  }
+
+  .swiper {
+    max-height: 50vh;
+  }
+
+  .card {
+    min-width: none;
+    width: 100%;
+  }
+}
+
+@media screen and (width < 384px) {
+  #main {
+    max-height: calc(100% - 240px);
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    justify-content: normal;
+  }
+
+  .card {
+    min-width: 100%;
+
+    span {
+      text-align: right;
+    }
+  }
+}
