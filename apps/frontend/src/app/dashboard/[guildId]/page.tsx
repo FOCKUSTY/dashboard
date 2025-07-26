@@ -34,9 +34,11 @@ export const Page = () => {
   }
 
   return (
-    <div className="page-center">
-      {user.username}, hello in your dashboard: {guild.name}
-    </div>
+    <>
+      <div className="page-center">
+        {user.username}, hello in your dashboard: {guild.name}
+      </div>
+    </>
   )
 }
 
