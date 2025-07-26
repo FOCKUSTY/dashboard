@@ -1,5 +1,8 @@
 .section,
-.main {
+.main,
+.main div {
+  transition: all 0.2s cubic-bezier(0.45, 0.0, 0.1, 0.53);
+
   z-index: 10;
   
   display: flex;
@@ -13,12 +16,17 @@
   width: 5em;
 }
 
-.main {
+.main,
+.main div {
   min-height: 20%;
   max-height: 80%;
   
-  height: max-content;
+  left: -3em;
   
+  height: max-content;
+}
+
+.main div {
   margin: 0 0 0 2em;
   padding: 0.5em 1em;
   border-radius: 1em;
@@ -28,11 +36,16 @@
   background-color: var(--component-color);
 }
 
-.main::after, .main::before {
+.main:hover div {
+  left: 0;
+}
+
+.main div::after,
+.main div::before {
   height: 1em;
   content: "";
 }
 
-.main .icon {
+.main div .icon {
   cursor: pointer;
 }

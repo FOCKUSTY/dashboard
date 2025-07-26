@@ -38,19 +38,21 @@ export const SideBar = ({ guild }: Props) => {
   return (
     <nav className={styles.section}>
       <div className={styles.main}>
-        {
-          icons.map(({ Icon, name, getPath }, index) =>
-            <Icon
-              key={index}
-              className={styles.icon}
-              size={24}
-              name={name}
-              onClick={() => router.push(getPath
-                ? getPath(guild.id)
-                : "/dashboard/"+guild.id+"/"+name)}
-            />
-          )
-        }
+        <div>
+          {
+            icons.map(({ Icon, name, getPath }, index) =>
+              <Icon
+                key={index}
+                className={styles.icon}
+                size={24}
+                name={name}
+                onClick={() => router.push(getPath
+                  ? getPath(guild.id)
+                  : "/dashboard/"+guild.id+"/"+name)}
+              />
+            )
+          }
+        </div>
       </div>
     </nav>
   )
