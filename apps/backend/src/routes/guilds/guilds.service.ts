@@ -1,4 +1,4 @@
-import { APIPartialGuild } from "discord.js";
+import { APIGuild, APIPartialGuild, GuildMember } from "discord.js";
 
 import Api from "api";
 import DiscordApi from "api/discord.api";
@@ -16,6 +16,18 @@ const createError = Api.createError;
 const unknownError = Api.createUnknownError("guilds");
 
 export class GuildsService {
+  public static createGuild(guild: APIGuild, members: GuildMember[]) {
+    return Guild.create(<IGuild>{
+      id: guild.id,
+      name: guild.name,
+      owner_id: guild.owner_id,
+      created_at: new Date().toISOString(),
+      icon_url: DiscordApi.fetchGuildIcon(guild) || "",
+      members: members.map(member => member.id),
+      settings: Settings.CONSTANTS.raw.default.guild.toString()
+    });
+  }
+
   public async patchConfig(id: string, config: AllPartial<IGuild["config"]>): Promise<IResponse<IGuild>> {
     try {
       const guild = await Guild.findOneAndUpdate({
@@ -36,10 +48,10 @@ export class GuildsService {
     }
   }
 
-  public async post(id: string, token: string): Promise<IResponse<IGuild>> {
+  public async post(id: string): Promise<IResponse<IGuild>> {
     try {
-      const guildData = await DiscordApi.fetchUserGuild(id, token);
-      const membersData = await DiscordApi.fetchGuildMembers(id, token);
+      const guildData = await DiscordApi.fetchUserGuild(id);
+      const membersData = await DiscordApi.fetchGuildMembers(id);
 
       if (!guildData.successed) {
         return createError(guildData.error, null);
@@ -48,15 +60,7 @@ export class GuildsService {
         return createError(membersData.error, null);
       }
 
-      const guild = await Guild.create(<IGuild>{
-        id: guildData.data.id,
-        name: guildData.data.name,
-        owner_id: guildData.data.owner_id,
-        created_at: new Date().toISOString(),
-        icon_url: DiscordApi.fetchGuildIcon(guildData.data),
-        members: membersData.data.map(member => member.id),
-        settings: Settings.CONSTANTS.raw.default.guild.toString()
-      });
+      const guild = await GuildsService.createGuild(guildData.data, membersData.data);
 
       return {
         successed: true,
@@ -111,12 +115,31 @@ export class GuildsService {
   }
 
   public async getOne(
-    guildId: string
+    guildId: string,
+    token: string
   ): Promise<IResponse<IGuild>> {
     try {
-      const guild = await Guild.findOne({id: guildId})
+      const guild = await Guild.findOne({id: guildId});
 
-      if (!guild) return createError("guild not found", null);
+      if (!guild) {
+        const guildData = await DiscordApi.fetchUserGuild(guildId);
+        const membersData = await DiscordApi.fetchGuildMembers(guildId);
+
+        if (!guildData.successed) {
+          return createError(guildData.error, null);
+        }
+        if (!membersData.successed) {
+          return createError(membersData.error, null);
+        }
+
+        const guild = await GuildsService.createGuild(guildData.data, membersData.data);
+
+        return {
+          successed: true,
+          data: guild,
+          error: null
+        }
+      };
 
       return {
         successed: true,

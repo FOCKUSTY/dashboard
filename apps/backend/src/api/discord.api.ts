@@ -5,7 +5,6 @@ import { IResponse } from "types/response.type";
 import Env from "./env";
 
 import { createUnknownError } from "./create-error";
-import { useRawCache } from "./cache.api";
 
 const { env } = new Env();
 
@@ -16,10 +15,6 @@ export class DiscordApi {
 
   public static readonly url = env.DISCORD_API_URL;
   public static readonly cdn = "https://cdn.discordapp.com" as const;
-  public static readonly guildsCache =
-    useRawCache<APIPartialGuild[]>(new Map());
-  public static readonly guildCache = useRawCache<APIGuild>(new Map());
-  public static readonly membersCache = useRawCache<GuildMember[]>(new Map())
 
   public static getBotAuth() {
     return { Authorization: "Bot " + this._token };
@@ -41,20 +36,14 @@ export class DiscordApi {
     return user.avatar ? `${this.cdn}/avatar/${user.id}/${user.avatar}.webp` : null;
   }
 
-  public static async fetchGuildMembers(id: string, token: string) {
+  public static async fetchGuildMembers(id: string) {
     try {
-      const data = await this.membersCache({
-        getFunction: async () => {
-          return await (
-            await fetch(`${this.url}/guilds/${id}/members`, {
-              method: "GET",
-              headers: this.getUserAuth(token)
-            })
-          ).json();
-        },
-        data: [],
-        key: "discord-api-guild-user-members-" + id + token
-      });
+      const data = await (
+        await fetch(`${this.url}/guilds/${id}/members`, {
+          method: "GET",
+          headers: this.getBotAuth()
+        })
+      ).json();
 
       return {
         data,
@@ -70,18 +59,12 @@ export class DiscordApi {
     token: string
   ): Promise<IResponse<APIPartialGuild[], APIPartialGuild[]>> {
     try {
-      const data = await this.guildsCache({
-        getFunction: async () => {
-          return await (
-            await fetch(`${this.url}/users/@me/guilds?limit=20`, {
-              method: "GET",
-              headers: this.getUserAuth(token)
-            })
-          ).json();
-        },
-        data: [],
-        key: "discord-api-guilds-user-" + token
-      });
+      const data = await (
+        await fetch(`${this.url}/users/@me/guilds?limit=20`, {
+          method: "GET",
+          headers: this.getUserAuth(token)
+        })
+      ).json();
 
       return {
         data,
@@ -94,22 +77,15 @@ export class DiscordApi {
   }
 
   public static async fetchUserGuild(
-    id: string,
-    token: string
+    id: string
   ): Promise<IResponse<APIGuild>> {
     try {
-      const data = await this.guildCache({
-        getFunction: async () => {
-          return await (
-            await fetch(`${this.url}/guilds/${id}`, {
-              method: "GET",
-              headers: this.getUserAuth(token)
-            })
-          ).json();
-        },
-        data: [],
-        key: "discord-api-guild-user-" + id + token
-      });
+      const data = await (
+        await fetch(`${this.url}/guilds/${id}`, {
+          method: "GET",
+          headers: this.getBotAuth()
+        })
+      ).json();
 
       return {
         data,
@@ -125,18 +101,12 @@ export class DiscordApi {
     IResponse<APIPartialGuild[], APIPartialGuild[]>
   > {
     try {
-      const data = await this.guildsCache({
-        getFunction: async () => {
-          return await (
-            await fetch(`${this.url}/users/@me/guilds?limit=20`, {
-              method: "GET",
-              headers: this.getBotAuth()
-            })
-          ).json();
-        },
-        data: [],
-        key: "discord-api-guilds-bot-" + this._token
-      });
+      const data = await (
+        await fetch(`${this.url}/users/@me/guilds?limit=20`, {
+          method: "GET",
+          headers: this.getBotAuth()
+        })
+      ).json();
 
       return {
         data,

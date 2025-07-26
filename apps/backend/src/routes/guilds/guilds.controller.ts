@@ -30,6 +30,7 @@ import { ICardGuild, IGuild } from "types/guild.type";
 
 import { MODELS } from "database";
 import { ConfigDto } from "./data";
+
 const { Auth } = MODELS;
 
 @Injectable()
@@ -63,14 +64,13 @@ export class GuildsController {
     @Req() req: Request,
     @Param("id") guildId: string
   ) {
-    const { successed, id } = Hash.parse(req);
-    const { access_token: token } = (await Auth.findOne({id})).toObject()
+    const { successed } = Hash.parse(req);
 
     if (!successed) {
       throw new HttpException(Api.createError("Hash parse error", null), HttpStatus.FORBIDDEN);
     }
 
-    return await this.service.post(guildId, token)
+    return await this.service.post(guildId);
   }
 
   @Get(ROUTES.GET_ALL)
@@ -100,6 +100,7 @@ export class GuildsController {
     @Param("id") guildId?: string
   ) {
     const { successed, id } = Hash.parse(req);
+    const { access_token: token } = (await Auth.findOne({id})).toObject()
 
     if (!guildId) {
       throw new HttpException(Api.createError("'guildId' is not defined", null), HttpStatus.BAD_REQUEST);
@@ -113,8 +114,8 @@ export class GuildsController {
 
     return cacheManager({
       getFunction: this.service.getOne,
-      data: [id],
-      key: "guild-" + id
+      data: [guildId, token],
+      key: "guild-" + guildId + token
     });
   }
 }
