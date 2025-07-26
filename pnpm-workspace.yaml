@@ -22,7 +22,7 @@ catalog:
   date-fns: ^2.30.0
   mongodb: ^6.8.0
   mongoose: ^8.9.5
-  '@thevoidcommunity/the-void-database': 4.1.5-beta.1
+  '@thevoidcommunity/the-void-database': 4.2.2-beta.1a
   fbit-field: 1.4.0-alpha.1c
   f-formatter: 0.3.1
   fock-logger: 4.0.1a

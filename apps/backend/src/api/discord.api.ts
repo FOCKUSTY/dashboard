@@ -33,7 +33,7 @@ export class DiscordApi {
   }
 
   public static fetchUserAvatar(user: { id: string; avatar?: string }) {
-    return user.avatar ? `${this.cdn}/avatar/${user.id}/${user.avatar}.webp` : null;
+    return user.avatar ? `${this.cdn}/avatars/${user.id}/${user.avatar}.webp` : null;
   }
 
   public static async fetchGuildMembers(id: string) {
