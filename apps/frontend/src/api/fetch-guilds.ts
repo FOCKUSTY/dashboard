@@ -1,7 +1,6 @@
 "use server";
 
-import { ICardGuild } from "types/guild.type";
-import { IGuild } from "types/discord.types";
+import { ICardGuild, IGuild } from "types/guild.type";
 
 import { Api } from "api";
 import { cache } from "react";
@@ -33,7 +32,7 @@ export const fetchGuilds = cache(async (token: string): Promise<ICardGuild[] | n
       method: "GET",
       headers: { authentication: token },
       next: {
-        revalidate: 300,
+        revalidate: 150,
       },
       cache: "force-cache"
     });

@@ -15,14 +15,14 @@ import { useRouter } from "next/navigation";
 import { ICardGuild } from "types/guild.type";
 import { Api } from "api";
 
-const resolveGuilds = (guilds: any[]) => {
+const resolveGuilds = (guilds: ICardGuild[]): (ICardGuild & { key?: string })[] => {
   if (guilds.length >= 8) {
     return guilds
   } else {
     return [
       ...guilds,
-      ...guilds.map(guild => { return { ...guild, id: (+(guild.id + guilds.length)*2) }}),
-      ...guilds.map(guild => { return { ...guild, id: (+(guild.id + guilds.length)*3) }}),
+      ...guilds.map(guild => { return { ...guild, id: guild.id, key: (+(guild.id + guilds.length)*2) }}),
+      ...guilds.map(guild => { return { ...guild, id: guild.id, key: (+(guild.id + guilds.length)*3) }}),
     ]
   };
 };
@@ -108,7 +108,10 @@ export const Page = () => {
         <div className="swiper-wrapper">
           {
             resolveGuilds(guilds).map(guild =>
-              <SwiperSlide key={guild.id} className={styles.card} onClick={() => router.push("/dashboard/"+guild.id)}>
+              <SwiperSlide key={guild.key || guild.id} className={styles.card} onClick={() => {
+                router.push("/dashboard/"+guild.id);
+                router.refresh();
+              }}>
                 <Image height={50} width={50} src={guild.icon_url || "/TheVoidAvatarSite.png"} alt={guild.name + " icon"}/>
                 <span>{guild.name}</span>
               </SwiperSlide>

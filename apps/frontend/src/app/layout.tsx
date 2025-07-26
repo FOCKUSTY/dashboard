@@ -2,21 +2,26 @@
 
 import "./globals.css";
 
-import React, { cache } from "react";
+import React, { useEffect, useState } from "react";
 
 import Image from "next/image";
-import { FaDiscord, FaTelegram, FaGithub } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-import { IUser } from "types/user.type";
-import { LogIn } from "../components/login";
-
-import { Api } from "api";
 import { validateCookies } from "api/validate-cookies";
 import { fetchUser } from "api/fetch-user";
+import { fetchGuild } from "api/fetch-guilds";
+
+import type { IUser } from "types/user.type";
+import type { IGuild } from "types/guild.type";
+
+import UserLayout from "components/layouts/user.layout";
+import GuildLayout from "components/layouts/guild.layout";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [ user, setUser ] = useState<IUser | null>(null);
+  const [ guild, setGuild ] = useState<IGuild | null>(null);
+
+  const { guildId } = useParams<{guildId: string}>();
 
   useEffect(() => {
     (async () => {
@@ -26,6 +31,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         return;
       }
 
+      if (guildId) setGuild(await fetchGuild(token, guildId));
       setUser(await fetchUser(token));
     })();
   }, []);
@@ -51,30 +57,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         <div id="page">
-          <header>
-            <div id="logo">
-              <h1>The Void</h1>
-              <div className="links">
-                <a href={Api.the_void.discord_url} target="_blank">
-                  <FaDiscord size={24} />
-                </a>
-                <a href={Api.the_void.telegram_url} target="_blank">
-                  <FaTelegram size={24} />
-                </a>
-                <a href={Api.the_void.github_url} target="_blank">
-                  <FaGithub size={24} />
-                </a>
-              </div>
-            </div>
-
-            <LogIn user={user} />
-          </header>
-
-          <main>{children}</main>
-
-          <footer>
-            <h2>© 2025 The Void</h2>
-          </footer>
+          { 
+            (guild && user)
+              ? <GuildLayout children={children} user={user} guild={guild}/>
+              : <UserLayout children={children} user={user} />
+          }
         </div>
       </body>
     </html>
