@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styles from "./dropdown.module.css";
+import Portal from "components/portal.component";
 
 export const Dropdown = ({
   children,
@@ -16,22 +18,23 @@ export const Dropdown = ({
       <div
         className={styles.summary}
         onClick={(event) => {
-          const element = event.currentTarget.ownerDocument.getElementById(
-            id
-          ) as HTMLElement;
+          
+          const parent = event.currentTarget.getBoundingClientRect();
+          const element = document.getElementById(id) as HTMLElement;
+          
+          element.style.display = element.style.display === "none"
+            ? "flex"
+            : "none";
 
-          element.style.display === "flex"
-            ? (element.style.display = "none")
-            : (element.style.display = "flex");
-
-          event.preventDefault();
+          element.style.top = `${parent.top + parent.height}px`;
+          element.style.left = `${parent.left + parent.width - element.getBoundingClientRect().width}px`;
         }}
       >
         {summary}
       </div>
-      <div id={id} className={styles.content}>
-        {children}
-      </div>
+      <Portal>
+        <div style={{display: "none"}} id={id} className={styles.content}>{children}</div>
+      </Portal>
     </div>
   );
 };
