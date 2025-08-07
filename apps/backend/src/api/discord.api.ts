@@ -1,4 +1,4 @@
-import { APIGuild, APIPartialGuild, GuildMember, PermissionFlagsBits } from "discord.js";
+import { APIGuild, APIPartialGuild, APIWebhook, GuildMember, PermissionFlagsBits } from "discord.js";
 
 import { IResponse } from "types/response.type";
 
@@ -117,6 +117,25 @@ export class DiscordApi {
       return unknownError.execute(1003, <const>[], error);
     }
   }
+
+  public static async fetchGuildWebhooks(id: string): Promise<IResponse<APIWebhook[]>> {
+    try {
+      const data = await (
+        await fetch(`${this.url}/guilds/${id}/webhooks`, {
+          method: "GET",
+          headers: this.getBotAuth()
+        })
+      ).json();
+
+      return {
+        data,
+        error: null,
+        successed: true
+      };
+    } catch (error) {
+      return unknownError.execute(1004, null, error)
+    }
+  };
 
   public static findAvailableUserGuilds<T extends APIPartialGuild & { permissions: string }>(guilds: { user: T[], bot: string[]}) {
     return guilds.user

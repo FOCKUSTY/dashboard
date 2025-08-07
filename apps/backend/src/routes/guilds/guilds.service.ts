@@ -72,6 +72,14 @@ export class GuildsService {
     }
   }
 
+  public async getWebhooks(id: string) {
+    try {
+      return DiscordApi.fetchGuildWebhooks(id);
+    } catch (error) {
+      return unknownError.execute(1003, null, error);
+    }
+  }
+
   public async getAll(token: string): Promise<IResponse<ICardGuild[]>> {
     try {
       const {

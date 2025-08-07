@@ -30,6 +30,7 @@ import { ICardGuild, IGuild } from "types/guild.type";
 
 import { MODELS } from "database";
 import { ConfigDto } from "./data";
+import { APIWebhook } from "discord.js";
 
 const { Auth } = MODELS;
 
@@ -116,6 +117,28 @@ export class GuildsController {
       getFunction: this.service.getOne,
       data: [guildId, token],
       key: "guild-" + guildId + token
+    });
+  }
+
+  @Get(ROUTES.GET_WEBHOOKS)
+  @HttpCode(HttpStatus.OK)
+  public async getWebhooks(
+    @Req() req: Request,
+    @Query("cache") cache?: string,
+    @Param("id") guildId?: string
+  ) {
+    const { successed } = Hash.parse(req);
+
+    if (!successed) {
+      throw new HttpException(Api.createError("Hash parse error", null), HttpStatus.FORBIDDEN);
+    }
+
+    const cacheManager = useCache<APIWebhook[]>(this.cacheManager, cache);
+
+    return cacheManager({
+      getFunction: this.service.getWebhooks,
+      data: [guildId],
+      key: "guild-webhooks-" + guildId 
     });
   }
 }
