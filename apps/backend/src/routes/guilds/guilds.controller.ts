@@ -30,7 +30,7 @@ import { ICardGuild, IGuild } from "types/guild.type";
 
 import { MODELS } from "database";
 import { ConfigDto } from "./data";
-import { APIWebhook } from "discord.js";
+import { APIRole, APIWebhook } from "discord.js";
 
 const { Auth } = MODELS;
 
@@ -137,6 +137,28 @@ export class GuildsController {
 
     return cacheManager({
       getFunction: this.service.getWebhooks,
+      data: [guildId],
+      key: "guild-webhooks-" + guildId 
+    });
+  }
+
+  @Get(ROUTES.GET_ROLES)
+  @HttpCode(HttpStatus.OK)
+  public async getRoles(
+    @Req() req: Request,
+    @Query("cache") cache?: string,
+    @Param("id") guildId?: string
+  ) {
+    const { successed } = Hash.parse(req);
+
+    if (!successed) {
+      throw new HttpException(Api.createError("Hash parse error", null), HttpStatus.FORBIDDEN);
+    }
+
+    const cacheManager = useCache<APIRole[]>(this.cacheManager, cache);
+
+    return cacheManager({
+      getFunction: this.service.getRoles,
       data: [guildId],
       key: "guild-webhooks-" + guildId 
     });

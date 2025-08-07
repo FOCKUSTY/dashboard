@@ -80,6 +80,14 @@ export class GuildsService {
     }
   }
 
+    public async getRoles(id: string) {
+    try {
+      return DiscordApi.fetchGuildRoles(id);
+    } catch (error) {
+      return unknownError.execute(1003, null, error);
+    }
+  }
+
   public async getAll(token: string): Promise<IResponse<ICardGuild[]>> {
     try {
       const {

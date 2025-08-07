@@ -5,6 +5,7 @@ export const ROUTES = {
   GET_ONE: "/:id",
   
   GET_WEBHOOKS: "/:id/webhooks",
+  GET_ROLES: "/:id/roles",
 
   POST: "/:id",
   PUT: "/:id",
