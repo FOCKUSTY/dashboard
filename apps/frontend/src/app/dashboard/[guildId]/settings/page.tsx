@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
+import { fetchWebhooks } from "api/fetch-webhooks";
 import { fetchGuild } from "api/fetch-guilds";
 import { fetchUser } from "api/fetch-user";
 import { validateCookies } from "api/validate-cookies";
@@ -12,6 +13,9 @@ import { validateCookies } from "api/validate-cookies";
 import type { IGuild } from "types/guild.type";
 import type { IUser } from "types/user.type";
 import type { IConfig } from "types/config.type";
+import type { APIWebhook } from "discord.js";
+
+import { Dropdown } from "components/dropdown";
 
 const settings: {
   guild: [keyof IConfig["guild"], string][];
@@ -41,14 +45,36 @@ const settings: {
   ]
 } as const;
 
-const SettingsComponent = ({ main, name }: {main: string, name: string}) => {
+const SettingsComponent = ({
+  main,
+  name,
+  addWebhook,
+  webhooks
+}: {
+  main: string,
+  name: string,
+  webhooks: APIWebhook[],
+  addWebhook: (id: string, key: string) => void
+}) => {
   if (main === "logging") {
     return (
       <>
-        <div className="post-settings">
-          <label htmlFor="">Webhook:</label>
-          <input className="post-settings" name={`webhook__${main}_${name}`} id={`webhook__${main}_${name}`} type="text" />
-        </div>
+        {
+          webhooks.length != 0
+            ? ( 
+              <div className="post-settings">
+                <label htmlFor="">Webhook:</label>
+                <Dropdown id={`webhook__${main}_${name}`} summary={"choose webhook"}>
+                  {
+                    webhooks.map(webhook => 
+                      webhook.name
+                    )
+                  }
+                </Dropdown>
+              </div>
+            )
+            : ''
+        }
         <div className="post-settings">
           <label htmlFor="">Сообщение:</label>
           <textarea className="post-settings" name={`message__${main}_${name}`} maxLength={2048} id={`message__${main}_${name}`}></textarea>
@@ -70,10 +96,16 @@ const SettingsComponent = ({ main, name }: {main: string, name: string}) => {
 
   return (
     <>
-      <div className="post-settings">
-        <label htmlFor={`webhook__${main}_${name}`}>Webhook:</label>
-        <input className="post-settings" name={`webhook__${main}_${name}`} id={`webhook__${main}_${name}`} type="text" />
-      </div>
+      {
+        webhooks.length != 0
+          ? (
+            <div className="post-settings">
+              <label htmlFor={`webhook__${main}_${name}`}>Webhook:</label>
+              <input className="post-settings" name={`webhook__${main}_${name}`} id={`webhook__${main}_${name}`} type="text" />
+            </div>
+          )
+          : ""
+      }
       <div className="post-settings">
         <label htmlFor={`channel__${main}_${name}`}>Канал:</label>
         <input className="post-settings" name={`channel__${main}_${name}`} id={`channel__${main}_${name}`} type="text" />
@@ -89,9 +121,27 @@ const SettingsComponent = ({ main, name }: {main: string, name: string}) => {
 const Page = () => {
   const [ user, setUser ] = useState<IUser | null>(null);
   const [ guild, setGuild ] = useState<IGuild | null>(null);
+  const [ webhooks, setWebhooks ] = useState<APIWebhook[]>([]);
   const [ project, setProject ] = useState<"guild"|"logging">("guild");
+  
+  const [ choosedWebhooks, setChoosedWebhooks ] = useState<{
+    guild: Partial<Record<keyof IConfig["guild"], string>>,
+    logging: Partial<Record<keyof IConfig["logging"], string>>
+  }>({
+    guild: {},
+    logging: {}
+  });
 
   const { guildId } = useParams<{guildId: string}>();
+
+  const addWebhook = (id: string, key: string) => {
+    setChoosedWebhooks({
+      ...choosedWebhooks,
+      [project]: {
+        [key]: id
+      }
+    });
+  };
 
   useEffect(() => {
     (async () => {
@@ -101,7 +151,10 @@ const Page = () => {
         return;
       }
 
-      if (guildId) setGuild(await fetchGuild(token, guildId));
+      if (guildId) {
+        setGuild(await fetchGuild(token, guildId));
+        setWebhooks(await fetchWebhooks(token, guildId) || []);
+      };
       setUser(await fetchUser(token));
     })();
   }, []);
@@ -136,7 +189,13 @@ const Page = () => {
                 return (
                   <div className={styles.config_data} key={key + value}>
                     <span>{value}:</span>
-                    <SettingsComponent main={project} name={key} key={key} />
+                    <SettingsComponent
+                      main={project}
+                      name={key}
+                      key={key}
+                      webhooks={webhooks}
+                      addWebhook={addWebhook}
+                    />
                   </div>
                 );
               })
