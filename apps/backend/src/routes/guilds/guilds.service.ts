@@ -132,7 +132,7 @@ export class GuildsService {
           return createError(membersData.error, null);
         }
 
-        const guild = await GuildsService.createGuild(guildData.data, membersData.data);
+        const guild = (await GuildsService.createGuild(guildData.data, membersData.data)).toObject();
 
         return {
           successed: true,

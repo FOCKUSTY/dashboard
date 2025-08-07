@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@thevoidcommunity/dashboard-types": "workspace:^",
     "@types/node": "^20",
+    "@thevoidcommunity/the-void-database": "catalog:",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "discord.js": "catalog:",

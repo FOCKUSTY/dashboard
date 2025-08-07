@@ -31,7 +31,6 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
-    "@thevoidcommunity/dashboard-types": "workspace:^",
     "@thevoidcommunity/the-void-database": "catalog:",
     "cache-manager": "^7.0.1",
     "cookie-parser": "^1.4.7",

@@ -30,15 +30,15 @@
       ],
       "routes": ["./src/routes"],
       "routes/*": ["./src/routes/*"],
-      "settings": ["./src/settings"],
-      "settings/*": ["./src/settings/*"],
       "types": [
         "./src/types",
-        "./node_modules/@thevoidcommunity/dashboard-types/dist"
+        "./node_modules/@thevoidcommunity/the-void-database/types",
+        "./node_modules/@thevoidcommunity/the-void-database/settings"
       ],
       "types/*": [
         "./src/types/*",
-        "./node_modules/@thevoidcommunity/dashboard-types/dist/*"
+        "./node_modules/@thevoidcommunity/the-void-database/types/*",
+        "./node_modules/@thevoidcommunity/the-void-database/settings/*"
       ],
       "api": ["src/api"],
       "api/*": ["src/api/*"],

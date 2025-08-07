@@ -19,7 +19,11 @@
       }
     ],
     "paths": {
-      "types/*": ["./node_modules/@thevoidcommunity/dashboard-types/dist/*", "./src/types/*"],
+      "types/*": [
+        "./src/types/*",
+        "./node_modules/@thevoidcommunity/the-void-database/types/*",
+        "./node_modules/@thevoidcommunity/the-void-database/settings/*"
+      ],
       "hooks/*": ["./src/hooks/*"],
       "api": ["./src/api/index.ts"],
       "components/*": ["./src/components/*"],
