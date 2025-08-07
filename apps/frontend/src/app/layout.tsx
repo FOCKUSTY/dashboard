@@ -7,8 +7,6 @@ import { useParams } from "next/navigation";
 
 import Image from "next/image";
 
-import useMediaQuery from "hooks/media.hook";
-
 import { validateCookies } from "api/validate-cookies";
 import { fetchUser } from "api/fetch-user";
 import { fetchGuild } from "api/fetch-guilds";
@@ -20,10 +18,12 @@ import UserLayout from "components/layouts/user.layout";
 import GuildLayout from "components/layouts/guild.layout";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const [ user, setUser ] = useState<IUser | null>(null);
-  const [ guild, setGuild ] = useState<IGuild | null>(null);
+  // const [ user, setUser ] = useState<IUser | null>(null);
+  // const [ guild, setGuild ] = useState<IGuild | null>(null);
 
-  const { guildId } = useParams<{guildId: string}>();
+  const [ { user, guild }, setData ] = useState<{user: IUser|null, guild: IGuild|null}>({ user: null, guild: null });
+
+  const { guildId } = useParams<{guildId: string|undefined}>();
 
   useEffect(() => {
     (async () => {
@@ -33,8 +33,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         return null;
       }
 
-      if (guildId) setGuild(await fetchGuild(token, guildId));
-      setUser(await fetchUser(token));
+      const user = await fetchUser(token);
+      const guild = guildId ? await fetchGuild(token, guildId) : null;
+
+      setData({ guild, user });
     })();
   }, [guildId]);
 
@@ -59,8 +61,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         <div id="page">
-          { 
-            (guild && user)
+          {
+            (guildId)
               ? <GuildLayout user={user} guild={guild}>{children}</GuildLayout>
               : <UserLayout user={user}>{children}</UserLayout>
           }

@@ -5,8 +5,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { CSSProperties, useEffect, useState } from "react";
-
+import { CSSProperties, useEffect, useState, Suspense } from "react";
 import useMediaQuery from "hooks/media.hook";
 
 import { validateCookies } from "api/validate-cookies";
@@ -44,6 +43,7 @@ const Parent = ({ children, style }: { children: React.ReactNode, style?: CSSPro
 const Page = () => {
   const router = useRouter();
   const [ guilds, setGuilds ] = useState<ICardGuild[]|null>(null);
+  const [ loaded, setLoaded ] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -54,10 +54,19 @@ const Page = () => {
       }
       
       setGuilds((await fetchGuilds(token)));
+      setLoaded(true);
     })();
   }, []);
 
   const isScreenToSmall = useMediaQuery("(width < 368px)");
+
+  if (!loaded) {
+    return (
+      <Parent style={{flexDirection: "column", margin: "0 0 0 30%"}}>
+        Загрузка...
+      </Parent>
+    )
+  }
 
   if (!guilds || guilds.length === 0) {
     return (

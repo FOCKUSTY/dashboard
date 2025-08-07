@@ -30,7 +30,11 @@ const Page = () => {
   }, []);
 
   if (!user || !guild) {
-    return <></>;
+    return (
+      <div className="page-center">
+        Загрузка...
+      </div>
+    )
   }
 
   return (

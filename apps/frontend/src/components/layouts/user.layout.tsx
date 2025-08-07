@@ -5,7 +5,7 @@ import type { IUser } from "types/user.type";
 
 type Props = {
   user: IUser|null;
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export const UserLayout = ({ children, user }: Props) => {

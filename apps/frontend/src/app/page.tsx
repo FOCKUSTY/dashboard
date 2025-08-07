@@ -14,7 +14,8 @@ import type { IUser } from "types/user.type";
 const Page = () => {
   const router = useRouter();
 
-  const [user, setUser] = useState<IUser | null>(null);
+  const [ user, setUser] = useState<IUser | null>(null);
+  const [ loaded, setLoaded ] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -25,8 +26,17 @@ const Page = () => {
       }
 
       setUser(await fetchUser(token));
+      setLoaded(true);
     })();
   }, []);
+
+  if (!loaded) {
+    return <div className="page-center">
+      <div id={styles.main}>
+        Подождите... идёт загрузка вашего профиля
+      </div>
+    </div>
+  }
 
   return (
     <div className="page-center">

@@ -9,6 +9,7 @@ import type { IUser } from "types/user.type";
 
 const Page = () => {
   const [ user, setUser ] = useState<IUser | null>(null);
+  const [ loaded, setLoaded ] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -19,11 +20,16 @@ const Page = () => {
       }
 
       setUser(await fetchUser(token));
+      setLoaded(true);
     })();
   }, []);
 
-  if (!user) {
-    return <></>;
+  if (!loaded || !user) {
+    return (
+      <div className="page-center">
+        Загрузка...
+      </div>
+    )
   }
   
   return (
