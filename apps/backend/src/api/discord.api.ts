@@ -145,7 +145,7 @@ export class DiscordApi {
           headers: this.getBotAuth()
         })
       ).json();
-
+      
       return {
         data,
         error: null,

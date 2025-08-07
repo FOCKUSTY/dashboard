@@ -1,6 +1,6 @@
-import { APIGuild, APIPartialGuild, GuildMember } from "discord.js";
+import { APIGuild, APIPartialGuild, Client, GuildMember } from "discord.js";
 
-import Api from "api";
+import Api, { Env } from "api";
 import DiscordApi from "api/discord.api";
 
 import type { AllPartial } from "types/utility.types";
@@ -9,7 +9,6 @@ import type { ICardGuild, IGuild } from "types/guild.type";
 import { Settings } from "types/settings";
 
 import { MODELS } from "database";
-
 const { Guild } = MODELS;
 
 const createError = Api.createError;
