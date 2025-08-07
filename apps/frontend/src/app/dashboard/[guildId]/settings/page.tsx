@@ -17,6 +17,7 @@ import type { APIRole, APIWebhook } from "discord.js";
 
 import { Dropdown } from "components/dropdown";
 import { Api } from "api";
+import { useList } from "hooks/list.hook";
 
 const settings: {
   guild: [keyof IConfig["guild"], string][];
@@ -57,6 +58,18 @@ const SettingsComponent = ({
   data: { webhooks: APIWebhook[], roles: APIRole[] },
   addData: (name: "webhooks" | "roles", id: string, key: string) => void
 }) => {
+  const [ rolesList, setRolesList ] = useState<string[]>(data.roles.map(role => role.name));
+  const [ choosedRoles, setChoosedRoles ] = useState<string[]>([]);
+
+  const [ rolesItem, choosedRolesItem ] = useList({
+    list: rolesList,
+    choosedList: choosedRoles,
+    summary: <></>,
+    summaryChoosed: "Выбранные роли",
+    setChoosedList: setChoosedRoles,
+    setList: setRolesList
+  });
+
   if (main === "logging") {
     return (
       <>
@@ -92,11 +105,9 @@ const SettingsComponent = ({
         <div className="post-settings">
           <label htmlFor={`${main}_${name}`}>Роли</label>
           <Dropdown id={`roles_${main}_${name}`} summary="choose roles">
-            {
-              data.roles.map(role => role.name)
-            }
+            {rolesItem}
           </Dropdown>
-          {/* <input className="post-settings" name={`${main}_${name}`} type="text" id={`${main}_${name}`} /> */}
+        {choosedRolesItem}
         </div>
       </>
     )
@@ -174,19 +185,13 @@ const Page = () => {
       }
 
       if (guildId) {
+        const rolesData =  await fetchRoles(token, guildId) || []
         setGuild(await fetchGuild(token, guildId));
         setDatas({
           webhooks: await fetchWebhooks(token, guildId) || [],
-          roles: await fetchRoles(token, guildId) || []
+          roles: rolesData
         });
       };
-
-      fetch(Api.url + "/guilds/" + guildId + "/roles", {
-        method: "GET",
-        headers: { authentication: token }
-      }).then(async (data) => {
-        console.log(await data.json());
-      })
 
       setUser(await fetchUser(token));
     })();
