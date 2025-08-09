@@ -27,7 +27,7 @@ const Page = () => {
       if (guildId) setGuild(await fetchGuild(token, guildId));
       setUser(await fetchUser(token));
     })();
-  }, []);
+  }, [guildId]);
 
   if (!user || !guild) {
     return (

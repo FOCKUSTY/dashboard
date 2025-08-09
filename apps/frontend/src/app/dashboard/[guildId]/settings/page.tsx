@@ -195,7 +195,7 @@ const Page = () => {
 
       setUser(await fetchUser(token));
     })();
-  }, []);
+  }, [guildId]);
 
   if (!user || !guild) {
     return (

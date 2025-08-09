@@ -20,7 +20,7 @@ export const useMediaQuery = (query: string) => {
     };
 
     return () => media.removeEventListener('change', updateTarget)
-  }, []);
+  }, [query, updateTarget]);
 
   return targetReached;
 }

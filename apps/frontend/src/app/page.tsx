@@ -22,6 +22,7 @@ const Page = () => {
       const token = await validateCookies();
       
       if (!token) {
+        setLoaded(true);
         return null;
       }
 

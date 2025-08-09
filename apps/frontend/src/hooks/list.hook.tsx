@@ -54,7 +54,7 @@ export const useList = ({
   choosedList: string[]
 }) => {
   return [
-    <Items list={list} summary={summary} setList={setList} setChoosedList={setChoosedList} />,
-    <Items list={choosedList} summary={summaryChoosed} setList={setChoosedList} setChoosedList={setList} />
+    <Items key={summary?.toString() + list.length.toString()} list={list} summary={summary} setList={setList} setChoosedList={setChoosedList} />,
+    <Items key={summaryChoosed?.toString() + list.length.toString()} list={choosedList} summary={summaryChoosed} setList={setChoosedList} setChoosedList={setList} />
   ] as const;
 }
