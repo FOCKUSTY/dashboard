@@ -62,12 +62,42 @@
   border-radius: 0.5em 0.75em;
   background-color: color-mix(in srgb, var(--smooth-background-color), #ffffff30);
   
+  width: 100%;
+
   gap: 5px;
 }
 
-.settings div div {
+.dropdown {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  max-width: 15em;
+  max-height: 30em;
+
+  overflow-y: auto;
+
+  gap: 10px;
+}
+
+.dropdown span {
+  cursor: pointer;
+
+  padding: 1em 2em;
+  border-radius: 1em;
+  background-color: var(--smooth-background-color);
+}
+
+.choosed {
+  display: flex;
+  flex-direction: column;
+
+  max-height: 10em;
+
+  overflow-y: auto;
+}
+
+.settings div {
+  display: flex;
 
   align-items: center;
   justify-content: space-between;

@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, DetailedHTMLProps, HTMLAttributes } from 'react';
 import ReactDOM from 'react-dom';
 
-const Portal = ({ children }: { children: React.ReactNode }) => {
-  const [container] = useState(() => document.createElement('div'));
+const Portal = (props: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
+  const [ container ] = useState(() => document.createElement('div'));
 
   useEffect(() => {
     document.body.appendChild(container);
@@ -11,7 +11,11 @@ const Portal = ({ children }: { children: React.ReactNode }) => {
     };
   }, [container]);
 
-  return ReactDOM.createPortal(children, container);
+  return ReactDOM.createPortal((
+    <div {...props}>
+      {props.children}
+    </div>
+  ), container);
 };
 
 export default Portal;

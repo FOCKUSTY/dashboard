@@ -18,10 +18,8 @@ import UserLayout from "components/layouts/user.layout";
 import GuildLayout from "components/layouts/guild.layout";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  // const [ user, setUser ] = useState<IUser | null>(null);
-  // const [ guild, setGuild ] = useState<IGuild | null>(null);
-
   const [ { user, guild }, setData ] = useState<{user: IUser|null, guild: IGuild|null}>({ user: null, guild: null });
+  const [ loaded, setLoaded ] = useState<boolean>(false);
 
   const { guildId } = useParams<{guildId: string|undefined}>();
 
@@ -30,6 +28,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       const token = await validateCookies();
 
       if (!token) {
+        setLoaded(true);
         return null;
       }
 
@@ -37,6 +36,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       const guild = guildId ? await fetchGuild(token, guildId) : null;
 
       setData({ guild, user });
+      setLoaded(true);
     })();
   }, [guildId]);
 
@@ -63,7 +63,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <div id="page">
           {
             (guildId)
-              ? <GuildLayout user={user} guild={guild}>{children}</GuildLayout>
+              ? <GuildLayout user={user} guild={guild} loaded={loaded}>{children}</GuildLayout>
               : <UserLayout user={user}>{children}</UserLayout>
           }
         </div>

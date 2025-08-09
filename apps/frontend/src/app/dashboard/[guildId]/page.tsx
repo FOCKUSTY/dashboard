@@ -13,6 +13,7 @@ import type { IUser } from "types/user.type";
 const Page = () => {
   const [ user, setUser ] = useState<IUser | null>(null);
   const [ guild, setGuild ] = useState<IGuild | null>(null);
+  const [ loaded, setLoaded ] = useState<boolean>(false);
 
   const { guildId } = useParams<{guildId: string}>();
 
@@ -21,18 +22,25 @@ const Page = () => {
       const token = await validateCookies();
 
       if (!token) {
+        setLoaded(true);
         return;
       }
 
       if (guildId) setGuild(await fetchGuild(token, guildId));
       setUser(await fetchUser(token));
+      
+      setLoaded(true);
     })();
   }, [guildId]);
 
   if (!user || !guild) {
     return (
       <div className="page-center">
-        Загрузка...
+        {
+          loaded
+            ? "Вам нужно войти"
+            : "Загрузка..."
+        }
       </div>
     )
   }

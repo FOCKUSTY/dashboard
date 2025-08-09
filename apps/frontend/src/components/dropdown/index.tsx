@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./dropdown.module.css";
 import Portal from "components/portal.component";
 
@@ -13,12 +12,18 @@ export const Dropdown = ({
   id: string;
   className?: string;
 }) => {
+  document.onclick = (event) => {
+    if (!(event.target as HTMLElement).parentNode) return;
+
+    const element = document.getElementById(id) as HTMLElement;
+    element.style.display = "none";
+  };
+
   return (
-    <div className={`${styles.dropdown} ${className}`}>
+    <div className={`${styles.dropdown}`}>
       <div
         className={styles.summary}
         onClick={(event) => {
-          
           const parent = event.currentTarget.getBoundingClientRect();
           const element = document.getElementById(id) as HTMLElement;
           
@@ -32,8 +37,8 @@ export const Dropdown = ({
       >
         {summary}
       </div>
-      <Portal>
-        <div style={{display: "none"}} id={id} className={styles.content}>{children}</div>
+      <Portal style={{display: "none"}} id={id} className={`${styles.content} ${className}`}>
+        {children}
       </Portal>
     </div>
   );

@@ -64,8 +64,6 @@ const SettingsComponent = ({
   const [ rolesItem, choosedRolesItem ] = useList({
     list: rolesList,
     choosedList: choosedRoles,
-    summary: <></>,
-    summaryChoosed: "Выбранные роли",
     setChoosedList: setChoosedRoles,
     setList: setRolesList
   });
@@ -78,7 +76,7 @@ const SettingsComponent = ({
             ? ( 
               <div className="post-settings">
                 <label htmlFor="">Webhook:</label>
-                <Dropdown id={`webhook__${main}_${name}`} summary={"choose webhook"}>
+                <Dropdown className={styles.dropdown} id={`webhook__${main}_${name}`} summary={"choose webhook"}>
                   {
                     data.webhooks.map(webhook => 
                       webhook.name
@@ -87,7 +85,7 @@ const SettingsComponent = ({
                 </Dropdown>
               </div>
             )
-            : ''
+            : <></>
         }
         <div className="post-settings">
           <label htmlFor="">Сообщение:</label>
@@ -101,15 +99,14 @@ const SettingsComponent = ({
     if (data.roles.length === 0) return <></>;
 
     return (
-      <>
-        <div className="post-settings">
-          <label htmlFor={`${main}_${name}`}>Роли</label>
-          <Dropdown id={`roles_${main}_${name}`} summary="choose roles">
-            {rolesItem}
-          </Dropdown>
-        {choosedRolesItem}
-        </div>
-      </>
+      <div className="post-settings">
+        <Dropdown className={styles.dropdown} id={`roles_${main}_${name}`} summary="Выбрать роль">
+          {rolesItem}
+        </Dropdown>
+        <Dropdown className={styles.dropdown} id={`choosed_roles_${main}_${name}`} summary="Выбранные роли">
+          {choosedRolesItem}
+        </Dropdown>
+      </div>
     )
   }
 
@@ -214,7 +211,7 @@ const Page = () => {
           }}>Сменить найстройки</button>
         </div>
 
-        {/* ACTION */}
+        { /* !!!! ACTION !!!! */ }
         <form className={`${styles.config} post-settings`} action={() => {  }}>
           <div className={`${styles.info} post-settings`}>
             <span>Настройки {project === "guild" ? "гильдии" : "логирования"}</span>

@@ -12,16 +12,21 @@ type Props = {
   children: React.ReactNode;
   user: IUser|null;
   guild: IGuild|null;
+  loaded: boolean
 }
 
-export const GuildLayout = ({ children, user, guild }: Props) => {
+export const GuildLayout = ({ children, user, guild, loaded }: Props) => {
   if (!guild || !user) {
     return (
       <>
         <header id={styles.header}>
-          <IconComponent url={"/TheVoidAvatarSite.png"} alt={"123"} name={"Loading..."} />
+          <IconComponent url={"/TheVoidAvatarSite.png"} alt={"TVC"} name={"The Void Community"} />
           <Logo />
-          Загрузка....
+          {
+            loaded
+              ? "Вам нужно зайти"
+              : "Загрузка...."
+          }
         </header>
 
         <main>{children}</main>
