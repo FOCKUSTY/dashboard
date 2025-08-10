@@ -1,7 +1,6 @@
 import { Controller, Get, Injectable, Next, Req, Res } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
 
-import { MODELS } from "database";
 import Api from "api";
 
 import { AUTH_CONTROLLER, AUTH_ROUTES } from "./auth.routes";
@@ -10,7 +9,11 @@ const AuthApi = Api.auth;
 const Hash = Api.hash;
 const { env } = new Api.env();
 
-const { User } = MODELS;
+const THIRTY_MUNITES = 1000 * 60 * 30;
+
+const getRevalidateTime = (date: number) => {
+  return date + Number(env.COOKIE_TOKEN_MAX_AGE) - THIRTY_MUNITES;
+}
 
 @Injectable()
 @Controller(AUTH_CONTROLLER)
@@ -72,12 +75,14 @@ export class AuthController {
         JSON.stringify({
           id: auth.id,
           profile_id: auth.profile_id,
-          token: new Hash().execute(auth.access_token)
+          token: new Hash().execute(auth.access_token),
+          revalidate: getRevalidateTime(new Date().getTime())
         }),
         {
           maxAge: Number(env.COOKIE_TOKEN_MAX_AGE)
         }
       );
+      
       res.redirect(env.CLIENT_URL);
     });
   }

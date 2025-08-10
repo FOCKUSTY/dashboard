@@ -9,7 +9,8 @@ const PARSE_ERROR = {
   successed: false,
   id: false,
   profile_id: false,
-  token: false
+  token: false,
+  revalidate: false
 } as const;
 type ParseReturnType =
   | Readonly<{
@@ -17,6 +18,7 @@ type ParseReturnType =
       id: string;
       profile_id: string;
       token: string;
+      revalidate: string;
     }>
   | typeof PARSE_ERROR;
 
@@ -39,14 +41,15 @@ class Hash {
     const {
       id,
       profile_id,
-      token: hash
+      token: hash,
+      revalidate,
     } = typeof token === "string"
       ? JSON.parse(token)
       : JSON.parse(token.headers.authentication.toString());
 
     if (!id || !hash || !profile_id) return PARSE_ERROR;
 
-    return { successed: true, id, profile_id, token: hash } as const;
+    return { successed: true, id, profile_id, token: hash, revalidate } as const;
   }
 }
 
