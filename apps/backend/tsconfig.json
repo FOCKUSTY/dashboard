@@ -1,24 +1,31 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2024",
+    "target": "es2024",
     "sourceMap": true,
     "outDir": "./dist",
-    "esModuleInterop": true,
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@env": ["./src/services/env.service"],
+      "services/*": ["./src/services/*"],
+      "decorators/*": ["./src/decorators/*"],
+      "guards/*": ["./src/guards/*"],
       "@thevoid/database/*": [
         "./node_modules/@thevoidcommunity/the-void-database/*"
       ],
@@ -30,6 +37,7 @@
       ],
       "routes": ["./src/routes"],
       "routes/*": ["./src/routes/*"],
+      "errors/*": ["./src/errors/*"],
       "types": [
         "./src/types",
         "./node_modules/@thevoidcommunity/the-void-database/types",
@@ -44,5 +52,13 @@
       "api/*": ["src/api/*"],
       "src/*": ["./src/*"]
     }
-  }
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "bad-fockarch"
+  ]
 }

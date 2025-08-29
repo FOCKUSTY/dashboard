@@ -1,18 +1,22 @@
-import { MODELS } from "database";
-import { IUser } from "types/user.type";
+import type { IUser } from "types/user.type";
+import type { IResponse } from "types/promise/response.types";
 
-import { IResponse } from "types/response.type";
-import Api from "api";
-import { UpdateWriteOpResult } from "mongoose";
-import { DeleteResult } from "mongodb";
+import type { UserUpdateDto } from "./dto/user-update.dto";
+
+import type { UpdateWriteOpResult, DeleteResult } from "mongoose";
+import Services from "services/index";
+
+import { Injectable } from "@nestjs/common";
+import { MODELS } from "database";
 
 const { User } = MODELS;
 
-const createError = Api.createError;
-const unknownError = Api.createUnknownError("user");
+const createError = Services.createError;
+const unknownError = Services.createUnknownError("user");
 
+@Injectable()
 export class Service {
-  public async getUser(id: string): Promise<IResponse<IUser>> {
+  public async get(id: string): Promise<IResponse<IUser>> {
     try {
       const user = await User.findOne({ id });
 
@@ -26,12 +30,12 @@ export class Service {
     }
   }
 
-  public async updateUser(
+  public async put(
     id: string,
-    user: Partial<IUser>
+    user: UserUpdateDto
   ): Promise<IResponse<UpdateWriteOpResult, UpdateWriteOpResult | null>> {
     try {
-      const updatedUser = await User.updateOne({ id }, { ...user });
+      const updatedUser = await User.updateOne({ id }, user);
 
       if (!updatedUser.acknowledged) {
         return createError("user not updated", updatedUser);
@@ -43,7 +47,7 @@ export class Service {
     }
   }
 
-  public async deleteUser(
+  public async delete(
     id: string
   ): Promise<IResponse<DeleteResult, DeleteResult | null>> {
     try {

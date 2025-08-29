@@ -6,16 +6,16 @@ type IError<T = null> = {
 
 export const createError = <T = null>(
   error: string,
-  data: T | null = null
+  data: T
 ): IError<T> => {
-  return { successed: false, data, error };
+  return { successed: false, data: data, error };
 };
 
 export const createUnknownError = (prefix: string) => {
   return {
     create: <T = null>(
       code: string | number,
-      data: T | null = null
+      data: T
     ): IError<T> => {
       return createError(`unknown error. Code: "${prefix}-${code}"`, data);
     },
@@ -24,8 +24,8 @@ export const createUnknownError = (prefix: string) => {
       return error;
     },
     execute: <T = null>(
-      code: string | Number,
-      data: T | null = null,
+      code: string | number,
+      data: T,
       error: unknown
     ) => {
       console.error({ unknown_error: `${prefix}-${code}` }, error);

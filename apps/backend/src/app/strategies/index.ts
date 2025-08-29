@@ -1,14 +1,15 @@
-import { MODELS } from "database/schemas";
+import type { IAuthUser } from "types/auth-user.type";
 
 import passport = require("passport");
 
 import Authenticator from "./authenticator";
-import { IAuthUser } from "types/auth-user.type";
-import { IUser } from "types/user.type";
+
+import { MODELS } from "database";
+import { IUser } from "@thevoid/database/types/user.type";
 
 const { Auth, User } = MODELS;
 
-class GeneralStrategy {
+export class Strategy {
   protected readonly _passport: passport.PassportStatic = passport;
   private readonly _authenticator: Authenticator;
 
@@ -17,7 +18,7 @@ class GeneralStrategy {
 
     this._authenticator = new Authenticator(this._passport);
   }
-
+  
   public readonly initialize = () => {
     return this._passport.initialize();
   };
@@ -35,17 +36,18 @@ class GeneralStrategy {
   }
 
   private serializer() {
-    this._passport.serializeUser(
-      (user: { auth: IAuthUser; user: IUser }, done) => {
-        return done(null, user);
-      }
-    );
+    this._passport.serializeUser((user: unknown, done) => {
+      return done(null, user);
+    });
 
     this._passport.deserializeUser(async (u: string, done) => {
       try {
-        const auth = (await Auth.findOne({ id: u })).toObject();
-        const user = (await User.findOne({ id: auth.profile_id })).toObject();
+        const auth = (await Auth.findOne({ id: u }))?.toObject();
+        if (!auth) {
+          return done(null, null)
+        };
 
+        const user = (await User.findOne({ id: auth.profile_id }))?.toObject();
         return user
           ? done(null, { auth, user } as { auth: IAuthUser; user: IUser })
           : done(null, null);
@@ -58,4 +60,4 @@ class GeneralStrategy {
   }
 }
 
-export default GeneralStrategy;
+export default Strategy;

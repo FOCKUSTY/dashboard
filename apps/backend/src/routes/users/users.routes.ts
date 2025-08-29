@@ -1,7 +1,9 @@
-export const ROUTE = ["users", "u"];
+const ROUTE = ["users", "u"];
 
-export const ROUTES = {
+const ROUTES = {
   GET: "/:id",
+  PUT: "/:id",
   DELETE: "/:id",
-  PUT: "/:id"
 } as const;
+
+export { ROUTE, ROUTES };

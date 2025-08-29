@@ -1,99 +1,101 @@
+import type { UserUpdateDto } from "./dto/user-update.dto";
+import type { Request } from "express";
+import type { IUser } from "@thevoid/database/types/user.type";
+import type { DeleteResult } from "mongoose";
+
+import { AuthGuard } from "guards/auth/auth.guard";
+
 import {
-  Controller,
-  Get,
+  Controller as NestController,
   Injectable,
-  UseGuards,
-  Inject,
-  Req,
-  Query,
+  Get,
   Param,
+  Body,
   Put,
-  HttpException,
+  Delete,
+  UseGuards,
   HttpStatus,
-  HttpCode,
-  Delete
+  Req
 } from "@nestjs/common";
-
-import { CACHE_MANAGER } from "@nestjs/cache-manager";
-
-import { Request } from "express";
-import { Cache } from "cache-manager";
-
-import { AuthGuard } from "src/guards/auth";
-import Api from "api";
+import { ApiOperation, ApiResponse, ApiUnauthorizedResponse } from "@nestjs/swagger";
 
 import { ROUTE, ROUTES } from "./users.routes";
-import { Service } from "./users.service";
+import { Service } from "./users.service"
 
-import { IUser } from "types/user.type";
-import { IResponse } from "types/response.type";
+import Hash from "services/hash.service";
+import HttpError from "errors/http.errors";
+
 import { Helpers } from "@thevoid/database/database";
-import { UpdateWriteOpResult } from "mongoose";
-
-const { hash: Hash, useCache } = Api;
+import { IResponse } from "types/promise";
 
 @Injectable()
-@Controller(ROUTE)
+@NestController(ROUTE)
 @UseGuards(AuthGuard)
-export class UsersController {
+export class Controller {
   public constructor(
-    private readonly service: Service,
-    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache
+    private readonly service: Service
   ) {}
 
+  @ApiOperation({
+    summary: "Getting an user"
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Getted"
+  })
   @Get(ROUTES.GET)
-  @HttpCode(HttpStatus.OK)
-  public async get(
-    @Req() req: Request,
-    @Param("id") id: string,
-    @Query("cache") cache?: string
-  ): Promise<IResponse<IUser>> {
-    const { successed, profile_id } = Hash.parse(req);
-
-    if (!successed) {
-      throw new HttpException(Api.createError("Hash parse error", null), HttpStatus.FORBIDDEN);
-    }
-
-    const cacheManager = useCache<IUser>(this.cacheManager, cache);
-
-    return cacheManager<[string]>({
-      getFunction: this.service.getUser,
-      key: `user-${id}`,
-      data: [id === "@me" ? profile_id : id]
-    });
-  }
-
-  @Put(ROUTES.PUT)
-  public async put(
-    @Req() req: Request,
-    @Param("id") id: string
-  ): Promise<IResponse<UpdateWriteOpResult, UpdateWriteOpResult | null>> {
-    const { successed, profile_id } = Hash.parse(req);
-
-    if (!successed) {
-      throw new HttpException(Api.createError("Hash parse error", null), HttpStatus.FORBIDDEN);
-    }
-    if (profile_id !== id) {
-      throw new HttpException(Api.createError("Access denied", null), HttpStatus.FORBIDDEN);
-    }
-
-    return this.service.updateUser(id, Helpers.parse(req.body, "user"));
-  }
-
-  @Delete(ROUTES.DELETE)
-  public async delete(
+  public get(
     @Req() req: Request,
     @Param("id") id: string
   ) {
     const { successed, profile_id } = Hash.parse(req);
 
-    if (!successed) {
-      throw new HttpException(Api.createError("Hash parse error", null), HttpStatus.FORBIDDEN);
-    }
-    if (profile_id !== id) {
-      throw new HttpException(Api.createError("Access denied", null), HttpStatus.FORBIDDEN);
-    }
+    if (!successed) throw HttpError.hash();
 
-    return this.service.deleteUser(id);
+    return this.service.get(id === "@me" ? profile_id : id);
+  }
+
+  @ApiOperation({
+    summary: "Updating a user"
+  })
+  @ApiUnauthorizedResponse({ description: "Unauthorized" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Updated"
+  })
+  @Put(ROUTES.PUT)
+  public put(
+    @Req() req: Request,
+    @Param("id") id: string,
+    @Body() data: UserUpdateDto
+  ) {
+    const { successed, profile_id } = Hash.parse(req);
+    
+    if (!successed) throw HttpError.hash();
+    if (profile_id !== id) throw new HttpError("Access denied", HttpStatus.FORBIDDEN);
+    if (!data) throw new HttpError("Bad request", HttpStatus.BAD_REQUEST)
+
+    return this.service.put(id, Helpers.parse(data as IUser, "user"));
+  }
+
+  @ApiOperation({
+    summary: "Deleting a user"
+  })
+  @ApiUnauthorizedResponse({ description: "Unauthorized" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Deleted"
+  })
+  @Delete(ROUTES.DELETE)
+  public delete(
+    @Req() req: Request,
+    @Param("id") id: string
+  ): Promise<IResponse<DeleteResult, DeleteResult | null>> {
+    const { successed, profile_id } = Hash.parse(req);
+
+    if (!successed) throw HttpError.hash();
+    if (profile_id !== id) throw new HttpError("Access denied", HttpStatus.FORBIDDEN);
+
+    return this.service.delete(id);
   }
 }

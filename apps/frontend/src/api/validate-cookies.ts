@@ -7,8 +7,6 @@ export const validateCookies = async () => {
 
   if (!userCookie) return false;
 
-    
-
   const user = JSON.parse(userCookie.value) as {
     auth_id: string;
     profile_id: string;

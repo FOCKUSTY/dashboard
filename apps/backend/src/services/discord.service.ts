@@ -1,16 +1,15 @@
-import { APIGuild, APIPartialGuild, APIRole, APIWebhook, GuildMember, PermissionFlagsBits } from "discord.js";
+import type { APIGuild, APIPartialGuild, APIRole, APIWebhook } from "discord.js";
+import type { IResponse } from "types/response.type";
 
-import { IResponse } from "types/response.type";
+import { PermissionFlagsBits } from "discord.js";
 
-import Env from "./env";
+import env from "@env";
 
-import { createUnknownError } from "./create-error";
-
-const { env } = new Env();
+import { createUnknownError } from "./error.service";
 
 const unknownError = createUnknownError("discord-api");
 
-export class DiscordApi {
+export class DiscordService {
   private static readonly _token = env.DISCORD_TOKEN;
 
   public static readonly url = env.DISCORD_API_URL;
@@ -72,7 +71,7 @@ export class DiscordApi {
         successed: true
       };
     } catch (error) {
-      return unknownError.execute(1001, <const>[], error);
+      return unknownError.execute<[]>(1001, [], error);
     }
   }
 
@@ -114,7 +113,7 @@ export class DiscordApi {
         successed: true
       };
     } catch (error) {
-      return unknownError.execute(1003, <const>[], error);
+      return unknownError.execute<[]>(1003, [], error);
     }
   }
 
@@ -163,4 +162,4 @@ export class DiscordApi {
   }
 }
 
-export default DiscordApi;
+export default DiscordService;

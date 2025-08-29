@@ -1,27 +1,24 @@
+import type {
+  Strategy,
+  VerifyCallback,
+  VerifyFunction
+} from "passport-oauth2";
+
+import type { Default__v, Document, IfAny, Model, Require_id } from "mongoose";
+import type { AuthTypes, IAuthUser } from "types/auth-user.type";
+import type { APIUser } from "discord.js";
+import type { IUser } from "types/user.type";
+
 import Database, { MODELS } from "database";
 
 import passport = require("passport");
 import { Profile } from "passport";
 
-import { AuthTypes, IAuthUser } from "types/auth-user.type";
-import { Strategy, VerifyCallback, VerifyFunction } from "passport-oauth2";
+import env from "services/env.service";
+import DiscordService from "services/discord.service";
+import { getPassportEnv } from "services/env.service";
 
-import Api, { getPassportAuthEnv } from "src/api";
-import { IUser } from "types/user.type";
-import { Model } from "mongoose";
-import { APIUser } from "discord.js";
-
-const { discord: DiscordApi } = Api;
-const { env } = new Api.env();
 const { Auth, User } = MODELS;
-
-const defaultPassports: Record<AuthTypes, { path: string; scopes?: string[] }> =
-  {
-    discord: {
-      path: "passport-discord",
-      scopes: ["identify", "email", "guilds"]
-    }
-  };
 
 const CreateOrUpdate = async <T>({
   model,
@@ -38,8 +35,16 @@ const CreateOrUpdate = async <T>({
     return model.create({ ...findData, ...data, id: Database.generateId() });
   }
 
-  await model.updateOne(findData, data);
-  return model.findOne(findData);
+  return model.findOneAndUpdate(findData, data, {
+    returnDocument: "after"
+  }) as Promise<IfAny<T, any, Document<unknown, object, T, object> & Default__v<Require_id<T>>>>;
+};
+
+const defaultPassports: Record<AuthTypes, { path: string; scopes: string[] }> = {
+  discord: {
+    path: "passport-discord",
+    scopes: ["identify", "email", "guilds"]
+  }
 };
 
 class Authenticator {
@@ -51,11 +56,13 @@ class Authenticator {
 
   public init = () => {
     for (const passport in defaultPassports) {
-      const strategy = require(defaultPassports[passport].path).Strategy;
-      this.strategy(strategy, {
-        ...getPassportAuthEnv(passport.toUpperCase() as Uppercase<AuthTypes>),
-        type: defaultPassports[passport].path,
-        scopes: defaultPassports[passport]?.scopes || []
+      const { path, scopes } = defaultPassports[passport];
+      
+      const { Strategy } = require(path);
+      this.strategy(Strategy, {
+        ...getPassportEnv(passport.toUpperCase() as Uppercase<AuthTypes>),
+        type: path,
+        scopes: scopes
       });
     }
   };
@@ -74,14 +81,14 @@ class Authenticator {
         const now = new Date().toISOString();
 
         const username =
-          profile.username || profile.displayName || profile.name.givenName;
+          profile.username || profile.name?.givenName || profile.displayName;
 
         let user: IUser;
         try {
           const apiUser: APIUser = await (
             await fetch(env.DISCORD_API_URL + "/users/@me", {
               method: "GET",
-              headers: DiscordApi.getUserAuth(access_token)
+              headers: DiscordService.getUserAuth(access_token)
             })
           ).json();
 
@@ -91,11 +98,14 @@ class Authenticator {
               findData: { username },
               data: {
                 created_at: now,
-                nickname: apiUser.global_name,
+                nickname: apiUser.global_name || undefined,
                 guilds: (
-                  await DiscordApi.fetchUserGuilds(access_token)
+                  await DiscordService.fetchUserGuilds(access_token)
                 ).data.map((guild) => guild.id),
-                avatar_url: DiscordApi.fetchUserAvatar(apiUser)
+                avatar_url: DiscordService.fetchUserAvatar({
+                  id: apiUser.id,
+                  avatar: apiUser.avatar || undefined
+                }) || undefined
               }
             })
           ).toObject();
