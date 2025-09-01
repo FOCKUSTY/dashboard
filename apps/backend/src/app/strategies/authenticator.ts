@@ -58,6 +58,9 @@ class Authenticator {
     for (const passport in defaultPassports) {
       const { path, scopes } = defaultPassports[passport];
       
+      console.log(`Загрузка стратегии ${passport}`);
+      console.log("Права: " + scopes.join(", "))
+
       const { Strategy } = require(path);
       this.strategy(Strategy, {
         ...getPassportEnv(passport.toUpperCase() as Uppercase<AuthTypes>),

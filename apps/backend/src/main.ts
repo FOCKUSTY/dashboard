@@ -10,17 +10,18 @@ import Passport from "./app/strategies";
 
 import { AppModule } from "./app.module";
 import { env } from "services/env.service";;
+import connect from "database/connection";
 
 const passport = new Passport();
 
 (async () => {
-  // await connect(env.DATABASE_URL);
-
   const app = await NestFactory.create(AppModule, {
     cors: { origin: [env.CLIENT_URL], credentials: true }
   });
 
   new Session(env.SESSION_SECRET, app).create();
+
+  connect(env.DATABASE_URL);
 
   app.use(cookieParser());
   app.use(json());
