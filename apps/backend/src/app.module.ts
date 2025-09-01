@@ -3,16 +3,14 @@ import { LoggerMiddleware } from "./middleware/logger.middleware";
 import { APP_INTERCEPTOR, RouterModule } from "@nestjs/core";
 import { CacheModule, CacheInterceptor } from '@nestjs/cache-manager';
 
-import AuthModule from "./routes/auth/auth.module";
-import UserModule from "routes/user/user.module";
-import GuildModule from "routes/guild/guild.module";
+import AuthModule from "routes/auth/auth.module";
+import UsersModule from "routes/users/users.module";
 
 @Module({
   imports: [
     ...[
       AuthModule,
-      UserModule,
-      GuildModule
+      UsersModule
     ].flatMap((module) => [module, RouterModule.register([{ path: "api", module }])]),
     CacheModule.register({
       ttl: 5 * 60 * 1000, // 5 minutes

@@ -32,13 +32,15 @@ export class AuthController {
   @Get(ROUTES.GET_CALLBACK)
   public callback(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction) {
     new AuthApi(req.params.method).callback(req, res, next, (...args) => {
-      const user = args[1];
+      const data = args[1];
 
-      if (!user) return;
+      if (!data) return;
+
+      const { auth } = data;
 
       res.cookie(
         "id-token",
-        `${user.id}-${user.profile_id}-${new Hash().execute(user.access_token)}`
+        `${auth.id}-${auth.profile_id}-${new Hash().execute(auth.access_token)}`
       );
       res.redirect(env.CLIENT_URL);
     });

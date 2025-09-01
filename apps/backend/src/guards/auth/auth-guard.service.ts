@@ -2,7 +2,9 @@ import { Request } from "express";
 
 import Hash from "services/hash.service";
 
-import { Auth } from "types";
+import { MODELS } from "database";
+
+const { Auth, User } = MODELS;
 
 export class Service {
   public static async validateRequest(req: Request) {
@@ -13,8 +15,7 @@ export class Service {
       return false;
     }
 
-    const findedUser = {} as Auth;
-    // const findedUser = await auth.findOne({ id: id });
+    const findedUser = await Auth.findOne({ id: id });
 
     if (!findedUser) {
       console.log("User blocked: User not found 0002");
@@ -31,8 +32,7 @@ export class Service {
       return false;
     }
 
-    const profileUser = {};
-    // const profileUser = await users.model.findOne({ id: findedUser.profile_id });
+    const profileUser = await User.findOne({ id: findedUser.profile_id });
 
     if (!profileUser) {
       console.log("User blocked: Profile not found 0005");
