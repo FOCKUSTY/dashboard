@@ -26,7 +26,9 @@ export const REQUIRED = [
 export const ALL = [
   ...REQUIRED,
   "ENCODING_TYPE",
-  "PORT"
+  "PORT",
+  "COOKIE_MAX_AGE",
+  "COOKIE_TOKEN_MAX_AGE"
 ] as const; 
 
 const AUTH_DATA = [
@@ -42,7 +44,9 @@ export type Partial = Exclude<All, Required>;
 
 const DEFAULT: Record<Partial, string> = {
   ENCODING_TYPE: "hex",
-  PORT: "3001"
+  PORT: "3001",
+  COOKIE_MAX_AGE: "604800000",
+  COOKIE_TOKEN_MAX_AGE: "10800000"
 };
 
 (() => {
