@@ -1,5 +1,8 @@
-import styles from "./dropdown.module.css";
+import { useRef, useState } from "react";
+
 import Portal from "components/portal.component";
+
+import styles from "./dropdown.module.css";
 
 export const Dropdown = ({
   children,
@@ -12,34 +15,48 @@ export const Dropdown = ({
   id: string;
   className?: string;
 }) => {
-  document.onclick = (event) => {
-    if (!(event.target as HTMLElement).parentNode) return;
-
-    const element = document.getElementById(id) as HTMLElement;
-    element.style.display = "none";
-  };
+  const content = useRef<HTMLDivElement>(null);
+  const [ actived, setActived ] = useState<boolean>(false);
 
   return (
     <div className={`${styles.dropdown}`}>
       <div
         className={styles.summary}
         onClick={(event) => {
-          const parent = event.currentTarget.getBoundingClientRect();
-          const element = document.getElementById(id) as HTMLElement;
-          
-          element.style.display = element.style.display === "none"
-            ? "flex"
-            : "none";
+          if (!content.current) return;
 
-          element.style.top = `${parent.top + parent.height}px`;
-          element.style.left = `${parent.left + parent.width - element.getBoundingClientRect().width}px`;
+          const parent = event.currentTarget.getBoundingClientRect();
+
+          content.current.style.top = `${parent.top + parent.height}px`;
+          content.current.style.left = `${parent.left + parent.width - content.current.getBoundingClientRect().width}px`;
+
+          setActived(!actived);
         }}
       >
         {summary}
       </div>
-      <Portal style={{display: "none"}} id={id} className={`${styles.content} ${className}`}>
-        {children}
-      </Portal>
+      {
+        actived
+          ? (
+            <Portal
+              id={id}
+              className={`${styles.content} ${className}`}
+              ref={content}
+            >
+              {children}
+            </Portal>
+          )
+          : <Portal
+              id={id}
+              className={`${styles.content} ${className}`}
+              ref={content}
+              style={{
+                height: 0,
+                padding: 0,
+                margin: 0
+              }}
+            ></Portal>
+      }
     </div>
   );
 };
