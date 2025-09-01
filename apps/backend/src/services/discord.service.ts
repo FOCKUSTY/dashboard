@@ -1,4 +1,4 @@
-import type { APIGuild, APIPartialGuild, APIRole, APIWebhook } from "discord.js";
+import type { APIGuild, APIPartialGuild, APIRole, APIWebhook, GuildMember } from "discord.js";
 import type { IResponse } from "types/response.type";
 
 import { PermissionFlagsBits } from "discord.js";
@@ -23,19 +23,19 @@ export class DiscordService {
     return { Authorization: "Bearer " + token };
   }
 
-  public static fetchBanner(data: { id: string; banner?: string }) {
+  public static fetchBanner(data: { id: string; banner?: string|null }) {
     return data.banner ? `${this.cdn}/banners/${data.id}/${data.banner}` : null;
   }
 
-  public static fetchGuildIcon(guild: { id: string; icon?: string }) {
+  public static fetchGuildIcon(guild: { id: string; icon?: string|null }) {
     return guild.icon ? `${this.cdn}/icons/${guild.id}/${guild.icon}.png` : null;
   }
 
-  public static fetchUserAvatar(user: { id: string; avatar?: string }) {
+  public static fetchUserAvatar(user: { id: string; avatar?: string|null }) {
     return user.avatar ? `${this.cdn}/avatars/${user.id}/${user.avatar}.webp` : null;
   }
 
-  public static async fetchGuildMembers(id: string) {
+  public static async fetchGuildMembers(id: string): Promise<IResponse<GuildMember[]>> {
     try {
       const data = await (
         await fetch(`${this.url}/guilds/${id}/members`, {
