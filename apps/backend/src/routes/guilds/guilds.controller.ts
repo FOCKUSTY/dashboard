@@ -1,3 +1,5 @@
+import type { Request } from "express";
+
 import type { GuildCreateDto } from "./dto/guild-create.dto";
 import type { GuildUpdateDto } from "./dto/guild-update.dto";
 
@@ -15,12 +17,22 @@ import {
   Patch,
   Delete,
   UseGuards,
-  HttpStatus
+  HttpStatus,
+  Req,
+  HttpException
 } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiUnauthorizedResponse } from "@nestjs/swagger";
 
 import { ROUTE, ROUTES } from "./guilds.routes";
 import { Service } from "./guilds.service"
+
+import Hash from "services/hash.service";
+
+import { MODELS } from "database";
+import HttpError from "errors/http.errors";
+import { ConfigDto } from "./dto/config.dto";
+
+const { Auth } = MODELS;
 
 @Injectable()
 @NestController(ROUTE)
@@ -39,8 +51,15 @@ export class Controller {
   })
   @Get(ROUTES.GET)
   @Public()
-  public get() {
-    return this.service.get()
+  public async get(
+    @Req() req: Request
+  ) {
+    const { successed, id } = Hash.parse(req);
+    const auth = await Auth.findOne({id})
+
+    if (!successed || !auth) { throw HttpError.hash(); }
+
+    return this.service.get(auth.access_token);
   }
 
   @ApiOperation({
@@ -52,10 +71,16 @@ export class Controller {
   })
   @Get(ROUTES.GET_ONE)
   @Public()
-  public getOne(
-    @Param("id") id: string
+  public async getOne(
+    @Req() req: Request,
+    @Param("id") guildId: string
   ) {
-    return this.service.getOne(id);
+    const { successed, id } = Hash.parse(req);
+    const auth = await Auth.findOne({id})
+
+    if (!successed || !auth) { throw HttpError.hash(); }
+
+    return this.service.getOne(guildId);
   }
 
   @ApiOperation({
@@ -68,9 +93,14 @@ export class Controller {
   })
   @Post(ROUTES.POST)
   public post(
-    @Body() data: GuildCreateDto 
+    @Req() req: Request,
+    @Param("id") guildId: string
   ) {
-    return this.service.post(data);
+    const { successed } = Hash.parse(req);
+
+    if (!successed) { throw HttpError.hash(); }
+
+    return this.service.post(guildId);
   }
 
   @ApiOperation({
@@ -83,9 +113,15 @@ export class Controller {
   })
   @Put(ROUTES.PUT)
   public put(
+    @Req() req: Request,
     @Param("id") id: string,
     @Body() data: GuildUpdateDto 
   ) {
+    // УСИЛИТЬ ВАЛИДАЦИЮ
+    const { successed } = Hash.parse(req);
+
+    if (!successed) { throw HttpError.hash(); }
+
     return this.service.put(id, data);
   }
 
@@ -97,12 +133,17 @@ export class Controller {
     status: HttpStatus.OK,
     description: "Updated"
   })
-  @Patch(ROUTES.PUT)
-  public patch(
-    @Param("id") id: string,
-    @Body() data: GuildUpdateDto 
+  @Patch(ROUTES.PATCH_CONFIG)
+  public async patchConfig(
+    @Req() req: Request,
+    @Param("id") guildId: string,
+    @Body() configDto: ConfigDto
   ) {
-    return this.service.patch(id, data);
+    const { successed } = Hash.parse(req);
+
+    if (!successed) { HttpError.hash() };
+
+    return this.service.patchConfig(guildId, configDto);
   }
   
   @ApiOperation({
@@ -115,8 +156,14 @@ export class Controller {
   })
   @Delete(ROUTES.DELETE)
   public delete(
+    @Req() req: Request,
     @Param("id") id: string
   ) {
+    // УСИЛИТЬ ВАЛИДАЦИЮ
+    const { successed } = Hash.parse(req);
+
+    if (!successed) { HttpError.hash() };
+
     return this.service.delete(id);
   }
 }
