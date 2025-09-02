@@ -45,7 +45,7 @@ class Hash {
     };
 
     if (method === "Bearer") {
-      const [ id, profile_id, access_token ] = hash.split("-");
+      const { id, profile_id, token: access_token } = JSON.parse(hash);
 
       const valided = id && profile_id && access_token;
       if (!valided) {
@@ -62,7 +62,7 @@ class Hash {
   }
 
   public static parse(req: Request): ParseReturnType {
-    const hash = req.headers.Authorization;
+    const hash = req.headers.authorization;
 
     if (hash === undefined) {
       return PARSE_ERROR;
