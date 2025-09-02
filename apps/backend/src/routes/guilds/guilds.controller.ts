@@ -1,6 +1,5 @@
 import type { Request } from "express";
 
-import type { GuildCreateDto } from "./dto/guild-create.dto";
 import type { GuildUpdateDto } from "./dto/guild-update.dto";
 
 import { Public } from "decorators/public.decorator";
@@ -18,8 +17,7 @@ import {
   Delete,
   UseGuards,
   HttpStatus,
-  Req,
-  HttpException
+  Req
 } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiUnauthorizedResponse } from "@nestjs/swagger";
 

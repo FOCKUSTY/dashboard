@@ -70,7 +70,7 @@ class Hash {
  
     try {
       return Hash.resolveToken(hash.toString());
-    } catch (error) {
+    } catch {
       return PARSE_ERROR;      
     }
   }

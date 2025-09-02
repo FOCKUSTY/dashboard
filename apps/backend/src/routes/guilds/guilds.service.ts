@@ -2,7 +2,6 @@ import type { APIGuild, APIPartialGuild, GuildMember } from "discord.js";
 import type { ICardGuild, IGuild } from "types/guild.type";
 import type { IResponse } from "types/promise/response.types";
 
-import type { GuildCreateDto } from "./dto/guild-create.dto";
 import type { GuildUpdateDto } from "./dto/guild-update.dto";
 
 import DiscordService from "services/discord.service";

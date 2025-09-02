@@ -37,7 +37,7 @@ const CreateOrUpdate = async <T>({
 
   return model.findOneAndUpdate(findData, data, {
     returnDocument: "after"
-  }) as Promise<IfAny<T, any, Document<unknown, object, T, object> & Default__v<Require_id<T>>>>;
+  }) as Promise<IfAny<T, unknown, Document<unknown, object, T, object> & Default__v<Require_id<T>>>>;
 };
 
 const defaultPassports: Record<AuthTypes, { path: string; scopes: string[] }> = {
