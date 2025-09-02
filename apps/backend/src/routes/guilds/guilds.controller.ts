@@ -84,6 +84,48 @@ export class Controller {
   }
 
   @ApiOperation({
+    summary: "Getting a guild webhooks by id"
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Getted"
+  })
+  @Get(ROUTES.GET_WEBHOOKS)
+  @Public()
+    public async getWebhooks(
+    @Req() req: Request,
+    @Param("id") guildId: string
+  ) {
+    const { successed, id } = Hash.parse(req);
+    const auth = await Auth.findOne({id})
+
+    if (!successed || !auth) { throw HttpError.hash(); }
+
+    return this.service.getWebhooks(guildId);
+  }
+
+  @ApiOperation({
+    summary: "Getting a guild roles by id"
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "Getted"
+  })
+  @Get(ROUTES.GET_ROLES)
+  @Public()
+    public async getRoles(
+    @Req() req: Request,
+    @Param("id") guildId: string
+  ) {
+    const { successed, id } = Hash.parse(req);
+    const auth = await Auth.findOne({id})
+
+    if (!successed || !auth) { throw HttpError.hash(); }
+
+    return this.service.getRoles(guildId);
+  }
+
+  @ApiOperation({
     summary: "Creaing a guilds"
   })
   @ApiUnauthorizedResponse({ description: "Unauthorized" })
