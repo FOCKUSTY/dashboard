@@ -16,7 +16,7 @@ export const fetchUser = cache(async (token: string): Promise<IUser | null> => {
 
     const user = await fetch(Api.url + "/users", {
       method: "GET",
-      headers: { authentication: token },
+      headers: { authorization: "Bearer " + token },
       next: {
         revalidate: 1200,
       },

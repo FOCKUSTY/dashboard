@@ -11,7 +11,7 @@ export const fetchRoles = (async (
   try {
     const roles = await fetch(Api.url + "/guilds/" + id + "/roles", {
       method: "GET",
-      headers: { authentication: token },
+      headers: { authorization: "Bearer " + token },
       next: {
         revalidate: 1,
       },
@@ -32,7 +32,7 @@ export const fetchWebhooks = cache(async (
   try {
     const webhooks = await fetch(Api.url + "/guilds/" + id + "/webhooks", {
       method: "GET",
-      headers: { authentication: token },
+      headers: { authorization: "Bearer " + token },
       next: {
         revalidate: 1200,
       },

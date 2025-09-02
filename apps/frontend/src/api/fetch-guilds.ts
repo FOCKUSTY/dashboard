@@ -12,7 +12,7 @@ export const fetchGuild = cache(async (
   try {
     const guild = await fetch(Api.url + "/guilds/" + id, {
       method: "GET",
-      headers: { authentication: token },
+      headers: { authorization: "Bearer " + token },
       next: {
         revalidate: 1200,
       },
@@ -30,7 +30,7 @@ export const fetchGuilds = cache(async (token: string): Promise<ICardGuild[] | n
   try {
     const guilds = await fetch(Api.url + "/guilds", {
       method: "GET",
-      headers: { authentication: token },
+      headers: { Authorization: "Bearer " + token },
       next: {
         revalidate: 150,
       },
