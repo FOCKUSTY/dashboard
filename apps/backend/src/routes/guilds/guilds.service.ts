@@ -12,6 +12,7 @@ import { Injectable } from "@nestjs/common";
 
 import { Settings } from "types/settings";
 import { MODELS } from "@thevoid/database/database";
+import { AllPartial } from "types/utility.types";
 
 const { Guild } = MODELS;
 
@@ -109,6 +110,10 @@ export class Service {
     return DiscordService.fetchGuildWebhooks(id);
   }
 
+  public async getRoles(id: string) {
+    return DiscordService.fetchGuildRoles(id);
+  }
+
   public async post(id: string): IResponse<IGuild> {
     try {
       const guildData = await DiscordService.fetchUserGuild(id);
@@ -134,26 +139,64 @@ export class Service {
   }
 
   public async put(id: string, data: GuildUpdateDto): IResponse<IGuild> {
-    return {
-      successed: false,
-      data: null,
-      error: "method not implemented."
-    };
+    try {
+      const guild = await Guild.findOneAndUpdate({
+        id
+      }, {
+        ...data
+      }, {
+        returnDocument: "after"
+      });
+
+      if (!guild) {
+        return createError("guild not found", null);
+      }
+
+      return {
+        successed: true,
+        data: guild,
+        error: null
+      }
+    } catch (error) {
+      return unknownError.execute(1003, null, error);
+    }
   };
   
-  public async patch(id: string, data: GuildUpdateDto): IResponse<IGuild> {
-    return {
-      successed: false,
-      data: null,
-      error: "method not implemented."
-    };
+  public async patchConfig(id: string, config: AllPartial<IGuild["config"]>): Promise<IResponse<IGuild>> {
+    try {
+      const guild = await Guild.findOneAndUpdate({
+        id
+      }, {
+        config
+      }, {
+        returnDocument: "after"
+      });
+
+      if (!guild) {
+        return createError("guild not found", null);
+      }
+
+      return {
+        data: guild,
+        error: null,
+        successed: true
+      }
+    } catch (error) {
+      return unknownError.execute(1003, null, error);
+    }
   }
 
   public async delete(id: string): IResponse<string> {
+    const data = await Guild.deleteOne({id});
+    
+    if (!data.acknowledged) {
+      return createError("not deleted", null);
+    }
+
     return {
-      successed: false,
-      data: null,
-      error: "method not implemented."
+      successed: true,
+      data: `deleted ${data.deletedCount} datas`,
+      error: null
     };
   }
 }
