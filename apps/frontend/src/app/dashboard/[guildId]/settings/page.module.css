@@ -96,7 +96,7 @@
   overflow-y: auto;
 }
 
-.settings div {
+.settings .settings_data {
   display: flex;
 
   align-items: center;
@@ -105,4 +105,8 @@
   gap: 10px;
 
   width: 100%;
+}
+
+.input_data {
+  width: fit-content;
 }

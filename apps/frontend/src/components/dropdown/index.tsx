@@ -8,20 +8,24 @@ export const Dropdown = ({
   children,
   summary,
   id,
-  className
+  className,
+  summaryClassName,
+  mainClassName
 }: {
   children: React.ReactNode;
   summary: React.ReactNode;
   id: string;
   className?: string;
+  summaryClassName?: string;
+  mainClassName?: string;
 }) => {
   const content = useRef<HTMLDivElement>(null);
   const [ actived, setActived ] = useState<boolean>(false);
 
   return (
-    <div className={`${styles.dropdown}`}>
+    <div className={`${mainClassName} ${styles.dropdown}`}>
       <div
-        className={styles.summary}
+        className={`${summaryClassName} ${styles.summary}`}
         onClick={(event) => {
           if (!content.current) return;
 

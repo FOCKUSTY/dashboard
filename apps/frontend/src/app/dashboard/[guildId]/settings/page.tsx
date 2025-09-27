@@ -47,16 +47,68 @@ const settings: {
   ]
 } as const;
 
+type DataType = Record<"webhooks"|"roles", {
+  guild: Partial<Record<keyof IConfig["guild"], {[key: string]: unknown}>>,
+  logging: Partial<Record<keyof IConfig["logging"], {[key: string]: unknown}>>
+}>;
+type LazyDataType = Record<"webhooks"|"roles", {
+  [key: string]: Partial<Record<keyof IConfig["logging"] | keyof IConfig["guild"], {[key: string]: unknown}>>
+}>
+
+const WebhookComponent = ({
+  choosedData,
+  data,
+  main,
+  name,
+  addData
+}: {
+  main: keyof IConfig,
+  name: keyof IConfig["guild"] | keyof IConfig["logging"],
+  data: { webhooks: APIWebhook[], roles: APIRole[] },
+  addData: (name: "webhooks" | "roles", data: {[key: string]: unknown}, key: string) => void,
+  choosedData: LazyDataType
+}) => {
+  if (data.webhooks.length === 0) {
+    return <></>
+  };
+  
+  return (
+    <div className={`${styles.settings_data} post-settings`}>
+      <label htmlFor="">Webhook:</label>
+      <Dropdown
+        mainClassName={styles.input_data}
+        className={styles.dropdown}
+        id={`webhook__${main}_${name}`}
+        summary={choosedData["webhooks"][main][name]
+          ? `${choosedData["webhooks"][main][name].name}`
+          : "choose webhook"}
+        summaryClassName={styles.input_data}
+        >
+          {
+            data.webhooks.map(webhook => 
+              <span
+                key={webhook.id}
+                onClick={() => addData("webhooks", {...webhook}, name)}
+              >{webhook.name}</span>
+            )
+          }
+      </Dropdown>
+    </div>
+  )
+}
+
 const SettingsComponent = ({
   main,
   name,
   addData,
-  data
+  data,
+  choosedData
 }: {
-  main: string,
-  name: string,
+  main: keyof IConfig,
+  name: keyof IConfig["guild"] | keyof IConfig["logging"],
   data: { webhooks: APIWebhook[], roles: APIRole[] },
-  addData: (name: "webhooks" | "roles", id: string, key: string) => void
+  addData: (name: "webhooks" | "roles", data: {[key: string]: unknown}, key: string) => void,
+  choosedData: LazyDataType
 }) => {
   const [ rolesList, setRolesList ] = useState<string[]>(data.roles.map(role => role.name));
   const [ choosedRoles, setChoosedRoles ] = useState<string[]>([]);
@@ -71,23 +123,8 @@ const SettingsComponent = ({
   if (main === "logging") {
     return (
       <>
-        {
-          data.webhooks.length != 0
-            ? ( 
-              <div className="post-settings">
-                <label htmlFor="">Webhook:</label>
-                <Dropdown className={styles.dropdown} id={`webhook__${main}_${name}`} summary={"choose webhook"}>
-                  {
-                    data.webhooks.map(webhook => 
-                      webhook.name
-                    )
-                  }
-                </Dropdown>
-              </div>
-            )
-            : <></>
-        }
-        <div className="post-settings">
+        <WebhookComponent {...{main,name,addData,data,choosedData}}/>
+        <div className={`${styles.settings_data} post-settings`}>
           <label htmlFor="">Сообщение:</label>
           <textarea className="post-settings" name={`message__${main}_${name}`} maxLength={2048} id={`message__${main}_${name}`}></textarea>
         </div>
@@ -95,11 +132,12 @@ const SettingsComponent = ({
     )
   };
 
+  
   if (name === "when_user_join_into_guild_grant_roles") {
     if (data.roles.length === 0) return <></>;
 
     return (
-      <div className="post-settings">
+      <div className={`${styles.settings_data} post-settings`}>
         <Dropdown className={styles.dropdown} id={`roles_${main}_${name}`} summary="Выбрать роль">
           {rolesItem}
         </Dropdown>
@@ -112,21 +150,12 @@ const SettingsComponent = ({
 
   return (
     <>
-      {
-        data.webhooks.length != 0
-          ? (
-            <div className="post-settings">
-              <label htmlFor={`webhook__${main}_${name}`}>Webhook:</label>
-              <input className="post-settings" name={`webhook__${main}_${name}`} id={`webhook__${main}_${name}`} type="text" />
-            </div>
-          )
-          : ""
-      }
-      <div className="post-settings">
+      <WebhookComponent {...{main,name,addData,data,choosedData}}/>
+      <div className={`${styles.settings_data} post-settings`}>
         <label htmlFor={`channel__${main}_${name}`}>Канал:</label>
         <input className="post-settings" name={`channel__${main}_${name}`} id={`channel__${main}_${name}`} type="text" />
       </div>
-      <div className="post-settings">
+      <div className={`${styles.settings_data} post-settings`}>
         <label htmlFor={`message__${main}_${name}`}>Сообщение:</label>
         <textarea className="post-settings" maxLength={2048} name={`message__${main}_${name}`} id={`message__${main}_${name}`}></textarea>
       </div>
@@ -144,30 +173,27 @@ const Page = () => {
     roles: APIRole[],
   }>({ webhooks: [], roles: [] });
   
-  const [ choosedData, setChoosedData ] = useState<Record<"webhooks"|"roles", {
-    guild: Partial<Record<keyof IConfig["guild"], string>>,
-    logging: Partial<Record<keyof IConfig["logging"], string>>
-  }>>({
+  const [ choosedData, setChoosedData ] = useState<DataType>({
     roles: {
       guild: {},
       logging: {}
     },
     webhooks: {
       guild: {},
-      logging: {}      
+      logging: {}
     }
   });
 
   const { guildId } = useParams<{guildId: string}>();
 
-  const addData = (name: "webhooks"|"roles", id: string, key: string) => {
+  const addData = (name: "webhooks"|"roles", data: {[key: string]: unknown}, key: string) => {
     setChoosedData({
       ...choosedData,
       [name]: {
+        ...choosedData[name],
         [project]: {
-          [key]: {
-            id
-          }
+          ...choosedData[name][project],
+          [key]: data
         }
       }
     })
@@ -226,10 +252,11 @@ const Page = () => {
                     <span>{value}:</span>
                     <SettingsComponent
                       main={project}
-                      name={key}
+                      name={key as keyof IConfig[typeof project]}
                       key={key}
                       data={{roles, webhooks}}
                       addData={addData}
+                      choosedData={choosedData}
                     />
                   </div>
                 );

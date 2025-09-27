@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Items = ({
   summary,
@@ -36,8 +36,8 @@ const Items = ({
 
   return (
     <>
-      <div> { summary } </div>  
-      <div> { data } </div>
+      <div>{summary}</div>  
+      <div>{data}</div>
     </>
   )
 };
