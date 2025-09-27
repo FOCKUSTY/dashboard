@@ -42,6 +42,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <html lang="ru">
+      <title>The Voidy Dashboard</title>
+      <meta name="description" content="The Voidy Dashboard" />
+      <meta name="keywords" content="fockusty,dashboard,thevoid,designer,фокусти,фикус,дашборд,панель упраления" />
       <body>
         <Image
           width={1920}
