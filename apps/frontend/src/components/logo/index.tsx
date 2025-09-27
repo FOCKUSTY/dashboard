@@ -3,10 +3,10 @@ import { Api } from "api"
 import { FaDiscord, FaGithub, FaTelegram } from "react-icons/fa";
 import { SlGlobe } from "react-icons/sl";
 
-export const Logo = () => {
+export const Logo = ({ logo }: { logo?: React.ReactNode }) => {
   return (
     <div id="logo">
-      <h1>The Void</h1>
+      { logo ?? <h1>The Void</h1> }
       <div className="links">
         <a href={Api.the_void.discord_url} target="_blank">
           <FaDiscord size={24} />

@@ -21,7 +21,6 @@ export const GuildLayout = ({ children, user, guild, loaded }: Props) => {
       <>
         <header id={styles.header}>
           <IconComponent url={"/TheVoidAvatarSite.png"} alt={"TVC"} name={"The Void Community"} />
-          <Logo />
           {
             loaded
               ? "Вам нужно зайти"
@@ -32,7 +31,7 @@ export const GuildLayout = ({ children, user, guild, loaded }: Props) => {
         <main>{children}</main>
 
         <footer>
-          <h2>© 2025 The Void</h2>
+        <Logo logo={<h2>© 2025 The Void</h2>}  />
         </footer>
       </>
     )
@@ -44,14 +43,13 @@ export const GuildLayout = ({ children, user, guild, loaded }: Props) => {
 
       <header id={styles.header}>
         <IconComponent url={guild.icon_url} alt={guild.name + "'s icon"} name={guild.name} />
-        <Logo />
         <LogIn user={user} />
       </header>
 
       <main>{children}</main>
 
       <footer>
-        <h2>© 2025 The Void</h2>
+        <Logo logo={<h2>© 2025 The Void</h2>}  />
       </footer>
     </>
   )
