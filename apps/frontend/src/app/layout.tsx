@@ -46,13 +46,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <meta name="description" content="The Voidy Dashboard" />
       <meta name="keywords" content="fockusty,dashboard,thevoid,designer,фокусти,фикус,дашборд,панель упраления" />
       <body>
-        <Image
-          width={1920}
-          height={1080}
-          className="background"
-          src={"/background.png"}
-          alt="background"
-        />
+        <div className="background"></div>
         <div className="human-container">
           <Image
             width={597}
