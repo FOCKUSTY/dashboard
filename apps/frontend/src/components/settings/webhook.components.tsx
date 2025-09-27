@@ -1,0 +1,61 @@
+import type { APIRole, APIWebhook } from "discord.js";
+import type { IConfig } from "types/config.type";
+import type { LazyDataType } from "./data";
+
+import { Dropdown } from "components/dropdown";
+
+import styles from "app/dashboard/[guildId]/settings/page.module.css";
+
+export const WebhookComponent = ({
+  choosedData,
+  data,
+  main,
+  name,
+  addData
+}: {
+  main: keyof IConfig,
+  name: keyof IConfig["guild"] | keyof IConfig["logging"],
+  data: { webhooks: APIWebhook[], roles: APIRole[] },
+  addData: (name: "webhooks" | "roles", data: {[key: string]: unknown}, key: string) => void,
+  choosedData: LazyDataType
+}) => {
+  if (data.webhooks.length === 0) {
+    return <></>
+  };
+  
+  const webhook = choosedData["webhooks"][main][name];
+
+  return (
+    <div className={`${styles.settings_data} post-settings`}>
+      <label htmlFor="">Webhook:</label>
+      <Dropdown
+        mainClassName={styles.input_data}
+        className={styles.dropdown}
+        id={`webhook__${main}_${name}`}
+        summary={
+          <input
+          key={webhook ? `${webhook.name}` : "123"}
+          className="post-settings"
+          id={`input_webhook__${main}_${name}`}
+          name={`webhook__${main}_${name}`}
+          value={webhook
+              ? `${webhook.name}`
+              : "choose webhook"
+            }
+            readOnly
+          />
+        }
+        summaryClassName={styles.input_data}
+        >
+          {
+            data.webhooks.map(webhook => 
+              <span
+                key={webhook.id}
+                onClick={() => addData("webhooks", {...webhook}, name)}
+              >{webhook.name}</span>
+            )
+          }
+      </Dropdown>
+    </div>
+  )
+}
