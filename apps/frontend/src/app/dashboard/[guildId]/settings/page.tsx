@@ -96,10 +96,8 @@ const Page = () => {
         <form className={`${styles.config} post-settings`} onSubmit={(e) => {
           e.preventDefault();
 
-          const data = new FormData(e.currentTarget);
-          for (const [a, b] of data.entries()) {
-            console.log({a, b});
-          }
+          const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+          console.log(data);
         }}>
           <div className={`${styles.info} post-settings`}>
             <span>Настройки {project === "guild" ? "гильдии" : "логирования"}</span>

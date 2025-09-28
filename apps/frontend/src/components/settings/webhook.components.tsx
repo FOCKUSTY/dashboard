@@ -27,34 +27,34 @@ export const WebhookComponent = ({
 
   return (
     <div className={`${styles.settings_data} post-settings`}>
-      <label htmlFor="">Webhook:</label>
+      <label htmlFor="">Вебхук:</label>
       <Dropdown
         mainClassName={styles.input_data}
         className={styles.dropdown}
         id={`webhook__${main}_${name}`}
+        summaryClassName={styles.input_data}
         summary={
           <input
-          key={webhook ? `${webhook.name}` : "123"}
-          className="post-settings"
-          id={`input_webhook__${main}_${name}`}
-          name={`webhook__${main}_${name}`}
-          value={webhook
-              ? `${webhook.name}`
-              : "choose webhook"
+            key={webhook ? `${webhook.id}` : `key__input_webhook__${main}_${name}`}
+            className="post-settings"
+            id={`input_webhook__${main}_${name}`}
+            name={`webhook__${main}_${name}`}
+            value={webhook
+              ? `${webhook.name}:${webhook.id}`
+              : "Выберите вебхук"
             }
             readOnly
           />
         }
-        summaryClassName={styles.input_data}
-        >
-          {
-            data.webhooks.map(webhook => 
-              <span
-                key={webhook.id}
-                onClick={() => addData("webhooks", {...webhook}, name)}
-              >{webhook.name}</span>
-            )
-          }
+      >
+        {
+          data.webhooks.map(webhook => 
+            <span
+              key={webhook.id}
+              onClick={() => addData("webhooks", {...webhook}, name)}
+            >{webhook.name}</span>
+          )
+        }
       </Dropdown>
     </div>
   )

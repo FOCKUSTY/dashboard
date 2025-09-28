@@ -2,7 +2,7 @@
 
 import type { Props } from "./data";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import { useList } from "hooks/list.hook";
 import { WebhookComponent } from "./webhook.components";
@@ -10,6 +10,46 @@ import { WebhookComponent } from "./webhook.components";
 import { Dropdown } from "components/dropdown";
 
 import styles from "app/dashboard/[guildId]/settings/page.module.css";
+import { ChooseComponent, ChooseSendType, ChooseTypes } from "./choose-type.component";
+
+const ConfigComponent = ({
+  addData,
+  choosedData,
+  data,
+  main,
+  name,
+  setType,
+  type
+}: Props & {
+  setType: Dispatch<SetStateAction<ChooseSendType>>,
+  type: ChooseSendType
+}) => {
+  const sendDataType: ChooseTypes = type[main] ? type[main][name] || "пусто" : "пусто";
+
+  const channel = (
+    <div className={`${styles.settings_data} post-settings`}>
+      <label htmlFor={`channel__${main}_${name}`}>Канал:</label>
+      <input className="post-settings" name={`channel__${main}_${name}`} id={`channel__${main}_${name}`} type="text" />
+    </div>
+  );
+
+  const webhook = <WebhookComponent {...{main,name,addData,data,choosedData}}/>;
+
+  return (
+    <>
+      <ChooseComponent {...{main,name, type, setType}}/>
+      {
+        sendDataType === "вебхук"
+          ? webhook
+          : channel
+      }
+      <div className={`${styles.settings_data} post-settings`}>
+        <label htmlFor={`message__${main}_${name}`}>Сообщение:</label>
+        <textarea className="post-settings" maxLength={2048} name={`message__${main}_${name}`} id={`message__${main}_${name}`}></textarea>
+      </div>
+    </>
+  )
+}
 
 export const SettingsComponent = ({
   main,
@@ -20,6 +60,7 @@ export const SettingsComponent = ({
 }: Props) => {
   const [ rolesList, setRolesList ] = useState<string[]>(data.roles.map(role => role.name));
   const [ choosedRoles, setChoosedRoles ] = useState<string[]>([]);
+  const [ type, setType ] = useState<ChooseSendType>({}); 
 
   const [ rolesItem, choosedRolesItem ] = useList({
     list: rolesList,
@@ -27,19 +68,6 @@ export const SettingsComponent = ({
     setChoosedList: setChoosedRoles,
     setList: setRolesList
   });
-
-  if (main === "logging") {
-    return (
-      <>
-        <WebhookComponent {...{main,name,addData,data,choosedData}}/>
-        <div className={`${styles.settings_data} post-settings`}>
-          <label htmlFor="">Сообщение:</label>
-          <textarea className="post-settings" name={`message__${main}_${name}`} maxLength={2048} id={`message__${main}_${name}`}></textarea>
-        </div>
-      </>
-    )
-  };
-
   
   if (name === "when_user_join_into_guild_grant_roles") {
     if (data.roles.length === 0) return <></>;
@@ -56,17 +84,5 @@ export const SettingsComponent = ({
     )
   }
 
-  return (
-    <>
-      <WebhookComponent {...{main,name,addData,data,choosedData}}/>
-      <div className={`${styles.settings_data} post-settings`}>
-        <label htmlFor={`channel__${main}_${name}`}>Канал:</label>
-        <input className="post-settings" name={`channel__${main}_${name}`} id={`channel__${main}_${name}`} type="text" />
-      </div>
-      <div className={`${styles.settings_data} post-settings`}>
-        <label htmlFor={`message__${main}_${name}`}>Сообщение:</label>
-        <textarea className="post-settings" maxLength={2048} name={`message__${main}_${name}`} id={`message__${main}_${name}`}></textarea>
-      </div>
-    </>
-  )
+  return <ConfigComponent {...{main,name,addData,data,choosedData,type,setType}} />
 };
