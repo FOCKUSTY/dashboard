@@ -13,8 +13,8 @@ export const WebhookComponent = ({
   name,
   addData
 }: {
-  main: keyof IConfig,
-  name: keyof IConfig["guild"] | keyof IConfig["logging"],
+  main: string,
+  name: string,
   data: { webhooks: APIWebhook[], roles: APIRole[] },
   addData: (name: "webhooks" | "roles", data: {[key: string]: unknown}, key: string) => void,
   choosedData: LazyDataType

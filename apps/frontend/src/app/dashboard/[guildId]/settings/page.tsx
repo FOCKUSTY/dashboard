@@ -14,16 +14,36 @@ import { fetchGuild } from "api/fetch-guilds";
 import { fetchUser } from "api/fetch-user";
 import { validateCookies } from "api/validate-cookies";
 
-import { DataType, settings } from "components/settings/data";
+import { DataType, rawSettings, rawSettingsIndexes, settings } from "components/settings/data";
 import { SettingsComponent } from "components/settings/settings.component";
 
 import styles from "./page.module.css";
+import { useChoose } from "hooks/choose.hook";
+import { WebhookComponent } from "components/settings/webhook.components";
 
 const Page = () => {
   const [ user, setUser ] = useState<IUser | null>(null);
   const [ guild, setGuild ] = useState<IGuild | null>(null);
   const [ project, setProject ] = useState<"guild"|"logging">("guild");
   
+  const [ indexes, setIndexes ] = useState<{
+    [key: string]: {
+      [key: string]: number
+    }
+  }>(rawSettingsIndexes);
+
+  const setIndex = (type: string, index: number) => {
+    setIndexes((previous) => {
+      return {
+        ...previous,
+        [project]: {
+          ...previous[project],
+          [type]: index
+        }
+      }
+    })
+  }
+
   const [ { webhooks, roles }, setDatas ] = useState<{
     webhooks: APIWebhook[],
     roles: APIRole[],
@@ -97,14 +117,68 @@ const Page = () => {
           e.preventDefault();
 
           const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-          console.log(data);
+          console.log({data});
         }}>
           <div className={`${styles.info} post-settings`}>
             <span>Настройки {project === "guild" ? "гильдии" : "логирования"}</span>
             <input type="submit" value="Сохранить" />
           </div>
 
-          <div className={styles.settings}>
+        {
+          Object.keys(settings[project]).map(key => {
+            const { action, type } = rawSettings[project][key];
+
+            if (type === "dropdown") {
+              return <></>;
+            }
+
+            const {
+              current,
+              dropdown
+            } = useChoose({
+              onChange: (current) => {
+                return setIndex(key, current);
+              },
+              components: [
+                {
+                  main: (
+                    <div key={1} className={`${styles.settings_data} post-settings`}>
+                      <label htmlFor={`channel__${project}_${key}`}>Канал:</label>
+                      <input className="post-settings" name={`channel__${project}_${key}`} id={`channel__${project}_${key}`} type="text" />
+                    </div>
+                  ),
+                  summary: "Канал"
+                },
+                {
+                  main: <WebhookComponent
+                    key={2}
+                    addData={addData}
+                    choosedData={choosedData}
+                    data={{roles,webhooks}}
+                    main={project}
+                    name={key}
+                  />,
+                  summary: "Вебхук"
+                }
+              ],
+              currentIndex: indexes[project][key],
+              dropdown: {
+                id: "choose_methods_to_"+key,
+                summary: "Choose a method"
+              }
+            })
+
+            return (
+              <div>
+                <span>{action}:</span>
+                {dropdown}
+                {current}
+              </div>
+            )
+          })
+        }
+
+          {/* <div className={styles.settings}>
             {
               settings[project].map(([key, value]) => 
                 <div className={styles.config_data} key={key + value}>
@@ -120,7 +194,7 @@ const Page = () => {
                 </div>
               )
             }
-          </div>
+          </div> */}
         </form>
       </div>
     </>
