@@ -1,5 +1,4 @@
 import type { APIRole, APIWebhook } from "discord.js";
-import type { IConfig } from "types/config.type";
 import type { LazyDataType } from "./data";
 
 import { Dropdown } from "components/dropdown";

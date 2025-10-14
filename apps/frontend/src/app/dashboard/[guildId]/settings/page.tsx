@@ -18,8 +18,9 @@ import { DataType, rawSettings, rawSettingsIndexes, settings } from "components/
 import { SettingsComponent } from "components/settings/settings.component";
 
 import styles from "./page.module.css";
-import { useChoose } from "hooks/choose.hook";
 import { WebhookComponent } from "components/settings/webhook.components";
+import { ChooseDropdownComponent } from "components/dropdown/choose.component";
+import { ChannelComponent } from "components/settings/channel.component";
 
 const Page = () => {
   const [ user, setUser ] = useState<IUser | null>(null);
@@ -132,47 +133,43 @@ const Page = () => {
               return <></>;
             }
 
-            const {
-              current,
-              dropdown
-            } = useChoose({
-              onChange: (current) => {
-                return setIndex(key, current);
-              },
-              components: [
-                {
-                  main: (
-                    <div key={1} className={`${styles.settings_data} post-settings`}>
-                      <label htmlFor={`channel__${project}_${key}`}>Канал:</label>
-                      <input className="post-settings" name={`channel__${project}_${key}`} id={`channel__${project}_${key}`} type="text" />
-                    </div>
-                  ),
-                  summary: "Канал"
-                },
-                {
-                  main: <WebhookComponent
-                    key={2}
-                    addData={addData}
-                    choosedData={choosedData}
-                    data={{roles,webhooks}}
-                    main={project}
-                    name={key}
-                  />,
-                  summary: "Вебхук"
-                }
-              ],
-              currentIndex: indexes[project][key],
-              dropdown: {
-                id: "choose_methods_to_"+key,
-                summary: "Choose a method"
-              }
-            })
+            const name = `channel__${project}_${key}`;
+            const components = [
+              <ChannelComponent
+                className={`${styles.settings_data} post-settings`}
+                label={{htmlFor: name}}
+                input={{className: "post-settings", name, id: name}}
+              />,
+              <WebhookComponent
+                key={2}
+                addData={addData}
+                choosedData={choosedData}
+                data={{roles,webhooks}}
+                main={project}
+                name={key}
+              />
+            ];
+
+            const summary = [
+              "канал",
+              "вебхук"
+            ];
 
             return (
               <div>
                 <span>{action}:</span>
-                {dropdown}
-                {current}
+                <ChooseDropdownComponent
+                  components={summary}
+                  currentIndex={indexes[project][key]}
+                  onChange={(current) => {
+                    return setIndex(key, current);
+                  }}
+                  dropdown={{
+                    id: key + "_dropdown",
+                    summary: "Choose a штуки"
+                  }}
+                />
+                {components[indexes[project][key]]}
               </div>
             )
           })
